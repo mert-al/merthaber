@@ -1,0 +1,44 @@
+﻿@model DataAccess.Review
+
+@{
+    ViewBag.Review = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        Yorumlar /
+        <a href="~/Reviews" class="btn btn-primary mb-3">Yorum Listesi</a>
+    </h1>
+
+    <!-- Examples -->
+    <div class="row mb-5 card">
+        <div class="card-header">
+            <div class="card-title">
+                <h2 style="text-align:center">@Html.DisplayFor(model => model.Name) @Html.DisplayFor(model => model.Surname)</h2>
+                <h5 style="text-align:center">@Html.DisplayFor(model => model.EMail)</h5>
+                <h5 style="text-align:center">@Html.DisplayFor(model => model.News.Title)</h5>
+            </div>
+        </div>
+
+        <div class="card-body" style="text-align:center">
+            <p style="text-align:center;font-weight:bold" class="mt-2">
+                <h2>@Html.DisplayFor(model => model.Title)</h2>
+            </p>
+            <hr />
+            <p>@Html.DisplayFor(model => model.Message)</p>
+            <hr />
+            <p>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-actions no-color">
+                        <button type="submit" value="Delete" class="btn btn-danger">Sil</button>
+                        <a href="~/Categories" class="btn btn-primary">Listeye Dön</a>
+                    </div>
+                }
+            </p>
+        </div>
+
+    </div>
+</div>

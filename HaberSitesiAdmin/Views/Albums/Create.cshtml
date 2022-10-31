@@ -1,0 +1,514 @@
+﻿@using DataAccess
+@model DataAccess.Album
+
+@{
+    ViewBag.Album = "Active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4">
+            <span class="text-muted fw-light">Albümler/</span>Oluştur
+        </h4>
+
+        <div class="row">
+            <div class="col-xl">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <a href="~/Albums" class="btn btn-primary mb-3">Albümler Sayfasi</a>
+                    </div>
+                    <div class="card-body mx-5" id="firstStep">
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                <input class="form-control" type="file" id="file" name="file" />
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.fileError</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.ImgDescription, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.ImgDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ImgDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                <input class="form-control"
+                                       type="datetime-local"
+                                       id="publishDate"
+                                       name="publishDate"
+                                       value="@DateTime.UtcNow.AddHours(3).ToString("yyyy-MM-ddTHH:mm:ss")" />
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.publishDateError</span>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                @Html.ListBox("SelectedCategories", (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control", })
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.categoryError</span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" id="Hit" name="Hit" value="0" />
+
+                        @{
+                            User user = (User)Session["User"];
+                            if (user.Role.Id != 3)
+                            {
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input" } })
+                                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(model => model.isActive)
+                            }
+                        }
+                        <div>
+                            <div class="row">
+                                <h4 class="col">Resimler</h4>
+                            </div>
+                            <div id="albumImages" class="row">
+
+                            </div>
+                        </div>
+                        <input type="button" id="addImg" value="Resim Ekle" class="btn btn-primary" />
+                        <input type="button" id="nextStep" class="btn btn-primary" value="Sonraki" />
+
+                    </div>
+                    <div class="card-body row mx-5" id="secondStep" style="display:none">
+                        <h5>Anasayfa Slider</h5>
+                        <div class="col-5">
+                            <div id="slider" class="col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="sliderButton" class="btn btn-primary hide">Anasayfa Slider</button>
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedSlider" src="" alt="">
+                            <input type="hidden" id="MainSlider" name="MainSlider" />
+                        </div>
+
+                        <hr />
+                        <h5>Anasayfa Slider Alti</h5>
+                        <div class="col-5">
+                            <div id="sliderBottom" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="sliderBottomButton" class="btn btn-primary hide">Anasayfa Slider Alti</button>
+                            <input type="hidden" id="SliderBottom" name="SliderBottom" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedSliderBottom" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Sidebar</h5>
+                        <div class="col-5">
+                            <div id="sidebar" class="col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="sidebarButton" class="btn btn-primary hide">Sidebar</button>
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedSidebar" src="" alt="">
+                            <input type="hidden" id="Sidebar" name="Sidebar" />
+                        </div>
+
+                        <hr />
+                        <h5>Haftanin En Iyileri</h5>
+                        <div class="col-5">
+                            <div id="bestWeekly" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="bestWeeklyButton" class="btn btn-primary hide">Haftanin En Iyileri</button>
+                            <input type="hidden" id="BestWeekly" name="BestWeekly" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedBestWeekly" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Haftanin En Iyileri SM</h5>
+                        <div class="col-5">
+                            <div id="bestWeeklySm" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="bestWeeklySmButton" class="btn btn-primary hide">Haftanin En Iyileri SM</button>
+                            <input type="hidden" id="BestWeeklySm" name="BestWeeklySm" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedBestWeeklySm" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Haber Detayi</h5>
+                        <div class="col-5">
+                            <div id="details" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="detailsButton" class="btn btn-primary hide">Haber Detayi</button>
+                            <input type="hidden" id="NewsDetail" name="NewsDetail" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedDetails" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Digerleri</h5>
+                        <div class="col-5">
+                            <div id="otherIMGs" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="otherNewsButton" class="btn btn-primary hide">Digerleri</button>
+                            <input type="hidden" id="OtherIMGs" name="OtherIMGs" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedOther" src="" alt="">
+                        </div>
+                        <hr />
+                        <div class="card-action">
+                            <input type="button" id="backStep" value="Geri" class="btn btn-danger" />
+                            <button class="btn btn-primary" type="submit">Kaydet</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    var arrayIndex = 0;
+    var input = document.getElementById('#albumImg');
+    var html = `<div class="mb-3">
+                            Resim
+                            <div class="col-md-12">
+                                <input name="albumIMGs[${arrayIndex}].File" type="file" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            Başlık
+                            <div class="col-md-12">
+                                <input type="text" name="albumIMGs[${arrayIndex}].Title" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            Aciklama
+                            <div class="col-md-12">
+                                <textarea name="albumIMGs[${arrayIndex}].Description" class="form-control"></textarea>
+                            </div>
+                        </div>`
+    $("#addImg").on("click", e => {
+        $("#albumImages").append(html);
+        arrayIndex++;
+        html = `<div class="mb-3">
+                            Resim
+                            <div class="col-md-12">
+                                <input name="albumIMGs[${arrayIndex}].File" type="file" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            Başlık
+                            <div class="col-md-12">
+                                <input type="text" name="albumIMGs[${arrayIndex}].Title" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            Aciklama
+                            <div class="col-md-12">
+                                <textarea name="albumIMGs[${arrayIndex}].Description" class="form-control"></textarea>
+                            </div>
+                        </div>`
+    });
+</script>
+
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css'>
+<style>
+    .options label,
+    .options input {
+        width: 4em;
+        padding: 0.5em 1em;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    img {
+        max-width: 100%;
+    }
+</style>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+<script>
+    // vars
+    let slider = document.querySelector('#slider');
+    let sidebar = document.querySelector('#sidebar');
+    let sliderBottom = document.querySelector('#sliderBottom');
+    let bestWeekly = document.querySelector('#bestWeekly');
+    let bestWeeklySm = document.querySelector('#bestWeeklySm');
+    let details = document.querySelector('#details');
+    let otherIMGs = document.querySelector('#otherIMGs');
+    img_result = document.querySelector('.img-result'),
+        //options = document.querySelector('.options'),
+        sliderButton = document.querySelector('#sliderButton'),
+        sliderBottomButton = document.querySelector('#sliderBottomButton'),
+        sidebarButton = document.querySelector('#sidebarButton'),
+        bestWeeklyButton = document.querySelector('#bestWeeklyButton'),
+        bestWeeklySmButton = document.querySelector('#bestWeeklySmButton'),
+        detailsButton = document.querySelector('#detailsButton'),
+        otherNewsButton = document.querySelector('#otherNewsButton'),
+        croppedSlider = document.querySelector('#croppedSlider'),
+        croppedSidebar = document.querySelector('#croppedSidebar'),
+        croppedSliderBottom = document.querySelector('#croppedSliderBottom'),
+        croppedBestWeekly = document.querySelector('#croppedBestWeekly'),
+        croppedBestWeeklySm = document.querySelector('#croppedBestWeeklySm'),
+        croppedDetails = document.querySelector('#croppedDetails'),
+        croppedOther = document.querySelector('#croppedOther'),
+        dwn = document.querySelector('.download'),
+        upload = document.querySelector('#file'),
+        img = '';
+
+
+    // on change show image with crop options
+    upload.addEventListener('change', e => {
+        if (e.target.files.length) {
+            // start file reader
+            const reader = new FileReader();
+            reader.onload = e => {
+                if (e.target.result) {
+                    // create new image
+                    sliderImg = document.createElement('img');
+                    sliderImg.id = 'sliderImg';
+                    sliderImg.src = e.target.result;
+
+                    sidebarImg = document.createElement('img');
+                    sidebarImg.id = 'sidebarImg';
+                    sidebarImg.src = e.target.result;
+
+                    bottomSliderImg = document.createElement('img');
+                    bottomSliderImg.id = 'bottomSliderImg';
+                    bottomSliderImg.src = e.target.result;
+
+                    bestWeeklyImg = document.createElement('img');
+                    bestWeeklyImg.id = 'bestWeeklyImg';
+                    bestWeeklyImg.src = e.target.result;
+
+                    bestWeeklySmImg = document.createElement('img');
+                    bestWeeklySmImg.id = 'bestWeeklySmImg';
+                    bestWeeklySmImg.src = e.target.result;
+
+                    detailsImg = document.createElement('img');
+                    detailsImg.id = 'detailsImg';
+                    detailsImg.src = e.target.result;
+
+                    otherImg = document.createElement('img');
+                    otherImg.id = 'otherImg';
+                    otherImg.src = e.target.result;
+                    // clean result before
+                    slider.innerHTML = '';
+                    sidebar.innerHTML = '';
+                    sliderBottom.innerHTML = '';
+                    bestWeekly.innerHTML = '';
+                    bestWeeklySm.innerHTML = '';
+                    details.innerHTML = '';
+                    otherIMGs.innerHTML = '';
+                    // append new image
+                    slider.appendChild(sliderImg);
+                    sidebar.appendChild(sidebarImg);
+                    sliderBottom.appendChild(bottomSliderImg);
+                    bestWeekly.appendChild(bestWeeklyImg);
+                    bestWeeklySm.appendChild(bestWeeklySmImg);
+                    details.appendChild(detailsImg);
+                    otherIMGs.appendChild(otherImg);
+                    // show save btn and options
+                    sliderButton.classList.remove('hide');
+                    sliderBottomButton.classList.remove('hide');
+                    sidebarButton.classList.remove('hide');
+                    bestWeeklyButton.classList.remove('hide');
+                    bestWeeklySmButton.classList.remove('hide');
+                    detailsButton.classList.remove('hide');
+                    otherNewsButton.classList.remove('hide');
+                    //options.classList.remove('hide');
+                    // init cropper
+                    SliderCropper = new Cropper(sliderImg, {
+                        aspectRatio: 770 / 410,
+                        cropBoxResizable: false
+                    });
+                    SidebarCropper = new Cropper(sidebarImg, {
+                        aspectRatio: 120 / 100,
+                        cropBoxResizable: false
+                    });
+                    SliderBottomCropper = new Cropper(bottomSliderImg, {
+                        aspectRatio: 236 / 157,
+                        cropBoxResizable: false
+                    });
+                    BestWeeklyCropper = new Cropper(bestWeeklyImg, {
+                        aspectRatio: 370 / 431,
+                        cropBoxResizable: false
+                    });
+                    BestWeeklySmCropper = new Cropper(bestWeeklySmImg, {
+                        aspectRatio: 270 / 174,
+                        cropBoxResizable: false
+                    });
+                    DetailsCropper = new Cropper(detailsImg, {
+                        aspectRatio: 770 / 410,
+                        cropBoxResizable: false
+                    });
+                    OtherCropper = new Cropper(otherImg, {
+                        aspectRatio: 370 / 344,
+                        cropBoxResizable: false
+                    });
+                }
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // save on click
+    sliderButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = SliderCropper.getCroppedCanvas({
+            width: 770,
+            height: 410// input value
+        }).toDataURL();
+        $('#MainSlider').val(imgSrc);
+        croppedSlider.classList.remove('hide');
+        img_result.classList.remove('hide');
+        croppedSlider.src = imgSrc;
+    });
+
+    sliderBottomButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = SliderBottomCropper.getCroppedCanvas({
+            width: 236, // input value
+            height: 157 // input value
+        }).toDataURL();
+        $('#Sidebar').val(imgSrc);
+        // remove hide class of img
+        croppedSliderBottom.classList.remove('hide');
+        img_result.classList.remove('hide');
+        // show image cropped
+        croppedSliderBottom.src = imgSrc;
+    });
+
+    sidebarButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = SidebarCropper.getCroppedCanvas({
+            width: 120,
+            height: 100// input value
+        }).toDataURL();
+        $('#SliderBottom').val(imgSrc);
+        // remove hide class of img
+        croppedSidebar.classList.remove('hide');
+        img_result.classList.remove('hide');
+        // show image cropped
+        croppedSidebar.src = imgSrc;
+    });
+
+    bestWeeklyButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = BestWeeklyCropper.getCroppedCanvas({
+            width: 370,
+            height: 431// input value
+        }).toDataURL();
+        $('#BestWeekly').val(imgSrc);
+        // remove hide class of img
+        croppedBestWeekly.classList.remove('hide');
+        img_result.classList.remove('hide');
+        // show image cropped
+        croppedBestWeekly.src = imgSrc;
+    });
+
+    bestWeeklySmButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = BestWeeklySmCropper.getCroppedCanvas({
+            width: 270,
+            height: 174// input value
+        }).toDataURL();
+        $('#BestWeeklySm').val(imgSrc);
+        // remove hide class of img
+        croppedBestWeeklySm.classList.remove('hide');
+        img_result.classList.remove('hide');
+        // show image cropped
+        croppedBestWeeklySm.src = imgSrc;
+    });
+
+    detailsButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = DetailsCropper.getCroppedCanvas({
+            width: 770,
+            height: 410// input value
+        }).toDataURL();
+        $('#NewsDetail').val(imgSrc);
+        // remove hide class of img
+        croppedDetails.classList.remove('hide');
+        img_result.classList.remove('hide');
+        // show image cropped
+        croppedDetails.src = imgSrc;
+    });
+
+    otherNewsButton.addEventListener('click', e => {
+        e.preventDefault();
+        // get result to data uri
+        let imgSrc = OtherCropper.getCroppedCanvas({
+            width: 370,
+            height: 344// input value
+        }).toDataURL();
+        $('#OtherIMGs').val(imgSrc);
+        // remove hide class of img
+        img_result.classList.remove('hide');
+        // show image cropped
+        croppedOther.src = imgSrc;
+    });
+</script>
+
+
+<script>
+    $("#nextStep").click(function () {
+        $("#sliderButton").click();
+        $("#sliderBottomButton").click();
+        $("#sidebarButton").click();
+        $("#bestWeeklyButton").click();
+        $("#bestWeeklySmButton").click();
+        $("#detailsButton").click();
+        $("#otherNewsButton").click();
+        $("#firstStep").hide();
+        $("#secondStep").show();
+    });
+    $("#backStep").click(function () {
+        $("#firstStep").show();
+        $("#secondStep").hide();
+    });
+</script>

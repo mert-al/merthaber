@@ -1,0 +1,42 @@
+﻿@model DataAccess.Category
+
+@{
+    ViewBag.Category = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        Kategoriler /
+        <a href="~/Categories/Create" class="btn btn-primary mb-3">Yeni Kategori</a>
+    </h1>
+    <div class="row mb-5 card" style="text-align:center">
+        <div class="card-body">
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Name):</label>
+            @Html.DisplayFor(model => model.Name)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Status):</label>
+            @Html.DisplayFor(model => model.Status)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.UpdatedDate):</label>
+            @Html.DisplayFor(model => model.UpdatedDate)
+            <br />
+            @{
+                if (Model.isActive)
+                {
+                    <span class="badge bg-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Pasif</span>
+                }
+            }
+            <br />
+            <hr />
+            <p>
+                <a href="~/Categories/Edit/@Model.Id" class="btn btn-success">Düzenle</a>
+                <a href="~/Categories" class="btn btn-primary">Listeye Dön</a>
+            </p>
+        </div>
+    </div>
+</div>
+

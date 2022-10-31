@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DataAccess.Review>
+
+@{
+    ViewBag.Album = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card">
+        @{
+            if (Model.ToList().Count() != 0)
+            {
+                <h5 class="card-header">@Model.FirstOrDefault().Video.Title</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Name) @Html.DisplayNameFor(model => model.Surname)</th>
+                                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                                <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.Name @item.Surname</td>
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;"><a href="@ViewBag.apiUrl/video/@item.Album.Categories.FirstOrDefault().url/@item.Album.url">@item.Album.Title</a></td>
+                                <td><p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.CreatedDate</p></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="~/Reviews/Details/@item.Id">
+                                                <i class="bx bx-detail me-1"></i> Detaylar
+                                            </a>
+                                            <a class="dropdown-item" href="~/Reviews/Delete/@item.Id">
+                                                <i class="bx bx-trash me-1"></i> Sil
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="mx-5" style="text-align:center">
+                    <h2 class="mt-4">Videoda Yorum Yok</h2>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+

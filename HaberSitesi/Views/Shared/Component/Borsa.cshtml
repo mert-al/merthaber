@@ -1,0 +1,66 @@
+﻿<!-- Section Tittle -->
+<div class="section-tittle mb-40">
+    <h3>Canlı Borsa</h3>
+</div>
+<!-- Flow Socail -->
+<div class="single-follow mb-2">
+    <div class="single-box">
+        <div class="follow-us d-flex align-items-center">
+            <div class="follow-social">
+                <a href="#"><img src="~/Content/assets/img/news/icons8-us-dollar-24.png" alt=""></a>
+            </div>
+            <div class="follow-count">
+                <p>DOLAR</p>
+                <span id="USD"></span>
+
+            </div>
+        </div>
+        <div class="follow-us d-flex align-items-center">
+            <div class="follow-social">
+                <a href="#"><img src="~/Content/assets/img/news/icons8-euro-24.png" alt=""></a>
+            </div>
+            <div class="follow-count">
+                <p>EURO</p>
+                <span id="EUR"></span>
+
+            </div>
+        </div>
+        <div class="follow-us d-flex align-items-center">
+            <div class="follow-social">
+                <a href="#"><img src="~/Content/assets/img/news/icons8-bitcoin-24.png" alt=""></a>
+            </div>
+            <div class="follow-count">
+                <p>Bitcoin</p>
+                <span id="BTC">$</span>
+
+            </div>
+        </div>
+        <div class="follow-us d-flex align-items-center">
+            <div class="follow-social">
+                <a href="#"><img src="~/Content/assets/img/news/icons8-gold-bars-24.png" alt=""></a>
+            </div>
+            <div class="follow-count">
+                <p>GRAM ALTIN</p>
+                <span id="gram-altin"></span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.get("https://finans.truncgil.com/today.json", function (data, status) {
+            //console.log(data.USD.Alış);
+            $("#USD").append(data.USD.Alış)
+            $("#EUR").append(data.EUR.Alış)
+            $("#gram-altin").append(data["gram-altin"].Alış)
+            $("#gumus").append(data["gumus"].Alış)
+        });
+        $.get("https://www.sabah.com.tr/finans/services/kripto_paralar", function (data) {
+            console.log(data.data[0].lastPrice);
+        $("#BTC").append(data.data[0].lastPrice)
+        });
+
+    });
+</script>

@@ -1,0 +1,145 @@
+﻿@using DataAccess
+@model HaberSitesiAdmin.Models.PageDTO<Review>
+
+@{
+    ViewBag.Review = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">Yorumlar</h1>
+    <div class="card">
+        <div class="card-header">
+            @using (Html.BeginForm("Index", "Reviews", FormMethod.Post, new { @id = "SearchForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-10 col-10">
+                        <input type="search" name="SearchQuery" id="SearchQuery" class="form-control" placeholder="Yorum aramak icin yaziniz ..." value="@Model.SearchQuery" />
+                    </div>
+                    <div class="col-md-2 col-2">
+                        @Html.DropDownListFor(model => model.PageSize, Model.PageSizeOptions, new { @class = "form-control", @id = "PageSize" })
+                    </div>
+                </div>
+                <input type="hidden" id="Index" name="Index" value="@Model.Index" />
+                @Html.HiddenFor(model => model.Index)
+            }
+        </div>
+        <div class="table-responsive text-nowrap">
+            @{
+                if (Model.Pager.TotalItems == 0)
+                {
+                    <h1 style="text-align: center">Yorum Bulunamadı</h1>
+                }
+                else
+                {
+                    <div style="padding-left: 15px;">
+                        <p><b>Yorum Sayisi: </b>@Model.Pager.TotalItems</p>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Haber/Album/Video</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].Name) @Html.DisplayNameFor(model => model.Items[0].Surname)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].CreatedDate)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+
+                                    @{
+                                        if (item.News != null)
+                                        {
+                                            <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;"><a href="@ViewBag.apiUrl/@item.News.Categories.FirstOrDefault().url/@item.News.url">@item.News.Title</a></td>
+                                        }
+                                        else if (item.Album != null)
+                                        {
+                                            <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;"><a href="@ViewBag.apiUrl/galeri/@item.Album.Categories.FirstOrDefault().url/@item.Album.url">@item.Album.Title</a></td>
+                                        }
+                                        else if (item.Video.EmbedUrl != null)
+                                        {
+                                            <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;"><a href="@ViewBag.apiUrl/video/@item.Video.Categories.FirstOrDefault().url/@item.Video.url">@item.Video.Title</a></td>
+                                        }
+                                    }
+
+                                    <td>@item.Name @item.Surname</td>
+                                    <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Title</td>
+                                    <td>
+                                        <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.CreatedDate</p>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="~/Reviews/Details/@item.Id">
+                                                    <i class="bx bx-detail me-1"></i> Detaylar
+                                                </a>
+                                                <a class="dropdown-item" href="~/Reviews/Delete/@item.Id">
+                                                    <i class="bx bx-trash me-1"></i> Sil
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            @if (Model.Index != 1)
+                            {
+                                <li class="page-item prev">
+                                    <button type="button" class="page-link" onclick="PostForm(@(Model.Index - 1))">
+                                        <i class="tf-icon bx bx-chevrons-left"></i>
+                                    </button>
+                                </li>
+                            }
+                            @foreach (var item in Model.Pager.Pages)
+                            {
+                                if (item == Model.Index)
+                                {
+                                    <li class="page-item active">
+                                        <input type="button" class="page-link" onclick="PostForm(@item)" value="@item" />
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item">
+                                        <input type="button" class="page-link" onclick="PostForm(@item)" value="@item" />
+                                    </li>
+                                }
+                            }
+                            @if (Model.Index != Model.Pager.EndPage)
+                            {
+                                <li class="page-item next">
+                                    <button type="button" class="page-link" onclick="PostForm(@(Model.Index + 1))">
+                                        <i class="tf-icon bx bx-chevrons-right"></i>
+                                    </button>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
+            }
+
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        function PostForm(id) {
+            $("#Index").val(id);
+            $("#SearchForm").submit();
+        }
+        $("#PageSize").change(function () {
+            $("#Index").val(1);
+            $("#SearchForm").submit();
+        });
+    </script>
+</div>
+

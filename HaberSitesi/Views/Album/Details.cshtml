@@ -1,0 +1,194 @@
+﻿@model HaberSitesi.Models.DetailsDto<Album>
+@using DataAccess
+
+
+@{
+    ViewBag.Title = "AlbumsDetails";
+    Layout = "~/Views/Shared/Layouts/_albumLayout.cshtml";
+    ViewBag.Item = Model.Item.Title;
+}
+
+@{
+
+    List<Album> trendingNow = Model.TrendingNow;
+}
+
+
+<div class="about-area mt-5">
+    <div class="container" id="kapsa">
+        <!-- Hot Aimated News Tittle-->
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Trending Tittle -->
+                <div class="about-right mb-90">
+                    <div class="about-img">
+                        <h3 style="text-align:center">@Model.Item.Title</h3>
+                    </div>
+                    <div class="section-tittle mb-30 pt-30">
+                        <h5 style="text-align:center">@Model.Item.Description</h5>
+                    </div>
+                    <div class="about-prea" style="text-align:center;">
+
+                        <img style="max-width:100%;" id="albumImg" data-item-id="0" src="@ViewBag.apiUrl/@Model.Item.Img" alt="Alternate Text" />
+                        <div class="section-tittle mb-30">
+                            <p style="text-align:center">@Model.Item.ImgDescription</p>
+                        </div>
+
+                    </div>
+
+                    @{
+                        for (int i = 2; i <= Model.Item.AlbumIMGs.Count(); i++)
+                        {
+                            <div class="about-prea" style="text-align:center;">
+
+                                <img style="max-width:100%;" id="yakala-@(Model.Item.AlbumIMGs.ToList()[i-2].Id)" data-item-id="@i" src="@ViewBag.apiUrl/@Model.Item.AlbumIMGs.ToList()[i-2].IMG" alt="Alternate Text" />
+
+                                <p class="section-tittle mb-30" style="text-align:center"><b>@Model.Item.AlbumIMGs.ToList()[i - 2].Title</b></p>
+
+                                <div class="section-tittle mb-30">
+                                    <p style="text-align:center">@Model.Item.AlbumIMGs.ToList()[i - 2].Description</p>
+                                </div>
+
+                            </div>
+                        }
+
+                    }
+
+
+
+                    <div class="social-share pt-30">
+                        <div class="section-tittle">
+                            <h3 class="mr-20">Paylaş:</h3>
+                            <ul>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-ins.png" alt=""></a></li>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-fb.png" alt=""></a></li>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-tw.png" alt=""></a></li>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-yo.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- From -->
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+
+                        @using (Html.BeginForm("Create", "Reviews", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-contact contact_form mb-80">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <input class="form-control error" required name="Title" id="Title" type="text" onfocus="this.placeholder = ''" oninvalid="this.setCustomValidity('Enter Subject')" oninput="this.setCustomValidity('')" onblur="this.placeholder = 'Konu giriniz'" placeholder="Konu giriniz">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control error" required oninvalid="this.setCustomValidity('Enter Name')" oninput="this.setCustomValidity('')" name="Name" id="Name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adınızı Giriniz'" placeholder="Adınızı Giriniz">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input class="form-control error" required oninvalid="this.setCustomValidity('Enter Surname')" oninput="this.setCustomValidity('')" name="Surname" id="Surname" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Soyadınızı Giriniz'" placeholder="Soyadınızı Giriniz">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <input class="form-control error" required oninvalid="this.setCustomValidity('Enter Email')" oninput="this.setCustomValidity('')" name="EMail" id="EMail" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Giriniz'" placeholder="Email Giriniz">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control w-100 error" required="required" oninvalid="this.setCustomValidity('Enter Message')" oninput="this.setCustomValidity('')" name="Message" id="Message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mesaj'" placeholder="Mesaj"></textarea>
+                                        </div>
+                                    </div>
+                                    <input type="number" name="Album_Id" id="Album_Id" value="@Model.Item.Id" hidden />
+                                    <p style="background-color:gray;">
+                                        @ViewBag.ResponseMessage
+                                    </p>
+                                </div>
+
+                                <div class="form-group mt-3">
+
+                                    <button type="submit" class="button button-contactForm boxed-btn">GÖNDER</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="trending-area">
+                    @Html.Partial("~/Views/Shared/Component/AlbumSidebar.cshtml", Model.Sidebar)
+                </div>
+                @Html.Partial("~/Views/Shared/Component/Borsa.cshtml")
+                <!-- New Poster -->
+                <div class="news-poster d-none d-lg-block mt-4">
+                    <img src="~/Content/assets/img/news/news_card.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+    $(document).ready(function () {
+        $.fn.isOnScreen = function (e) {
+            if (this.length) {
+                var t = void 0 == e ? 0 : e,
+                    a = window.innerHeight * t / 100,
+                    o = {};
+                o.top = $(window).scrollTop(), o.bottom = o.top + $(window).height();
+                var i = {};
+                return i.top = this.offset().top + a, i.bottom = i.top + this.outerHeight() - a, i.top <= o.bottom && i.bottom >= o.top
+            }
+        };
+        var currentIndex = 0;
+        const urlOrigin = `${window.location.origin}/galeri/@Model.Item.Categories.FirstOrDefault().url/`;
+        function ImageTracker() {
+            $('[data-item-id]').each(function () {
+
+                if ($("#" + $(this).attr("id")).isOnScreen(85)) {
+
+                    if (currentIndex == $(this).attr("data-item-id")) {
+                        return;
+                    }
+
+                    else {
+                        currentIndex = $(this).attr("data-item-id");
+                        var url = "";
+                        var title = "";
+                        if (currentIndex == 0) {
+                            url = urlOrigin + `@Model.Item.url`;
+                            title = `@Model.Item.Title`;
+
+                        } else {
+                            url = urlOrigin + `@Model.Item.url/${$(this).attr("data-item-id")}`;
+                            title = `@Model.Item.Title - Sayfa ${$(this).attr("data-item-id")}`;
+
+                        }
+
+                        window.history.pushState("", title, url);
+                        // window.location.href = url;
+                        //window.history.replaceState({ "pageTitle": title }, "", url);
+                        document.title = title;
+                        ga('send', 'pageview', { 'page': url, 'title': title });
+
+                        return;
+                    }
+                    return;
+                }
+               
+            });
+
+        }
+        $(window).scroll(function () {
+            ImageTracker();
+        });
+    });
+</script>

@@ -1,0 +1,56 @@
+﻿@model DataAccess.ContactForm
+
+@{
+    ViewBag.ContactForm = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        <a href="~/ContactForms" class="btn btn-primary mb-3">İletişim Formları</a>
+    </h1>
+    <div class="row mb-5 card" style="text-align:center">
+        <div class="card-body">
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Name)</label>
+            @Html.DisplayFor(model => model.Name)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Lastname)</label>
+            @Html.DisplayFor(model => model.Lastname)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.EMail)</label>
+            @Html.DisplayFor(model => model.EMail)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Phone)</label>
+            @Html.DisplayFor(model => model.Phone)
+            <br />
+            <hr />
+            <h3 style="text-align:center">
+                <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Message)</label>
+
+            </h3>
+            @Html.DisplayFor(model => model.Message)
+            <hr />
+            <br />
+            <label style="font-weight:bold" class="mt-2"><b>Gönderim Tarihi:</b></label>
+            @Html.DisplayFor(model => model.CreatedDate)
+            @{
+                if (Model.isRead)
+                {
+                    <p>
+                        <label style="font-weight:bold" class="mt-2"><b>Okunma Tarihi:</b></label>
+                        @Html.DisplayFor(model => model.UpdatedDate)
+                    </p>
+                }
+            }
+            <br />
+            <br />
+            <hr />
+            <p>
+                <button type="submit" value="Delete" class="btn btn-danger">Sil</button>
+                <a href="~/ContactForms" class="btn btn-primary">Listeye Dön</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+

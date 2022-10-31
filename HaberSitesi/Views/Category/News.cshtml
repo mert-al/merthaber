@@ -1,0 +1,82 @@
+﻿@model IEnumerable<DataAccess.News>
+@using DataAccess
+
+@{
+    ViewBag.Route = "";
+    Layout = "~/Views/Shared/Layouts/_newsLayout.cshtml";
+    
+}
+
+<section class="whats-news-area pt-50 pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-12">
+                        @*Nav Card*@
+                        <div class="tab-content" id="nav-tabContent">
+                            <!-- card one -->
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div class="whats-news-caption">
+                                    <div class="row" id="HaberListesi">
+                                        @Html.Partial("_NewsInfinite")
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        @*End Nav Card*@
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="mb-2">
+                    @Html.Partial("~/Views/Shared/Component/Borsa.cshtml")
+                </div>
+                <!-- New Poster -->
+                <div class="news-poster d-none d-lg-block">
+                    <img src="~/Content/assets/img/news/news_card.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    var pageNo = 1;
+    var sendStatus = true;
+    var status = true;
+    var CategoryUrl = window.location.pathname;
+    var requestUrl = CategoryUrl + "?page=" + pageNo;
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + 566 >= $(document).height() - $(window).height()) {
+            if (sendStatus && status) {
+                $.ajax({
+                    url: requestUrl,
+                    beforeSend: function (asd) {
+                        sendStatus = false;
+                    },
+                    success: function (data) {
+                        if (data.length < 10) {
+                            status = false;
+                        }
+                        else {
+                            $("#HaberListesi").append(data);
+                            pageNo++;
+                            requestUrl = CategoryUrl + "?page=" + pageNo;
+                        }
+                    },
+                    complete: function () {
+                        sendStatus = true;
+                    },
+                    Error: function () {
+                        alert("sa");
+                    },
+                });
+            }
+
+        }
+    });
+</script>
+

@@ -1,0 +1,60 @@
+﻿@model DataAccess.User
+
+@{
+    ViewBag.User = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        Kullanıcılar /
+        <a href="~/Users/Create" class="btn btn-primary mb-3">Kullanıcı Oluştur</a>
+    </h1>
+
+    <div class="row mb-5 card">
+        <div class="card-header">
+            <div class="card-img-top">
+                <img class="card-img-top mx-auto d-block" style="max-width:250px" src="@Model.Img" alt="Card image cap" />
+            </div>
+            <div class="card-title">
+                <h2 style="text-align:center">@Model.Name @Model.Surname</h2>
+            </div>
+            <hr />
+        </div>
+
+        <div class="card-body" style="text-align:center">
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.EMail):</label>
+            @Html.DisplayFor(model => model.EMail)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Birthday):</label>
+            @Html.DisplayFor(model => model.Birthday)
+            <br />
+            <label style="font-weight:bold" class="mt-2">@Html.LabelFor(model => model.Role.Name):</label>
+            @Html.DisplayFor(model => model.Role.Name)
+            <br />
+            @{
+                if (Model.isActive)
+                {
+                    <span class="badge bg-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Pasif</span>
+                }
+            }
+            <br />
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <p>
+                    <button type="submit" value="Delete" class="btn btn-danger">Sil</button>
+                    <a href="~/Users" class="btn btn-primary">Listeye Dön</a>
+                </p>
+
+            }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,38 @@
+﻿@model DataAccess.Video
+
+@{
+    ViewBag.Video = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        Videolar /
+        <a href="~/Videos/Create" class="btn btn-primary mb-3">Video Oluştur</a>
+    </h1>
+
+    <div class="row mb-5 card">
+        <div class="card-header">
+            <div class="card-title">
+                <h2 style="text-align:center">@Html.DisplayFor(model => model.Title) </h2>
+            </div>
+        </div>
+
+        <div class="card-body" style="text-align:center">
+            <img class="card-img-top" style="max-width:752px" src="@Model.Img" alt="Card image cap" />
+            <p style="text-align:center;font-weight:bold" class="mt-2">
+                <h2>@Html.DisplayFor(model => model.Description)</h2>
+            </p>
+            <hr />
+            @Html.Raw(Model.EmbedUrl)
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <button type="submit" value="Delete" class="btn btn-danger">Sil</button>
+                    <a href="~/News" class="btn btn-primary">Listeye Dön</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

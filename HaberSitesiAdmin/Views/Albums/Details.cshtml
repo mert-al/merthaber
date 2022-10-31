@@ -1,0 +1,40 @@
+﻿@using DataAccess
+@model DataAccess.Album
+
+@{
+    ViewBag.Album = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        Albümler /
+        <a href="~/Albums/Create" class="btn btn-primary mb-3">Albüm Oluştur</a>
+    </h1>
+
+    <div class="row mb-5 card">
+        <div class="card-header">
+            <div class="card-title">
+                <h1 style="text-align:center">@Html.DisplayFor(model => model.Title) </h1>
+            </div>
+            <p style="text-align:center;font-size:20px">@Model.Description</p>
+        </div>
+
+        <div class="card-body" style="text-align:center">
+            <img class="card-img-top" style="width:850px" src="@Model.Img"  alt="Card image cap" />
+            <p style="text-align:center;font-weight:bold" class="mt-2">
+                <h4>@Html.DisplayFor(model => model.ImgDescription)</h4>
+            </p>
+            <hr />
+            @foreach(AlbumIMG item in Model.AlbumIMGs.Where(model => !model.isDeleted))
+            {
+                <img src="@item.IMG" style="width:850px"/>
+                <br />
+                <b>@item.Title</b>
+                <br />
+                <p>@item.Description</p>
+                <hr />
+            }
+        </div>
+    </div>
+</div>

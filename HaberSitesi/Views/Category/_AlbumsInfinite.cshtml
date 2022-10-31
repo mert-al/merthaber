@@ -1,0 +1,21 @@
+﻿
+@model IEnumerable<DataAccess.Album>
+@using DataAccess
+
+
+@foreach (Album item in Model)
+{
+
+    <div class="col-lg-6 col-md-6">
+        <div class="single-what-news mb-100">
+            <div class="what-img">
+                <a href="~/galeri/@item.Categories.FirstOrDefault().url/@item.url">
+                    <img src="@ViewBag.apiUrl/@item.OtherIMG" alt="">
+                </a>
+            </div>
+            <div class="what-cap">
+                <h4><a href="~/galeri/@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a></h4>
+            </div>
+        </div>
+    </div>
+}

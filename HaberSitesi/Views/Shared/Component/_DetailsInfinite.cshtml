@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="col-lg-8">
+        <!-- Trending Tittle -->
+            <div class="about-right mb-90">
+                <div class="about-img">
+                    <img src="@ViewBag.apiUrl/@Model.Item.DetailsIMG" alt="">
+                </div>
+                <div class="section-tittle mb-30 pt-30">
+                    <h3>@Model.Item.Title</h3>
+                </div>
+                <div class="about-prea">
+                    <p class="about-pera1 mb-25">@Model.Item.Description</p>
+                    <p class="about-pera1 mb-25">
+                        @Html.Raw(Model.Item.Content)
+                    </p>
+                </div>
+            </div>
+    </div>
+
+</div>
+

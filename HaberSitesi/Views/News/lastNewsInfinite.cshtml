@@ -1,0 +1,51 @@
+﻿@using DataAccess
+@using HaberSitesi.Services
+@using HaberSitesi.Models
+
+@model HaberSitesi.Models.IndexPageDto
+
+@{
+    List<NewsAlbumMix> newsAlbumMixes = Model.Items;
+}
+
+<div class="recent-articles">
+    <div class="container">
+        <div class="recent-wrapper">
+            <!-- section Tittle -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-tittle mb-30">
+                        <h3>Son Haberler</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="recent-active dot-style d-flex dot-style">
+
+                        @{
+                            foreach (NewsAlbumMix item in newsAlbumMixes.GetRange(0, 5))
+                            {
+                                <div class="single-recent mb-100">
+                                    <div class="what-img">
+
+                                        <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">
+                                            <img src="@ViewBag.apiUrl/@item.OtherIMG" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="what-cap">
+                                        <span class="color1">@item.Categories.FirstOrDefault().Name</span>
+                                        <h4>
+                                            <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            }
+                            newsAlbumMixes.RemoveRange(0, 5);
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

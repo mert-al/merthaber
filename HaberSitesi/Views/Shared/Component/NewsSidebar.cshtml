@@ -1,0 +1,25 @@
+﻿@using DataAccess;
+@model IEnumerable<DataAccess.News>
+
+<div class=" mb-2">
+    
+
+        @foreach (News item in Model)
+        {
+            <div class="trending-main">
+                <div class="trand-right-single d-flex mt-3 mb-1" >
+                    <div class="trand-right-img">
+                        <a href="~/@item.Categories.FirstOrDefault().url/@item.url">
+                            <img style="max-width:120px" src="@ViewBag.apiUrl/@item.SidebarIMG" alt="">
+                        </a>
+                    </div>
+                    <div class="trand-right-cap">
+                        <h4 class="pl-2">
+                            <a style="overflow:hidden; -webkit-box-orient: vertical;  -webkit-line-clamp: 3; display: -webkit-box; font-size:15px;" href="~/@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>

@@ -1,0 +1,108 @@
+﻿@model HaberSitesi.Models.DetailsDto<Video>
+@using DataAccess
+@using HaberSitesi.Services
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Layouts/_videoLayout.cshtml";
+     ViewBag.Item = Model.Item.Title;
+}
+
+<div class="about-area mt-5">
+    <div class="container">
+        <!-- Hot Aimated News Tittle-->
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Trending Tittle -->
+                <div class="about-right mb-90">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="video-items-active">
+                                <video width="900" height="500" controls>
+                                    <source src="@ViewBag.apiUrl/@Model.Item.EmbedUrl" type="video/mp4">
+
+                                    
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-img">
+                        <h3 style="text-align:center">@Model.Item.Title</h3style="text-align:center>
+                    </div>
+                    <div class="section-tittle mb-30 pt-30">
+                        <h5 style="text-align:center">@Model.Item.Description</h5>
+                    </div>
+
+                    <div class="social-share pt-30">
+                        <div class="section-tittle">
+                            <h3 class="mr-20">Paylaş:</h3>
+                            <ul>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-ins.png" alt=""></a></li>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-fb.png" alt=""></a></li>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-tw.png" alt=""></a></li>
+                                <li><a href="#"><img src="~/Content/assets/img/news/icon-yo.png" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+
+                        @using (Html.BeginForm("Create", "Reviews", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                        <div class="form-contact contact_form mb-80">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input class="form-control error" required name="Title" id="Title" type="text" onfocus="this.placeholder = ''" oninvalid="this.setCustomValidity('Enter Subject')" oninput="this.setCustomValidity('')" onblur="this.placeholder = 'Konu giriniz'" placeholder="Konu giriniz">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control error" required oninvalid="this.setCustomValidity('Enter Name')" oninput="this.setCustomValidity('')" name="Name" id="Name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adınızı Giriniz'" placeholder="Adınızı Giriniz">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input class="form-control error" required oninvalid="this.setCustomValidity('Enter Surname')" oninput="this.setCustomValidity('')" name="Surname" id="Surname" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Soyadınızı Giriniz'" placeholder="Soyadınızı Giriniz">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <input class="form-control error" required oninvalid="this.setCustomValidity('Enter Email')" oninput="this.setCustomValidity('')" name="EMail" id="EMail" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Giriniz'" placeholder="Email Giriniz">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control w-100 error" required="required" oninvalid="this.setCustomValidity('Enter Message')" oninput="this.setCustomValidity('')" name="Message" id="Message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mesaj'" placeholder="Mesaj"></textarea>
+                                    </div>
+                                </div>
+                                <input type="number" name="Video_Id" id="Video_Id" value="@Model.Item.Id" hidden />
+                            </div>
+                            <span style="background-color:gray;">
+                                @ViewBag.ResponseMessage
+                            </span>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="button button-contactForm boxed-btn">Gönder</button>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="trending-area">
+                    @Html.Partial("~/Views/Shared/Component/VideoSidebar.cshtml", Model.Sidebar)
+                </div>
+                @Html.Partial("~/Views/Shared/Component/Borsa.cshtml")
+                <!-- New Poster -->
+                <div class="news-poster d-none d-lg-block mt-4">
+                    <img src="~/Content/assets/img/news/news_card.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

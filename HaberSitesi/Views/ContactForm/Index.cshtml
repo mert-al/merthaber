@@ -1,0 +1,183 @@
+﻿@model DataAccess.ContactForm
+@{
+    ViewBag.Item = "Turkuvaz Haber - İletişim";
+    Layout = "~/Views/Shared/Layouts/_newsLayout.cshtml";
+}
+
+
+
+<section class="contact-section">
+    <div class="container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.945682178272!2d28.94947981572048!3d41.09203342221488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab134df6206d9%3A0x515d71807ddfcd!2sTurkuvaz%20Medya!5e0!3m2!1str!2str!4v1659614766053!5m2!1str!2str" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+        <div class="row">
+            <div class="col-12">
+                <h2 class="contact-title">İletişim Formu</h2>
+            </div>
+            <div class="col-lg-8">
+
+                @using (Html.BeginForm())
+
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <textarea class="form-control w-100" name="Message" id="Message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mesaj Girin'" placeholder=" Mesaj" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+
+                                <input class="form-control valid" name="Name" id="Name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adınızı Girin'" placeholder="Ad" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control valid" name="Lastname" id="Lastname" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Soyadınız Girin'" placeholder="Soyad" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="display:block" ;>
+                            <div class="form-group" style="display:grid">
+
+                                <input class="form-control valid" name="Phone" id="Phone" type="number" oninput="maxLengthCheck(this)" maxlength="15"  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <input class="form-control valid" name="EMail" id="EMail" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mail Adresinizi Girin'" placeholder="Mail" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <input class="form-control" name="Subject" id="Subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Konu Girin'" placeholder="Konu" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="g-recaptcha" data-sitekey="6LevuTohAAAAABWXzaZntzoYM_y1SsaPB-LEbiYR"></div>
+
+                    <p style="color:red; font-weight:bolder; ">@ViewBag.Error</p>
+
+                    <p id="mesaj" style="color:green; font-weight:bolder; ">@ViewBag.Message</p>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="button button-contactForm boxed-btn" style="padding-bottom:40px">Gönder</button>
+                    </div>
+
+
+                    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                            async defer>
+                    </script>
+
+                }
+
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-home"></i></span>
+                    <div class="media-body">
+                        <h3>Güzeltepe, İstanbul.</h3>
+                        <p>Alibeyköy, Cad: 28</p>
+                    </div>
+                </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                    <div class="media-body">
+                        <h3>+90 (553) 543 16 17</h3>
+                        <p>Haftaiçi her gün 09-17.00 açık</p>
+                    </div>
+                </div>
+                <div class="media contact-info">
+                    <span class="contact-info__icon"><i class="ti-email"></i></span>
+                    <div class="media-body">
+                        <h3>support@sabah.com</h3>
+                        <p>Sorularınızı bize her  zaman gönderin!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>*@
+    <script src="~/Scripts/intlTelInput.js"></script>
+    <script class="iti-load-utils" async="" src="~/Scripts/utils.js"></script>
+
+
+    <script>
+        function maxLengthCheck(object) {
+            if (object.value.length > object.maxLength)
+                object.value = object.value.slice(0, object.maxLength)
+        }
+    </script>
+
+    <script>
+        var input = document.querySelector("#Phone");
+        window.intlTelInput(input, {
+             //allowDropdown: false,
+            // autoHideDialCode: false,
+            // autoPlaceholder: "off",
+            // dropdownContainer: document.body,
+            // excludeCountries: ["us"],
+            // formatOnDisplay: false,
+            // geoIpLookup: function(callback) {
+            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            //     var countryCode = (resp && resp.country) ? resp.country : "";
+            //     callback(countryCode);
+            //   });
+            // },
+            // hiddenInput: "full_number",
+            // initialCountry: "auto",
+            // localizedCountr  ies: { 'de': 'Deutschland' },
+            // nationalMode: false,
+            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            // placeholderNumberType: "MOBILE",
+            // preferredCountries: ['cn', 'jp'],
+            // separateDialCode: true,
+            utilsScript: "Scripts/utils.js",
+        });
+    </script>
+   
+
+</section>
+
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>*@
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>*@
+
+
+@*<script>
+        setTimeout(function () {
+            $('#mesaj').fadeOut('fast');
+        }, 10000);
+    </script>
+
+    <script>
+        const phoneInputField = document.querySelector("#Phone")
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            //initialCountry: "auto",
+            //geoIpLookup: getIp,
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+
+        });
+
+        //function getIp(callback) {
+        //    fetch('https://ipinfo.io/json?token=dcd9d86d2807b6', { headers: { 'Accept': 'application/json' } })
+        //        .then((resp) => resp.json())
+        //        .catch(() => {
+        //            return {
+        //                country: 'TR',
+        //            };
+        //        })
+        //        .then((resp) => callback(resp.country));
+        //}
+
+
+    </script>*@
+
