@@ -92,15 +92,15 @@ namespace HaberSitesi.Controllers
                 }
                 else
                 {
-
-                    return View("~/Home/Index");
+                    return View("~/Views/Error/Page404.cshtml");
+                    // return View("~/Home/Index");
                 }
 
             }
             catch (Exception)
             {
-
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("~/Views/Error/Page404.cshtml");
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             }
 
@@ -133,13 +133,14 @@ namespace HaberSitesi.Controllers
                 }
                 else
                 {
-                    return View("~/Home/Index");
+                     return View("~/Views/Error/Page404.cshtml");
+                    //return View("~/Home/Index");
                 }
             }
             catch (Exception)
             {
-
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("~/Views/Error/Page404.cshtml");
+                //  return new httpstatuscoderesult(httpstatuscode.badrequest);
 
             }
 
