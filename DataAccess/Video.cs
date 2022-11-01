@@ -12,40 +12,26 @@ namespace DataAccess
     using DataAccess.Models;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Video : BaseEntity
+    
+    public partial class Video:BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Video()
         {
             this.Categories = new HashSet<Category>();
+            this.Reviews = new HashSet<Review>();
         }
     
         //public int Id { get; set; }
-
-        [Display(Name = "Baþlýk")]
-        [DataType(DataType.Text)]
-        public String Title { get; set; }
-
-        [Display(Name = "Açýklama")]
-        [DataType(DataType.Text)]
-        public String Description { get; set; }
-
-        [Display(Name = "Yayýn Tarihi")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.DateTime PublishDate { get; set; }
-
-        [Display(Name = "Týklama")]
-        public int Hit { get; set; }
-
-        [Display(Name = "Görsel")]
-        [DataType(DataType.ImageUrl)]
-        public String Img { get; set; } = @"/Storage/Video\defaultNews.jpg";
-
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Img { get; set; }
+        public string EmbedUrl { get; set; }
+        //public System.DateTime CreatedDate { get; set; }
+        //public System.DateTime UpdatedDate { get; set; }
+        //public bool isActive { get; set; }
+        //public bool isDeleted { get; set; }
+        public Nullable<int> User_Id { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
         public string SliderBottomIMG { get; set; }
@@ -54,21 +40,14 @@ namespace DataAccess
         public string DetailsIMG { get; set; }
         public string OtherIMG { get; set; }
         public string url { get; set; }
-
-        [Display(Name = "Video")]
-        //[DataType(DataType.Url)]
-        public String EmbedUrl { get; set; }
-
-        public Nullable<int> User_Id { get; set; }
-
-        [Display(Name = "Paylasan Kisi")]
+        public int Hit { get; set; }
+        public System.DateTime PublishDate { get; set; }
+        public string VideoTime { get; set; }
+    
         public virtual User User { get; set; }
-
-        [Display(Name = "Video Kategorileri")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
-
     }
 }

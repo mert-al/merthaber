@@ -11,42 +11,24 @@ namespace DataAccess
 {
     using DataAccess.Models;
     using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    using System.Collections.Generic;
+    
     public partial class Review : BaseEntity
     {
-        [Display(Name = "Ad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Name { get; set; }
-
-        [Display(Name = "Soyad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Surname { get; set; }
-
-        [Display(Name = "E-Posta")]
-        [DataType(DataType.EmailAddress)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String EMail { get; set; }
-
-        [Display(Name = "Baþlýk")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Title { get; set; }
-
-        [Display(Name = "Yorum")]
-        [DataType(DataType.MultilineText)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Message { get; set; }
-
-
+        //public int Id { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string EMail { get; set; }
+        public string Title { get; set; }
+        public string Message { get; set; }
+        //public Nullable<System.DateTime> CreatedDate { get; set; }
+        //public Nullable<System.DateTime> UpdatedDate { get; set; }
+        //public bool isActive { get; set; }
+        //public bool isDeleted { get; set; }
         public Nullable<int> News_Id { get; set; }
         public Nullable<int> Album_Id { get; set; }
         public Nullable<int> Video_Id { get; set; }
-
-        [Display(Name = "Haber")]
+    
         public virtual News News { get; set; }
         public virtual Album Album { get; set; }
         public virtual Video Video { get; set; }

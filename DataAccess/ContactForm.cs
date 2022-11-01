@@ -12,46 +12,20 @@ namespace DataAccess
     using DataAccess.Models;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class ContactForm  : BaseEntity
+    
+    public partial class ContactForm: BaseEntity
     {
-
-        [Display(Name = "Ad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Name { get; set; }
-
-        [Display(Name = "Soyad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Lastname { get; set; }
-
-        [Display(Name = "E-Posta")]
-        [DataType(DataType.EmailAddress)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String EMail { get; set; }
-
-        [Display(Name = "Telefon Numarasý")]
-        [DataType(DataType.Text)]
-        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Phone { get; set; }
-
-        [Display(Name = "Konu")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        [MaxLength(75)]
-        public String Subject { get; set; }
-
-        [Display(Name = "Mesaj")]
-        [DataType(DataType.MultilineText)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Message { get; set; }
-
-        [DefaultValue(false)]
+        //public int Id { get; set; }
+        public string Name { get; set; }
+        public string Lastname { get; set; }
+        public string EMail { get; set; }
+        public string Phone { get; set; }
+        public string Message { get; set; }
         public bool isRead { get; set; }
-
+        //public Nullable<System.DateTime> CreatedDate { get; set; }
+        //public Nullable<System.DateTime> UpdatedDate { get; set; }
+        //public bool isActive { get; set; }
+        //public bool isDeleted { get; set; }
+        public string Subject { get; set; }
     }
 }

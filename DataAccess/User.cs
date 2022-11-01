@@ -12,9 +12,8 @@ namespace DataAccess
     using DataAccess.Models;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class User : BaseEntity
+    
+    public partial class User: BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
@@ -23,35 +22,23 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
             this.Albums = new HashSet<Album>();
         }
-        [Display(Name = "Ad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
+    
+        //public int Id { get; set; }
         public string Name { get; set; }
-        [Display(Name = "Soyad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Surname { get; set; }
-        [Display(Name = "E-Posta")]
-        [DataType(DataType.EmailAddress)]
-        [System.ComponentModel.DataAnnotations.Required]
         public string EMail { get; set; }
-        [Display(Name = "Þifre")]
-        [DataType(DataType.Password)]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Password { get; set; }
-        [Display(Name = "Doðum Tarihi")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [System.ComponentModel.DataAnnotations.Required]
         public System.DateTime Birthday { get; set; }
+
+        //public bool isActive { get; set; }
+        //public bool isDeleted { get; set; }
+        //public Nullable<System.DateTime> CreatedDate { get; set; }
+        //public Nullable<System.DateTime> UpdatedDate { get; set; }
         public Nullable<int> Role_Id { get; set; }
-        [Display(Name = "Profil Fotoðrafý")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Img { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<News> News { get; set; }
-        [Display(Name = "Rol")]
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Video> Videos { get; set; }

@@ -12,9 +12,7 @@ namespace DataAccess
     using DataAccess.Models;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class News : BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,62 +22,31 @@ namespace DataAccess
             this.Categories = new HashSet<Category>();
         }
     
-
-        [Display(Name = "Baþlýk")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
+        //public int Id { get; set; }
         public string Title { get; set; }
-        
-        [Display(Name = "Açýklama")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Description { get; set; }
-        
-        [Display(Name = "Kontent")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Content { get; set; }
-
-        [Display(Name = "Görsel")]
-        [DataType(DataType.ImageUrl)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public string Img { get; set; } = @"/Storage\defaultNews.jpg";
-
-        [Display(Name = "Yayýn Tarihi")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
-        [System.ComponentModel.DataAnnotations.Required]
+        public string Img { get; set; }
         public System.DateTime PublishDate { get; set; }
-
-        [Display(Name = "Týklama")]
-        [DefaultValue(0)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public int Hit { get; set; } = 0;
-
-        public string url { get; set; }
-
-        [Display(Name = "Trendler")]
-        [DefaultValue(false)]
-        [System.ComponentModel.DataAnnotations.Required]
+        public int Hit { get; set; }
+        //public bool isActive { get; set; }
+        //public bool isDeleted { get; set; }
+        //public Nullable<System.DateTime> CreatedDate { get; set; }
+        //public Nullable<System.DateTime> UpdatedDate { get; set; }
         public bool TrendingNow { get; set; }
-
         public Nullable<int> User_Id { get; set; }
-        public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
-        public string SliderBottomIMG { get; set; }
         public string BestWeeklyIMG { get; set; }
         public string BestWeeklySmIMG { get; set; }
         public string DetailsIMG { get; set; }
         public string OtherIMG { get; set; }
-
-        [Display(Name = "Haberin Sahibi")]
+        public string url { get; set; }
+        public string MainSliderIMG { get; set; }
+        public string SliderBottomIMG { get; set; }
+    
         public virtual User User { get; set; }
-
-        [Display(Name = "Yorumlar")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
-
-        [Display(Name = "Kategoriler")]
-        [System.ComponentModel.DataAnnotations.Required]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Category> Categories { get; set; }
     }

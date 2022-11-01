@@ -91,6 +91,24 @@ namespace DataAccess.Repositories
             }
 
         }
+        public void GetTimeVideoId(string videoUrl, string videoTime)
+        {
+            try
+            {
+                if (videoUrl != null)
+                {
+                    _db.Database.ExecuteSqlCommand("exec AddVideoTime @VideoTime =" + videoTime);
+                }
+
+           
+                    
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         public void UpdateHit(String videoUrl)
         {

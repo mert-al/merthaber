@@ -38,6 +38,7 @@ namespace DataAccess
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<AlbumIMG> AlbumIMGs { get; set; }
+        public virtual DbSet<homePage> homePages { get; set; }
     
         public virtual int changeUserRole(Nullable<int> userID, Nullable<int> roleID)
         {
@@ -194,6 +195,24 @@ namespace DataAccess
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual int clearCategoriesFromAlbum(Nullable<int> albumId)
+        {
+            var albumIdParameter = albumId.HasValue ?
+                new ObjectParameter("AlbumId", albumId) :
+                new ObjectParameter("AlbumId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearCategoriesFromAlbum", albumIdParameter);
+        }
+    
+        public virtual int clearImagesFromAlbum(Nullable<int> albumId)
+        {
+            var albumIdParameter = albumId.HasValue ?
+                new ObjectParameter("AlbumId", albumId) :
+                new ObjectParameter("AlbumId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearImagesFromAlbum", albumIdParameter);
         }
     }
 }

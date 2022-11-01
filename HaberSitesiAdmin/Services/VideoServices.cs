@@ -68,6 +68,19 @@ namespace HaberSitesiAdmin.Services
             }
             return _unitOfWork.VideoRepository.GetReviewsByVideoId(Id.Value);
         }
+        public void GetTimeVideoUrl(string videoUrl,string videoTime)
+        {
+            try
+            {
+                _unitOfWork.VideoRepository.GetTimeVideoId(videoUrl, videoTime);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
 
         public List<SelectListItem> GetCategorySelectList()
         {

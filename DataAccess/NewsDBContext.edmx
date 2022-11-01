@@ -215,6 +215,77 @@
           <Property Name="DetailsIMG" Type="nvarchar(max)" Nullable="false" />
           <Property Name="OtherIMG" Type="nvarchar(max)" Nullable="false" />
           <Property Name="url" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="VideoTime" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="homePage">
+          <Key>
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="PublishDate" />
+            <PropertyRef Name="Hit" />
+            <PropertyRef Name="isActive" />
+            <PropertyRef Name="isDeleted" />
+            <PropertyRef Name="Img" />
+            <PropertyRef Name="MainSliderIMG" />
+            <PropertyRef Name="SidebarIMG" />
+            <PropertyRef Name="SliderBottomIMG" />
+            <PropertyRef Name="BestWeeklyIMG" />
+            <PropertyRef Name="BestWeeklySmIMG" />
+            <PropertyRef Name="DetailsIMG" />
+            <PropertyRef Name="OtherIMG" />
+            <PropertyRef Name="url" />
+            <PropertyRef Name="Expr1" />
+            <PropertyRef Name="Expr2" />
+            <PropertyRef Name="Expr3" />
+            <PropertyRef Name="Expr4" />
+            <PropertyRef Name="Expr5" />
+            <PropertyRef Name="Expr6" />
+            <PropertyRef Name="Expr7" />
+            <PropertyRef Name="Expr8" />
+            <PropertyRef Name="Expr9" />
+            <PropertyRef Name="Expr10" />
+            <PropertyRef Name="Expr11" />
+            <PropertyRef Name="Expr12" />
+            <PropertyRef Name="Expr13" />
+            <PropertyRef Name="Expr14" />
+            <PropertyRef Name="Expr15" />
+            <PropertyRef Name="Expr16" />
+          </Key>
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+          <Property Name="Hit" Type="int" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MainSliderIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SidebarIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SliderBottomIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BestWeeklyIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="BestWeeklySmIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DetailsIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="OtherIMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="url" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Expr1" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Expr2" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr3" Type="int" Nullable="false" />
+          <Property Name="Expr4" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Expr5" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Expr6" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr7" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr8" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr9" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr10" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr11" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr12" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Expr13" Type="bit" Nullable="false" />
+          <Property Name="Expr14" Type="bit" Nullable="false" />
+          <Property Name="Expr15" Type="datetime" Nullable="false" />
+          <Property Name="Expr16" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_AlbumCategories_Albums">
           <End Role="Albums" Type="Self.Albums" Multiplicity="1" />
@@ -396,11 +467,17 @@
           <Parameter Name="userID" Type="int" Mode="In" />
           <Parameter Name="roleID" Type="int" Mode="In" />
         </Function>
+        <Function Name="clearCategoriesFromAlbum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AlbumId" Type="int" Mode="In" />
+        </Function>
         <Function Name="clearCategoriesFromNews" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsId" Type="int" Mode="In" />
         </Function>
         <Function Name="clearCategoriesFromVideo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="VideoId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="clearImagesFromAlbum" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AlbumId" Type="int" Mode="In" />
         </Function>
         <Function Name="clearUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userID" Type="int" Mode="In" />
@@ -455,6 +532,43 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VideoCategories" EntityType="Self.VideoCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="homePage" EntityType="Self.homePage" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [homePage].[Title] AS [Title], 
+    [homePage].[Description] AS [Description], 
+    [homePage].[PublishDate] AS [PublishDate], 
+    [homePage].[Hit] AS [Hit], 
+    [homePage].[isActive] AS [isActive], 
+    [homePage].[isDeleted] AS [isDeleted], 
+    [homePage].[CreatedDate] AS [CreatedDate], 
+    [homePage].[UpdatedDate] AS [UpdatedDate], 
+    [homePage].[Img] AS [Img], 
+    [homePage].[MainSliderIMG] AS [MainSliderIMG], 
+    [homePage].[SidebarIMG] AS [SidebarIMG], 
+    [homePage].[SliderBottomIMG] AS [SliderBottomIMG], 
+    [homePage].[BestWeeklyIMG] AS [BestWeeklyIMG], 
+    [homePage].[BestWeeklySmIMG] AS [BestWeeklySmIMG], 
+    [homePage].[DetailsIMG] AS [DetailsIMG], 
+    [homePage].[OtherIMG] AS [OtherIMG], 
+    [homePage].[url] AS [url], 
+    [homePage].[Expr1] AS [Expr1], 
+    [homePage].[Expr2] AS [Expr2], 
+    [homePage].[Expr3] AS [Expr3], 
+    [homePage].[Expr4] AS [Expr4], 
+    [homePage].[Expr5] AS [Expr5], 
+    [homePage].[Expr6] AS [Expr6], 
+    [homePage].[Expr7] AS [Expr7], 
+    [homePage].[Expr8] AS [Expr8], 
+    [homePage].[Expr9] AS [Expr9], 
+    [homePage].[Expr10] AS [Expr10], 
+    [homePage].[Expr11] AS [Expr11], 
+    [homePage].[Expr12] AS [Expr12], 
+    [homePage].[Expr13] AS [Expr13], 
+    [homePage].[Expr14] AS [Expr14], 
+    [homePage].[Expr15] AS [Expr15], 
+    [homePage].[Expr16] AS [Expr16]
+    FROM [dbo].[homePage] AS [homePage]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_AlbumCategories_Albums" Association="Self.FK_AlbumCategories_Albums">
             <End Role="Albums" EntitySet="Albums" />
             <End Role="AlbumCategories" EntitySet="AlbumCategories" />
@@ -670,6 +784,7 @@
           <Property Name="Hit" Type="Int32" Nullable="false" />
           <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Reviews" Relationship="HaberSitesiModel.FK_Reviews_Videos" FromRole="Video" ToRole="Review" />
+          <Property Name="VideoTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_News_dbo_Users_User_Id">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
@@ -830,6 +945,13 @@
             <End Role="Video" EntitySet="Videos" />
             <End Role="Review" EntitySet="Reviews" />
           </AssociationSet>
+          <EntitySet Name="homePages" EntityType="HaberSitesiModel.homePage" />
+          <FunctionImport Name="clearCategoriesFromAlbum">
+            <Parameter Name="AlbumId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="clearImagesFromAlbum">
+            <Parameter Name="AlbumId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="getHomePageNews_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -963,6 +1085,74 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="homePage">
+          <Key>
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="PublishDate" />
+            <PropertyRef Name="Hit" />
+            <PropertyRef Name="isActive" />
+            <PropertyRef Name="isDeleted" />
+            <PropertyRef Name="Img" />
+            <PropertyRef Name="MainSliderIMG" />
+            <PropertyRef Name="SidebarIMG" />
+            <PropertyRef Name="SliderBottomIMG" />
+            <PropertyRef Name="BestWeeklyIMG" />
+            <PropertyRef Name="BestWeeklySmIMG" />
+            <PropertyRef Name="DetailsIMG" />
+            <PropertyRef Name="OtherIMG" />
+            <PropertyRef Name="url" />
+            <PropertyRef Name="Expr1" />
+            <PropertyRef Name="Expr2" />
+            <PropertyRef Name="Expr3" />
+            <PropertyRef Name="Expr4" />
+            <PropertyRef Name="Expr5" />
+            <PropertyRef Name="Expr6" />
+            <PropertyRef Name="Expr7" />
+            <PropertyRef Name="Expr8" />
+            <PropertyRef Name="Expr9" />
+            <PropertyRef Name="Expr10" />
+            <PropertyRef Name="Expr11" />
+            <PropertyRef Name="Expr12" />
+            <PropertyRef Name="Expr13" />
+            <PropertyRef Name="Expr14" />
+            <PropertyRef Name="Expr15" />
+            <PropertyRef Name="Expr16" />
+          </Key>
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Hit" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MainSliderIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SidebarIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SliderBottomIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BestWeeklyIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BestWeeklySmIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DetailsIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtherIMG" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Expr1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Expr2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr3" Type="Int32" Nullable="false" />
+          <Property Name="Expr4" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Expr5" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Expr6" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr7" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr8" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr9" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr10" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr11" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr12" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Expr13" Type="Boolean" Nullable="false" />
+          <Property Name="Expr14" Type="Boolean" Nullable="false" />
+          <Property Name="Expr15" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Expr16" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1091,6 +1281,7 @@
           <EntitySetMapping Name="Videos">
             <EntityTypeMapping TypeName="HaberSitesiModel.Video">
               <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="VideoTime" ColumnName="VideoTime" />
                 <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
                 <ScalarProperty Name="Hit" ColumnName="Hit" />
                 <ScalarProperty Name="url" ColumnName="url" />
@@ -1238,6 +1429,47 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="homePages">
+            <EntityTypeMapping TypeName="HaberSitesiModel.homePage">
+              <MappingFragment StoreEntitySet="homePage">
+                <ScalarProperty Name="Expr16" ColumnName="Expr16" />
+                <ScalarProperty Name="Expr15" ColumnName="Expr15" />
+                <ScalarProperty Name="Expr14" ColumnName="Expr14" />
+                <ScalarProperty Name="Expr13" ColumnName="Expr13" />
+                <ScalarProperty Name="Expr12" ColumnName="Expr12" />
+                <ScalarProperty Name="Expr11" ColumnName="Expr11" />
+                <ScalarProperty Name="Expr10" ColumnName="Expr10" />
+                <ScalarProperty Name="Expr9" ColumnName="Expr9" />
+                <ScalarProperty Name="Expr8" ColumnName="Expr8" />
+                <ScalarProperty Name="Expr7" ColumnName="Expr7" />
+                <ScalarProperty Name="Expr6" ColumnName="Expr6" />
+                <ScalarProperty Name="Expr5" ColumnName="Expr5" />
+                <ScalarProperty Name="Expr4" ColumnName="Expr4" />
+                <ScalarProperty Name="Expr3" ColumnName="Expr3" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="OtherIMG" ColumnName="OtherIMG" />
+                <ScalarProperty Name="DetailsIMG" ColumnName="DetailsIMG" />
+                <ScalarProperty Name="BestWeeklySmIMG" ColumnName="BestWeeklySmIMG" />
+                <ScalarProperty Name="BestWeeklyIMG" ColumnName="BestWeeklyIMG" />
+                <ScalarProperty Name="SliderBottomIMG" ColumnName="SliderBottomIMG" />
+                <ScalarProperty Name="SidebarIMG" ColumnName="SidebarIMG" />
+                <ScalarProperty Name="MainSliderIMG" ColumnName="MainSliderIMG" />
+                <ScalarProperty Name="Img" ColumnName="Img" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Hit" ColumnName="Hit" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="clearCategoriesFromAlbum" FunctionName="HaberSitesiModel.Store.clearCategoriesFromAlbum" />
+          <FunctionImportMapping FunctionImportName="clearImagesFromAlbum" FunctionName="HaberSitesiModel.Store.clearImagesFromAlbum" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

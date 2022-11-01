@@ -34,7 +34,7 @@ namespace HaberSitesi.Controllers
                 
                 try
                 {
-                    string[] Ar;
+                    //string[] Ar;
                     if (news == null)
                     {
                         news = new string[] {newsUrl};

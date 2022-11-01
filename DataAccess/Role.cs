@@ -12,10 +12,8 @@ namespace DataAccess
     using DataAccess.Models;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Role : BaseEntity
+    
+    public partial class Role: BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
@@ -23,20 +21,15 @@ namespace DataAccess
             this.Users = new HashSet<User>();
         }
     
-
-        [Display(Name = "Ad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Name { get; set; }
-
-        [Display(Name = "Açýklama")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public String Description { get; set; }
-
-        [Display(Name = "Kullanýcýlar")]
+        //public int Id { get; set; }
+        public string Name { get; set; }
+        //public bool isDeleted { get; set; }
+        //public bool isActive { get; set; }
+        //public Nullable<System.DateTime> CreatedDate { get; set; }
+        //public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string Description { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
-
     }
 }

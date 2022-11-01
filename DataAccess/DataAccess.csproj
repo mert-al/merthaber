@@ -71,6 +71,9 @@
     <Compile Include="getHomePageNews_Result.cs">
       <DependentUpon>NewsDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="homePage.cs">
+      <DependentUpon>NewsDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="News.cs">
       <DependentUpon>NewsDBContext.tt</DependentUpon>

@@ -12,9 +12,8 @@ namespace DataAccess
     using DataAccess.Models;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Category : BaseEntity
+    
+    public partial class Category: BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
@@ -23,15 +22,14 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
             this.Albums = new HashSet<Album>();
         }
-        [Display(Name = "Ad")]
-        [DataType(DataType.Text)]
-        [System.ComponentModel.DataAnnotations.Required]
+    
+        //public int Id { get; set; }
         public string Name { get; set; }
-
-        [Display(Name = "Statü")]
-        [System.ComponentModel.DataAnnotations.Required]
         public int Status { get; set; }
-
+        //public bool isActive { get; set; }
+        //public bool isDeleted { get; set; }
+        //public Nullable<System.DateTime> CreatedDate { get; set; }
+        //public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string url { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
