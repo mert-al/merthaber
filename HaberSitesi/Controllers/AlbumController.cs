@@ -22,6 +22,7 @@ namespace HaberSitesi.Controllers
         // GET: Albums
         [OutputCache(CacheProfile = "Cache10Min")]
         public ActionResult Index()
+            //mirac ekledi
         {
             ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
             return View(_albumServices.GetdtoHomePage());
