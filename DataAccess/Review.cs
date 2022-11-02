@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Review : BaseEntity
+    public partial class Review: BaseEntity
     {
         //public int Id { get; set; }
         public string Name { get; set; }

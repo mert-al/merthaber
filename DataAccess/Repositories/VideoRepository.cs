@@ -50,6 +50,18 @@ namespace DataAccess.Repositories
                 throw ex;
             }
         }
+        public void GetVideoReklam(String videoUrl)
+        {
+            try
+            {
+                _db.Videos.Find(videoUrl).VideoTime.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         public void Update(Video video, List<String> SelectedCategories)
         {

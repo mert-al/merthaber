@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Video:BaseEntity
+    public partial class Video: BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Video()
@@ -43,6 +43,7 @@ namespace DataAccess
         public int Hit { get; set; }
         public System.DateTime PublishDate { get; set; }
         public string VideoTime { get; set; }
+        public Nullable<int> Ads_id { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

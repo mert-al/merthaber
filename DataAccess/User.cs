@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class User: BaseEntity
+    public partial class User : BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
@@ -29,7 +29,6 @@ namespace DataAccess
         public string EMail { get; set; }
         public string Password { get; set; }
         public System.DateTime Birthday { get; set; }
-
         //public bool isActive { get; set; }
         //public bool isDeleted { get; set; }
         //public Nullable<System.DateTime> CreatedDate { get; set; }

@@ -78,6 +78,9 @@
     <Compile Include="News.cs">
       <DependentUpon>NewsDBContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Reklam.cs">
+      <DependentUpon>NewsDBContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AlbumIMGRepository.cs" />
     <Compile Include="Repositories\AlbumRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />

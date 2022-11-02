@@ -39,6 +39,7 @@ namespace DataAccess
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<AlbumIMG> AlbumIMGs { get; set; }
         public virtual DbSet<homePage> homePages { get; set; }
+        public virtual DbSet<Reklam> Reklams { get; set; }
     
         public virtual int changeUserRole(Nullable<int> userID, Nullable<int> roleID)
         {
@@ -213,6 +214,15 @@ namespace DataAccess
                 new ObjectParameter("AlbumId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearImagesFromAlbum", albumIdParameter);
+        }
+    
+        public virtual int AddVideoTime(string videoTime)
+        {
+            var videoTimeParameter = videoTime != null ?
+                new ObjectParameter("VideoTime", videoTime) :
+                new ObjectParameter("VideoTime", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddVideoTime", videoTimeParameter);
         }
     }
 }

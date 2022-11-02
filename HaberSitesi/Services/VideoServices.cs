@@ -27,6 +27,18 @@ namespace HaberSitesi.Services
                 throw ex;
             }
         }
+        public void GetReklam(String videoUrl)
+        {
+            try
+            {
+                _unitOfWork.VideoRepository.GetVideoReklam(videoUrl);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
 
         public HomePageDto<Video> GetdtoHomePage()
         {

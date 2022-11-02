@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ContactForm: BaseEntity
+    public partial class ContactForm : BaseEntity
     {
         //public int Id { get; set; }
         public string Name { get; set; }

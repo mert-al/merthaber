@@ -13,18 +13,20 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class AlbumIMG : BaseEntity
+    public partial class Reklam : BaseEntity
     {
         //public int Id { get; set; }
         public string Title { get; set; }
-        public string IMG { get; set; }
         public string Description { get; set; }
-        public int AlbumId { get; set; }
-        //public bool isActive { get; set; }
-        //public bool isDeleted { get; set; }
+        public string Img { get; set; }
+        public int Hit { get; set; }
+        public string EmbedUrl { get; set; }
+        //public System.DateTime PublishDate { get; set; }
         //public System.DateTime CreatedDate { get; set; }
         //public System.DateTime UpdatedDate { get; set; }
-    
-        public virtual Album Album { get; set; }
+        public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
+        public int User_Id { get; set; }
+        public string url { get; set; }
     }
 }
