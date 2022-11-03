@@ -28,7 +28,8 @@
         <AssociationConnector Association="HaberSitesiModel.FK_Reviews_Albums" />
         <AssociationConnector Association="HaberSitesiModel.FK_Reviews_Videos" />
         <EntityTypeShape EntityType="HaberSitesiModel.homePage" Width="1.5" PointX="5.375" PointY="8.75" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Reklam" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Ad" Width="1.5" PointX="0.75" PointY="12" />
+        <AssociationConnector Association="HaberSitesiModel.VideoAds" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

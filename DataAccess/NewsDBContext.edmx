@@ -15,6 +15,24 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Ads">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Hit" Type="int" Nullable="false" />
+          <Property Name="EmbedUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="url" Type="nchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="AlbumCategories">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -126,24 +144,6 @@
           <Property Name="News_Id" Type="int" Nullable="false" />
           <Property Name="Category_Id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Reklams">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Hit" Type="int" Nullable="false" />
-          <Property Name="EmbedUrl" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PublishDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
-          <Property Name="isActive" Type="bit" Nullable="false" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
-          <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="url" Type="nvarchar" MaxLength="250" Nullable="false" />
-        </EntityType>
         <EntityType Name="Reviews">
           <Key>
             <PropertyRef Name="Id" />
@@ -200,6 +200,14 @@
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="Role_Id" Type="int" />
           <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VideoAds">
+          <Key>
+            <PropertyRef Name="Vİdeo_Id" />
+            <PropertyRef Name="Ads_Id" />
+          </Key>
+          <Property Name="Vİdeo_Id" Type="int" Nullable="false" />
+          <Property Name="Ads_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VideoCategories">
           <Key>
@@ -482,6 +490,30 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VideoAds_Ads">
+          <End Role="Ads" Type="Self.Ads" Multiplicity="1" />
+          <End Role="VideoAds" Type="Self.VideoAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ads">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VideoAds">
+              <PropertyRef Name="Ads_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoAds_Videos">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1" />
+          <End Role="VideoAds" Type="Self.VideoAds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VideoAds">
+              <PropertyRef Name="Vİdeo_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="AddVideoTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="VideoTime" Type="nvarchar" Mode="In" />
         </Function>
@@ -541,6 +573,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
         </Function>
         <EntityContainer Name="HaberSitesiModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ads" EntityType="Self.Ads" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AlbumCategories" EntityType="Self.AlbumCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AlbumIMGs" EntityType="Self.AlbumIMGs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" store:Type="Tables" />
@@ -548,11 +581,11 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <EntitySet Name="ContactForms" EntityType="Self.ContactForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewsCategories" EntityType="Self.NewsCategories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Reklams" EntityType="Self.Reklams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VideoAds" EntityType="Self.VideoAds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VideoCategories" EntityType="Self.VideoCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="homePage" EntityType="Self.homePage" store:Type="Views" store:Schema="dbo">
@@ -647,6 +680,14 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <AssociationSet Name="FK_Reviews_Videos" Association="Self.FK_Reviews_Videos">
             <End Role="Videos" EntitySet="Videos" />
             <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoAds_Ads" Association="Self.FK_VideoAds_Ads">
+            <End Role="Ads" EntitySet="Ads" />
+            <End Role="VideoAds" EntitySet="VideoAds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoAds_Videos" Association="Self.FK_VideoAds_Videos">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="VideoAds" EntitySet="VideoAds" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -809,6 +850,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <NavigationProperty Name="Reviews" Relationship="HaberSitesiModel.FK_Reviews_Videos" FromRole="Video" ToRole="Review" />
           <Property Name="VideoTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ads_id" Type="Int32" />
+          <NavigationProperty Name="Ads" Relationship="HaberSitesiModel.VideoAds" FromRole="Video" ToRole="Ad" />
         </EntityType>
         <Association Name="FK_dbo_News_dbo_Users_User_Id">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
@@ -976,10 +1018,14 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <FunctionImport Name="clearImagesFromAlbum">
           <Parameter Name="AlbumId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Reklams" EntityType="HaberSitesiModel.Reklam" />
           <FunctionImport Name="AddVideoTime">
-            <Parameter Name="VideoTime" Mode="In" Type="String" />
+          <Parameter Name="VideoTime" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Ads" EntityType="HaberSitesiModel.Ad" />
+          <AssociationSet Name="VideoAds" Association="HaberSitesiModel.VideoAds">
+            <End Role="Ad" EntitySet="Ads" />
+            <End Role="Video" EntitySet="Videos" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="getHomePageNews_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1181,7 +1227,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <Property Name="Expr15" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Expr16" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="Reklam">
+        <EntityType Name="Ad">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -1197,8 +1243,13 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="url" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="url" Type="String" Nullable="false" MaxLength="250" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Videos" Relationship="HaberSitesiModel.VideoAds" FromRole="Ad" ToRole="Video" />
         </EntityType>
+        <Association Name="VideoAds">
+          <End Type="HaberSitesiModel.Ad" Role="Ad" Multiplicity="*" />
+          <End Type="HaberSitesiModel.Video" Role="Video" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1517,9 +1568,10 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="clearCategoriesFromAlbum" FunctionName="HaberSitesiModel.Store.clearCategoriesFromAlbum" />
           <FunctionImportMapping FunctionImportName="clearImagesFromAlbum" FunctionName="HaberSitesiModel.Store.clearImagesFromAlbum" />
-          <EntitySetMapping Name="Reklams">
-            <EntityTypeMapping TypeName="HaberSitesiModel.Reklam">
-              <MappingFragment StoreEntitySet="Reklams">
+          <FunctionImportMapping FunctionImportName="AddVideoTime" FunctionName="HaberSitesiModel.Store.AddVideoTime" />
+          <EntitySetMapping Name="Ads">
+            <EntityTypeMapping TypeName="HaberSitesiModel.Ad">
+              <MappingFragment StoreEntitySet="Ads">
                 <ScalarProperty Name="url" ColumnName="url" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
@@ -1536,7 +1588,14 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AddVideoTime" FunctionName="HaberSitesiModel.Store.AddVideoTime" />
+          <AssociationSetMapping Name="VideoAds" TypeName="HaberSitesiModel.VideoAds" StoreEntitySet="VideoAds">
+            <EndProperty Name="Video">
+              <ScalarProperty Name="Id" ColumnName="Vİdeo_Id" />
+            </EndProperty>
+            <EndProperty Name="Ad">
+              <ScalarProperty Name="Id" ColumnName="Ads_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -156,6 +156,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Attributes\RoleAuthAttribute.cs" />
+    <Compile Include="Controllers\AdsController.cs" />
     <Compile Include="Controllers\AlbumsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ContactFormsController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Models\Pager.cs" />
     <Compile Include="Models\UpdatedImages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdsServices.cs" />
     <Compile Include="Services\AlbumServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\ContactFormServices.cs" />
@@ -964,6 +966,8 @@
     <Content Include="Views\Albums\Index.cshtml" />
     <Content Include="Views\Albums\Reviews.cshtml" />
     <Content Include="Views\Videos\Reviews.cshtml" />
+    <Content Include="Views\Ads\Index.cshtml" />
+    <Content Include="Views\Ads\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -984,6 +988,7 @@
     <Folder Include="Storage\News\Original\" />
     <Folder Include="Storage\Profile\" />
     <Folder Include="Storage\Video\Videos\" />
+    <Folder Include="Views\Reklam\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

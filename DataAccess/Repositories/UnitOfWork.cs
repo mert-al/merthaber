@@ -19,6 +19,7 @@ namespace DataAccess.Repositories
         private ContactFormRepository contactFormRepository;
         private AlbumRepository albumRepository;
         private AlbumIMGRepository albumIMGRepository;
+        private AdsRepository adsRepository;
 
         private NewsDBContext Context
         {
@@ -53,6 +54,18 @@ namespace DataAccess.Repositories
                     this.roleRepository = new RoleRepository(Context);
                 }
                 return roleRepository;
+            }
+        }
+        public AdsRepository AdsRepository
+        {
+            get
+            {
+
+                if (this.adsRepository == null)
+                {
+                    this.adsRepository = new AdsRepository(Context);
+                }
+                return adsRepository;
             }
         }
 

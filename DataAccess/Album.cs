@@ -23,17 +23,14 @@ namespace DataAccess
             this.Reviews = new HashSet<Review>();
         }
     
-        //public int Id { get; set; }
+       
         public string Title { get; set; }
         public string Description { get; set; }
         public string Img { get; set; }
         public System.DateTime PublishDate { get; set; }
         public int Hit { get; set; }
         public string url { get; set; }
-        //public bool isActive { get; set; }
-        //public bool isDeleted { get; set; }
-        //public System.DateTime CreatedDate { get; set; }
-        //public System.DateTime UpdatedDate { get; set; }
+       
         public int UserId { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }

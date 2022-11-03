@@ -13,18 +13,15 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Review: BaseEntity
+    public partial class Review : BaseEntity
     {
-        //public int Id { get; set; }
+        
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
-        //public Nullable<System.DateTime> CreatedDate { get; set; }
-        //public Nullable<System.DateTime> UpdatedDate { get; set; }
-        //public bool isActive { get; set; }
-        //public bool isDeleted { get; set; }
+       
         public Nullable<int> News_Id { get; set; }
         public Nullable<int> Album_Id { get; set; }
         public Nullable<int> Video_Id { get; set; }

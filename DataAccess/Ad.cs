@@ -13,20 +13,26 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Reklam : BaseEntity
+    public partial class Ad:BaseEntity
     {
-        //public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Ad()
+        {
+            this.Videos = new HashSet<Video>();
+        }
+    
+       
         public string Title { get; set; }
         public string Description { get; set; }
         public string Img { get; set; }
         public int Hit { get; set; }
         public string EmbedUrl { get; set; }
-        //public System.DateTime PublishDate { get; set; }
-        //public System.DateTime CreatedDate { get; set; }
-        //public System.DateTime UpdatedDate { get; set; }
-        public bool isActive { get; set; }
-        public bool isDeleted { get; set; }
+        public System.DateTime PublishDate { get; set; }
+        
         public int User_Id { get; set; }
         public string url { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Video> Videos { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace DataAccess
         public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<AlbumIMG> AlbumIMGs { get; set; }
         public virtual DbSet<homePage> homePages { get; set; }
-        public virtual DbSet<Reklam> Reklams { get; set; }
+        public virtual DbSet<Ad> Ads { get; set; }
     
         public virtual int changeUserRole(Nullable<int> userID, Nullable<int> roleID)
         {

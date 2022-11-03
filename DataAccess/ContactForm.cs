@@ -15,17 +15,14 @@ namespace DataAccess
     
     public partial class ContactForm : BaseEntity
     {
-        //public int Id { get; set; }
+      
         public string Name { get; set; }
         public string Lastname { get; set; }
         public string EMail { get; set; }
         public string Phone { get; set; }
         public string Message { get; set; }
         public bool isRead { get; set; }
-        //public Nullable<System.DateTime> CreatedDate { get; set; }
-        //public Nullable<System.DateTime> UpdatedDate { get; set; }
-        //public bool isActive { get; set; }
-        //public bool isDeleted { get; set; }
+      
         public string Subject { get; set; }
     }
 }

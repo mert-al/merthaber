@@ -23,16 +23,13 @@ namespace DataAccess
             this.Albums = new HashSet<Album>();
         }
     
-        //public int Id { get; set; }
+      
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Password { get; set; }
         public System.DateTime Birthday { get; set; }
-        //public bool isActive { get; set; }
-        //public bool isDeleted { get; set; }
-        //public Nullable<System.DateTime> CreatedDate { get; set; }
-        //public Nullable<System.DateTime> UpdatedDate { get; set; }
+        
         public Nullable<int> Role_Id { get; set; }
         public string Img { get; set; }
     
