@@ -9,19 +9,21 @@
 
 namespace DataAccess
 {
-    using DataAccess.Models;
     using System;
     
-    public partial class getHomePageNews_Result : BaseEntity
+    public partial class getHomePageNews_Result
     {
-       
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }
         public string Img { get; set; }
         public System.DateTime PublishDate { get; set; }
         public int Hit { get; set; }
-        
+        public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
         public bool TrendingNow { get; set; }
         public Nullable<int> User_Id { get; set; }
     }

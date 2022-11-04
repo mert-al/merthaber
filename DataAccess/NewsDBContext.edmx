@@ -22,16 +22,16 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Img" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Hit" Type="int" Nullable="false" />
+          <Property Name="Img" Type="nvarchar(max)" />
+          <Property Name="Hit" Type="int" />
           <Property Name="EmbedUrl" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="PublishDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
-          <Property Name="isActive" Type="bit" Nullable="false" />
-          <Property Name="isDeleted" Type="bit" Nullable="false" />
-          <Property Name="User_Id" Type="int" Nullable="false" />
-          <Property Name="url" Type="nchar" MaxLength="250" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="url" Type="nchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="AlbumCategories">
           <Key>
@@ -1234,16 +1234,16 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Hit" Type="Int32" Nullable="false" />
+          <Property Name="Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Hit" Type="Int32" />
           <Property Name="EmbedUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="User_Id" Type="Int32" Nullable="false" />
-          <Property Name="url" Type="String" Nullable="false" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="PublishDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="url" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Videos" Relationship="HaberSitesiModel.VideoAds" FromRole="Ad" ToRole="Video" />
         </EntityType>
         <Association Name="VideoAds">

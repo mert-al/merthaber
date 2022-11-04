@@ -9,17 +9,19 @@
 
 namespace DataAccess
 {
-    using DataAccess.Models;
     using System;
     using System.Collections.Generic;
     
-    public partial class homePage : BaseEntity
+    public partial class homePage
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public System.DateTime PublishDate { get; set; }
         public int Hit { get; set; }
-       
+        public bool isActive { get; set; }
+        public bool isDeleted { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
         public string Img { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }

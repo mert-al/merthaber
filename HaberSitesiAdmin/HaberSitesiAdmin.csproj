@@ -989,6 +989,7 @@
     <Folder Include="Storage\Profile\" />
     <Folder Include="Storage\Video\Videos\" />
     <Folder Include="Views\Reklam\" />
+    <Folder Include="XMLFiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -47,6 +47,10 @@ namespace HaberSitesiAdmin.Controllers
                 try
                 {
 
+                   if (XMLFile.ContentLength > 0)
+                   {
+                       reklam.EmbedUrl = _adsServices.SaveVideo(reklam.EmbedUrl, XMLFile);
+                   }
                     //if (videoFile.ContentLength > 0)
                     //{
 
@@ -55,11 +59,13 @@ namespace HaberSitesiAdmin.Controllers
 
 
                     //reklam.PublishDate = DateTime.Parse(publishDate);
+                    
                     _adsServices.Create(reklam);
                     _adsServices.GenerateXML(reklam);
-                   
 
-                    
+
+
+
 
                     return RedirectToAction("Index");
                 }

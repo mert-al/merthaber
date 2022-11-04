@@ -22,7 +22,7 @@ namespace DataAccess
         public string Phone { get; set; }
         public string Message { get; set; }
         public bool isRead { get; set; }
-      
+     
         public string Subject { get; set; }
     }
 }

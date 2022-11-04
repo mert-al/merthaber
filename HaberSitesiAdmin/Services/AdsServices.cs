@@ -30,6 +30,14 @@ namespace HaberSitesiAdmin.Services
                 throw ex;
             }
         }
+       public String SaveVideo(String fileName, HttpPostedFileBase file)
+       {
+           string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/XMLFiles/"), file.FileName);
+           string _url = Path.Combine("/XMLFiles/", file.FileName);
+           file.SaveAs(_path);
+           return _url;
+       }
+
 
         public PageDTO<Ad> GetPage(PageDTO<Ad> pageDTO)
         {
@@ -121,7 +129,7 @@ namespace HaberSitesiAdmin.Services
             MediaFiles.AppendChild(MediaFile);
 
            
-            XmlCDataSection CData1 = doc.CreateCDataSection(_unitOfWork.AdsRepository.Get(reklam.Id).EmbedUrl);
+            XmlCDataSection CData1 = doc.CreateCDataSection(reklam.EmbedUrl);
             MediaFile.AppendChild(CData1);
 
 
@@ -153,9 +161,9 @@ namespace HaberSitesiAdmin.Services
 
 
 
+     
 
-
-
+            
 
 
 

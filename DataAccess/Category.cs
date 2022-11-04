@@ -23,10 +23,9 @@ namespace DataAccess
             this.Albums = new HashSet<Album>();
         }
     
-      
+       
         public string Name { get; set; }
         public int Status { get; set; }
-        
         public string url { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

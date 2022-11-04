@@ -23,12 +23,12 @@ namespace DataAccess
             this.Ads = new HashSet<Ad>();
         }
     
-        
+     
         public string Title { get; set; }
         public string Description { get; set; }
         public string Img { get; set; }
         public string EmbedUrl { get; set; }
-       
+    
         public Nullable<int> User_Id { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
