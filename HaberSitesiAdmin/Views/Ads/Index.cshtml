@@ -44,7 +44,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>@Html.DisplayNameFor(model => model.Items[0].Img)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.Items[0].Img)</th>*@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].User)</th>*@
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>
@@ -56,9 +56,7 @@
                             @foreach (Ad item in Model.Items)
                             {
                                 <tr>
-                                    <td>
-                                        <img style="width:150px" src="@item.Img" alt="Video Görseli" />
-                                    </td>
+                                   
 
                                     <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Title</td>
                                     <td>

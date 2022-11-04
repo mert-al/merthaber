@@ -38,19 +38,14 @@ namespace HaberSitesiAdmin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,EmbedUrl")] Ad reklam,
-        HttpPostedFileBase XMLFile)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,EmbedUrl")] Ad reklam)
 
         {
-            if (ModelState.IsValid && XMLFile != null)
-            {
+           
                 try
                 {
 
-                   if (XMLFile.ContentLength > 0)
-                   {
-                       reklam.EmbedUrl = _adsServices.SaveVideo(reklam.EmbedUrl, XMLFile);
-                   }
+                
                     //if (videoFile.ContentLength > 0)
                     //{
 
@@ -59,7 +54,6 @@ namespace HaberSitesiAdmin.Controllers
 
 
                     //reklam.PublishDate = DateTime.Parse(publishDate);
-                    
                     _adsServices.Create(reklam);
                     _adsServices.GenerateXML(reklam);
 
@@ -72,14 +66,7 @@ namespace HaberSitesiAdmin.Controllers
                 catch
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-            }
-            if (XMLFile == null)
-            {
-                ViewBag.videoUrlError = "Lütfen reklam Yükleyiniz";
-            }
-            return View(reklam);
-        }
+                }        }
 
 
 
