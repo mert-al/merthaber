@@ -14,7 +14,6 @@
 // * device = computer
 // * duration = 
 // * created at 
-// * 
 // * */
 
 
@@ -51,6 +50,7 @@ else if (href !== null || href !== "") {
   
 
 }
+
 
 var userBrowser;
 document.addEventListener("DOMContentLoaded", async function () {
