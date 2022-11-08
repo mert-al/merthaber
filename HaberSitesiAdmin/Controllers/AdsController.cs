@@ -38,7 +38,7 @@ namespace HaberSitesiAdmin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,EmbedUrl")] Ad reklam)
+        public ActionResult Create([Bind(Include = "Id,Title,Midroll,PreRoll,PostRoll")] Ad reklam)
 
         {
            
