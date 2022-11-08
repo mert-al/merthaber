@@ -20,7 +20,7 @@
     @Html.AntiForgeryToken()
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4">
-            <span class="text-muted fw-light">Videolar/</span> Yeni Video
+            <span class="text-muted fw-light">Reklamlar/</span> Yeni Reklam
         </h4>
 
         <div class="row">
@@ -38,29 +38,30 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "form-label" })
-                            <div class="col-md-12">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="mb-3">
 
-                            @Html.LabelFor(model => model.EmbedUrl, htmlAttributes: new { @class = "form-label" })
+                            @Html.LabelFor(model => model.Preroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                <input class="form-control" type="text" id="EmbedUrl" name="EmbedUrl" />
+                                <input class="form-control" type="text" id="Preroll" name="Preroll" />
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
-
                         <div class="mb-3">
-                            @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "form-label" })
+
+                            @Html.LabelFor(model => model.Midroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                <input class="form-control" type="file" id="file" name="file" />
-                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.fileError</span>
+                                <input class="form-control" type="text" id="Midroll" name="Midroll" />
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
                         <div class="mb-3">
+
+                            @Html.LabelFor(model => model.Postroll, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" id="Postroll" name="Postroll" />
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
+                            </div>
+                        </div>
+                        @*<div class="mb-3">
                             @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
                                 <input class="form-control"
@@ -70,7 +71,7 @@
                                        value="@DateTime.UtcNow.AddHours(3).ToString("yyyy-MM-ddTHH:mm:ss")" />
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.publishDateError</span>
                             </div>
-                        </div>
+                        </div>*@
 
                         <button class="btn btn-primary" type="submit">Kaydet</button>
                     </div>

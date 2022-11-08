@@ -85,7 +85,7 @@ namespace HaberSitesi
             routes.MapRoute(
               name: "NewsHome",
               url: "",
-              defaults: new { controller = "News", action = "Index" },
+              defaults: new { controller = "Home", action = "Index" },
               namespaces: new string[] { "HaberSitesi.Controllers" }
             );
 

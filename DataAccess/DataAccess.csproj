@@ -81,11 +81,6 @@
     <Compile Include="News.cs">
       <DependentUpon>NewsDBContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\AdsRepository.cs" />
-    <Compile Include="Repositories\AlbumIMGRepository.cs" />
-    <Compile Include="Repositories\AlbumRepository.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="NewsDBContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +96,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewsDBContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\AdsRepository.cs" />
+    <Compile Include="Repositories\AlbumIMGRepository.cs" />
+    <Compile Include="Repositories\AlbumRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ContactFormRepository.cs" />
@@ -132,7 +132,18 @@
       <DependentUpon>NewsDBContext.tt</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="NewsDBContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewsDBContext.edmx</DependentUpon>
+      <LastGenOutput>NewsDBContext.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="NewsDBContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewsDBContext.edmx</DependentUpon>
+      <LastGenOutput>NewsDBContext.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <EntityDeploy Include="NewsDBContext.edmx">
@@ -146,18 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="NewsDBContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NewsDBContext.edmx</DependentUpon>
-      <LastGenOutput>NewsDBContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="NewsDBContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NewsDBContext.edmx</DependentUpon>
-      <LastGenOutput>NewsDBContext.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -30,7 +30,7 @@ namespace DataAccess.Repositories
             }
             catch (Exception ex)
             {
-                throw ex;
+                    throw ex;
             }
         }
 

@@ -35,11 +35,11 @@ namespace DataAccess.Repositories
         }
 
 
-        public String GetReklam(Ad reklamUrl)
-        {
-           string reklam= _db.Ads.Find(reklamUrl).EmbedUrl.ToString();
-            return reklam;
-        }
+        //public String GetReklam(Ad reklamUrl)
+        //{
+        //   string reklam= _db.Ads.Find(reklamUrl).EmbedUrl.ToString();
+        //    return reklam;
+        //}
 
         //public void Update(Ad reklam)
         //{

@@ -22,24 +22,24 @@ namespace DataAccess
             this.Categories = new HashSet<Category>();
         }
     
-    
+      
         public string Title { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }
-        public string Img { get; set; }
         public System.DateTime PublishDate { get; set; }
         public int Hit { get; set; }
-        
+     
         public bool TrendingNow { get; set; }
         public Nullable<int> User_Id { get; set; }
+        public string Img { get; set; }
+        public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
+        public string SliderBottomIMG { get; set; }
         public string BestWeeklyIMG { get; set; }
         public string BestWeeklySmIMG { get; set; }
         public string DetailsIMG { get; set; }
         public string OtherIMG { get; set; }
         public string url { get; set; }
-        public string MainSliderIMG { get; set; }
-        public string SliderBottomIMG { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

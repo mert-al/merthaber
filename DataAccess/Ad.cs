@@ -21,15 +21,16 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
         }
     
-        
+       
         public string Title { get; set; }
-        public string Description { get; set; }
-        public string Img { get; set; }
-        public Nullable<int> Hit { get; set; }
-        public string EmbedUrl { get; set; }
-        public Nullable<System.DateTime> PublishDate { get; set; }
-        public Nullable<int> User_Id { get; set; }
-        public string url { get; set; }
+        public string Preroll { get; set; }
+        public string Midroll { get; set; }
+        public string Postroll { get; set; }
+        public Nullable<int> PrerollHit { get; set; }
+        public Nullable<int> MidrollHit { get; set; }
+        public Nullable<int> PostrollHit { get; set; }
+
+        public Nullable<int> User_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Video> Videos { get; set; }

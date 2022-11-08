@@ -15,19 +15,19 @@ namespace DataAccess
     
     public partial class Review : BaseEntity
     {
-        
+
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Title { get; set; }
         public string Message { get; set; }
-        
+
         public Nullable<int> News_Id { get; set; }
         public Nullable<int> Album_Id { get; set; }
         public Nullable<int> Video_Id { get; set; }
     
-        public virtual News News { get; set; }
         public virtual Album Album { get; set; }
+        public virtual News News { get; set; }
         public virtual Video Video { get; set; }
     }
 }

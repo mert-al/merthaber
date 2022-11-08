@@ -20,12 +20,7 @@ namespace HaberSitesi.Controllers
         {
             _newsServices = new NewsServices();
         }
-        public ActionResult Index()
-        {
-            ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
-            return View(_newsServices.GetdtoHomePage());
-        }
-        // GET: News/Details/5
+      
 
         public ActionResult Details(String categoryUrl, String newsUrl,string[] news)
         {

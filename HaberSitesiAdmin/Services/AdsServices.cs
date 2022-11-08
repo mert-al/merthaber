@@ -58,13 +58,16 @@ namespace HaberSitesiAdmin.Services
             }
         }
 
-        //public void GenerateXML(List<Ad> reklams)
+        //public void GeneraXML(Ad reklam)
         //{
-        //    foreach (var item in reklams)
+        //    for (int i = 0; i <  i++)
         //    {
-        //        GenerateXML(item);
+        //        GenerateXML(reklam);
         //    }
         //}
+
+
+
         public void GenerateXML(Ad reklam)
         {
             XmlDocument doc = new XmlDocument();
@@ -73,6 +76,8 @@ namespace HaberSitesiAdmin.Services
             XmlElement Vast = doc.CreateElement("VAST");
             (Vast).SetAttribute("version", "2.0");
             doc.AppendChild(Vast);
+
+    
 
             XmlElement Ad = doc.CreateElement("Ad");
             (Ad).SetAttribute("id", "preroll-1");
@@ -128,8 +133,11 @@ namespace HaberSitesiAdmin.Services
             (MediaFile).SetAttribute("apiFramework", "VPAID");
             MediaFiles.AppendChild(MediaFile);
 
-           
-            XmlCDataSection CData1 = doc.CreateCDataSection(reklam.EmbedUrl);
+            //List<string> girdi = new List<string>();
+            //girdi.Add(reklam.Preroll);
+            //girdi.Add(reklam.Midroll);
+            //girdi.Add(reklam.Postroll);
+            XmlCDataSection CData1 = doc.CreateCDataSection(reklam.Preroll);
             MediaFile.AppendChild(CData1);
 
 

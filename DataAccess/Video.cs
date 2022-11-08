@@ -18,18 +18,19 @@ namespace DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Video()
         {
-            this.Categories = new HashSet<Category>();
             this.Reviews = new HashSet<Review>();
             this.Ads = new HashSet<Ad>();
+            this.Categories = new HashSet<Category>();
         }
     
-     
+
         public string Title { get; set; }
         public string Description { get; set; }
         public string Img { get; set; }
+        public int Hit { get; set; }
         public string EmbedUrl { get; set; }
-    
         public Nullable<int> User_Id { get; set; }
+        public System.DateTime PublishDate { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
         public string SliderBottomIMG { get; set; }
@@ -38,17 +39,15 @@ namespace DataAccess
         public string DetailsIMG { get; set; }
         public string OtherIMG { get; set; }
         public string url { get; set; }
-        public int Hit { get; set; }
-        public System.DateTime PublishDate { get; set; }
         public string VideoTime { get; set; }
         public Nullable<int> Ads_id { get; set; }
     
-        public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Category> Categories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ad> Ads { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }

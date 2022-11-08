@@ -7,7 +7,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h1 class="fw-bold py-3 mb-4">
-        Videolar /
+        Reklamlar /
         <a href="~/Ads/Create" class="btn btn-primary mb-3">Reklam Oluştur</a>
     </h1>
     <div class="card">
@@ -34,12 +34,12 @@
             @{
                 if (Model.Pager.TotalItems == 0)
                 {
-                    <h1 style="text-align: center">Video Bulunamadi</h1>
+                    <h1 style="text-align: center">Reklam Bulunamadi</h1>
                 }
                 else
                 {
                     <div style="padding-left: 15px;">
-                        <p><b>Video Sayisi: </b>@Model.Pager.TotalItems</p>
+                        <p><b>Reklam Sayisi: </b>@Model.Pager.TotalItems</p>
                     </div>
                     <table class="table">
                         <thead>
@@ -47,7 +47,7 @@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Img)</th>*@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].User)</th>*@
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>
-                                <th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>*@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Categories)</th>*@
                                 <th>@Html.DisplayNameFor(model => model.Items[0].isActive)</th>
                             </tr>
@@ -59,9 +59,9 @@
                                    
 
                                     <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Title</td>
-                                    <td>
+                                    @*<td>
                                         <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.PublishDate</p>
-                                    </td>
+                                    </td>*@
 
 
                                     <td>
@@ -82,16 +82,14 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="~/Videos/Reviews/@item.Id">
-                                                    <i class="bx bx-comment me-1"></i> Yorumlar
-                                                </a>
-                                                <a class="dropdown-item" href="~/Videos/Edit/@item.Id">
+                                               
+                                                <a class="dropdown-item" href="~/Ads/Edit/@item.Id">
                                                     <i class="bx bx-edit-alt me-1"></i> Düzenle
                                                 </a>
-                                                <a class="dropdown-item" href="~/Videos/Details/@item.Id">
+                                                <a class="dropdown-item" href="~/Ads/Details/@item.Id">
                                                     <i class="bx bx-detail me-1"></i> Detaylar
                                                 </a>
-                                                <a class="dropdown-item" href="~/Videos/Delete/@item.Id">
+                                                <a class="dropdown-item" href="~/Ads/Delete/@item.Id">
                                                     <i class="bx bx-trash me-1"></i> Sil
                                                 </a>
                                             </div>
