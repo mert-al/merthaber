@@ -23,13 +23,13 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
         }
     
-
+    
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Password { get; set; }
         public System.DateTime Birthday { get; set; }
-
+  
         public Nullable<int> Role_Id { get; set; }
         public string Img { get; set; }
     

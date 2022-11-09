@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="HaberSitesiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="HaberSitesiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -20,13 +20,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Preroll" Type="nvarchar" MaxLength="50" />
-          <Property Name="Midroll" Type="nvarchar" MaxLength="50" />
-          <Property Name="Postroll" Type="nvarchar" MaxLength="50" />
+          <Property Name="PrerolTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Preroll" Type="nvarchar" MaxLength="250" />
+          <Property Name="MidrollTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Midroll" Type="nvarchar" MaxLength="250" />
+          <Property Name="PostrollTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Postroll" Type="nvarchar" MaxLength="250" />
           <Property Name="PrerollHit" Type="int" />
           <Property Name="MidrollHit" Type="int" />
           <Property Name="PostrollHit" Type="int" />
+          <Property Name="PublishDate" Type="datetime" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedDate" Type="datetime" />
           <Property Name="isActive" Type="bit" />
@@ -690,8 +693,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
             <End Role="VideoAds" EntitySet="VideoAds" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HaberSitesiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -710,13 +712,16 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Preroll" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Midroll" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Postroll" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrerolTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Preroll" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MidrollTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Midroll" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PostrollTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Postroll" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="PrerollHit" Type="Int32" />
           <Property Name="MidrollHit" Type="Int32" />
           <Property Name="PostrollHit" Type="Int32" />
+          <Property Name="PublishDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
           <Property Name="isActive" Type="Boolean" />
@@ -1169,26 +1174,26 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
             <End Role="Videos" EntitySet="Videos" />
           </AssociationSet>
           <FunctionImport Name="AddVideoTime">
-            <Parameter Name="VideoTime" Mode="In" Type="String" />
+          <Parameter Name="VideoTime" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="changeUserRole">
             <Parameter Name="userID" Mode="In" Type="Int32" />
             <Parameter Name="roleID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearCategoriesFromAlbum">
-            <Parameter Name="AlbumId" Mode="In" Type="Int32" />
+          <Parameter Name="AlbumId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearCategoriesFromNews">
-            <Parameter Name="NewsId" Mode="In" Type="Int32" />
+          <Parameter Name="NewsId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearCategoriesFromVideo">
-            <Parameter Name="VideoId" Mode="In" Type="Int32" />
+          <Parameter Name="VideoId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearImagesFromAlbum">
-            <Parameter Name="AlbumId" Mode="In" Type="Int32" />
+          <Parameter Name="AlbumId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearUserRole">
-            <Parameter Name="userID" Mode="In" Type="Int32" />
+          <Parameter Name="userID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="getHomePageNews" ReturnType="Collection(HaberSitesiModel.getHomePageNews_Result)" />
           <FunctionImport Name="sp_alterdiagram">
@@ -1222,7 +1227,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="updateNewsHit">
-            <Parameter Name="NewsId" Mode="In" Type="Int32" />
+          <Parameter Name="NewsId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="getHomePageNews_Result">
@@ -1279,13 +1284,16 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
             <EntityTypeMapping TypeName="HaberSitesiModel.Ad">
               <MappingFragment StoreEntitySet="Ads">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PrerolTitle" ColumnName="PrerolTitle" />
                 <ScalarProperty Name="Preroll" ColumnName="Preroll" />
+                <ScalarProperty Name="MidrollTitle" ColumnName="MidrollTitle" />
                 <ScalarProperty Name="Midroll" ColumnName="Midroll" />
+                <ScalarProperty Name="PostrollTitle" ColumnName="PostrollTitle" />
                 <ScalarProperty Name="Postroll" ColumnName="Postroll" />
                 <ScalarProperty Name="PrerollHit" ColumnName="PrerollHit" />
                 <ScalarProperty Name="MidrollHit" ColumnName="MidrollHit" />
                 <ScalarProperty Name="PostrollHit" ColumnName="PostrollHit" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />

@@ -23,14 +23,15 @@ namespace DataAccess
             this.Categories = new HashSet<Category>();
         }
     
-
+        
         public string Title { get; set; }
         public string Description { get; set; }
         public string Img { get; set; }
         public int Hit { get; set; }
         public string EmbedUrl { get; set; }
-        public Nullable<int> User_Id { get; set; }
         public System.DateTime PublishDate { get; set; }
+
+        public Nullable<int> User_Id { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
         public string SliderBottomIMG { get; set; }

@@ -46,7 +46,10 @@
                             <tr>
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Img)</th>*@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].User)</th>*@
-                                <th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].Preroll)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].Midroll)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].Postroll)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>*@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>*@
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Categories)</th>*@
                                 <th>@Html.DisplayNameFor(model => model.Items[0].isActive)</th>
@@ -55,47 +58,50 @@
                         <tbody class="table-border-bottom-0">
                             @foreach (Ad item in Model.Items)
                             {
-                                <tr>
-                                   
-
-                                    <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Title</td>
-                                    @*<td>
-                                        <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.PublishDate</p>
-                                    </td>*@
+                            <tr>
 
 
-                                    <td>
-                                        @{
-                                            if (item.isActive)
-                                            {
-                                                <span class="badge bg-success">Aktif</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="badge bg-secondary">Pasif</span>
-                                            }
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Preroll</td>
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Midroll</td>
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Postroll</td>
+                                
+                                @*<td>
+            <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.PublishDate</p>
+        </td>*@
+
+
+                                <td>
+                                    @{
+                                        if (item.isActive)
+                                        {
+                                            <span class="badge bg-success">Aktif</span>
                                         }
-                                    </td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                               
-                                                <a class="dropdown-item" href="~/Ads/Edit/@item.Id">
-                                                    <i class="bx bx-edit-alt me-1"></i> Düzenle
-                                                </a>
-                                                <a class="dropdown-item" href="~/Ads/Details/@item.Id">
-                                                    <i class="bx bx-detail me-1"></i> Detaylar
-                                                </a>
-                                                <a class="dropdown-item" href="~/Ads/Delete/@item.Id">
-                                                    <i class="bx bx-trash me-1"></i> Sil
-                                                </a>
-                                            </div>
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">Pasif</span>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+
+                                            <a class="dropdown-item" href="~/Ads/Edit/@item.Id">
+                                                <i class="bx bx-edit-alt me-1"></i> Düzenle
+                                            </a>
+                                            <a class="dropdown-item" href="~/Ads/Details/@item.Id">
+                                                <i class="bx bx-detail me-1"></i> Detaylar
+                                            </a>
+                                            <a class="dropdown-item" href="~/Ads/Delete/@item.Id">
+                                                <i class="bx bx-trash me-1"></i> Sil
+                                            </a>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                            </tr>
                             }
 
                         </tbody>

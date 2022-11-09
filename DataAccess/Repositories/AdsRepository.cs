@@ -23,6 +23,7 @@ namespace DataAccess.Repositories
 
                 reklam.CreatedDate = DateTime.Now;
                 reklam.UpdatedDate = DateTime.Now;
+                    
                 _db.Ads.Add(reklam);
                 _db.SaveChanges();
 

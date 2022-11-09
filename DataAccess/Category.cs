@@ -23,11 +23,12 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
         }
     
-
+       
         public string Name { get; set; }
         public int Status { get; set; }
         public string url { get; set; }
 
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album> Albums { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

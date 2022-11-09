@@ -197,10 +197,9 @@
 </style>
 <script>
     const myvideom = document.getElementById("videoPlayer");
-    //myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
+    myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
 
-
-
+  
 
 </script>
 
@@ -211,14 +210,15 @@
 
     var player = window.player = videojs("videoPlayer");
 
+    if (player) {
+        player.play(); 
 
-    player.play();
 
     player.vastWaterfall({
         preroll:
             [
                 {
-                    ads: ["../../XMLFiles/Reklam1.xml"]
+                    ads: ["../../XMLFiles/PrerolTitle.xml"]
 
 
 
@@ -229,20 +229,21 @@
                 {
 
 
-                    ads: ["../../XMLFiles/Reklam2.xml"],
-                    time: 100
+                    ads: ["../../XMLFiles/MidrollTitle.xml"],
+                    time: (player.duration / 2)
 
                 }
             ],
         postroll:
             [
                 {
-                    ads: ["../../XMLFiles/reklam3.xml"]
+                    ads: ["../../XMLFiles/PostrollTitle.xml"]
                 }
             ],
         flashWrapperPath: "https://unpkg.com/vpaid-flash-client@0.1.9/bin/VPAIDFlash.swf",
         debug: true
-    });
+    });}
+   
 </script>
 
 

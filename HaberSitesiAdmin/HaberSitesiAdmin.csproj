@@ -968,6 +968,7 @@
     <Content Include="Views\Videos\Reviews.cshtml" />
     <Content Include="Views\Ads\Index.cshtml" />
     <Content Include="Views\Ads\Create.cshtml" />
+    <Content Include="Views\Ads\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

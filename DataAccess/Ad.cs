@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Ad: BaseEntity
+    public partial class Ad : BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ad()
@@ -21,15 +21,18 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
         }
     
-       
-        public string Title { get; set; }
+        
+        public string PrerolTitle { get; set; }
         public string Preroll { get; set; }
+        public string MidrollTitle { get; set; }
         public string Midroll { get; set; }
+        public string PostrollTitle { get; set; }
         public string Postroll { get; set; }
         public Nullable<int> PrerollHit { get; set; }
         public Nullable<int> MidrollHit { get; set; }
         public Nullable<int> PostrollHit { get; set; }
-
+        public Nullable<System.DateTime> PublishDate { get; set; }
+       
         public Nullable<int> User_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
