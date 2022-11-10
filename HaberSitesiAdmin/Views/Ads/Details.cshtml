@@ -1,0 +1,41 @@
+﻿@model DataAccess.Ad
+@{
+    ViewBag.Title = "Ads";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h1 class="fw-bold py-3 mb-4">
+            Haberler /
+            <a href="~/News/Create" class="btn btn-primary mb-3">Reklam Oluştur</a>
+        </h1>
+
+        <div class="row mb-5 card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2 style="text-align:center">@Html.DisplayFor(model => model.Preroll) </h2>
+                </div>
+            </div>
+            <div class="card-header">
+                <div class="card-title">
+                    <h2 style="text-align:center">@Html.DisplayFor(model => model.Midroll) </h2>
+                </div>
+            </div>
+            <div class="card-header">
+                <div class="card-title">
+                    <h2 style="text-align:center">@Html.DisplayFor(model => model.Postroll) </h2>
+                </div>
+            </div>
+
+            @*<div class="card-body" style="text-align:center">
+            <img class="card-img-top" style="max-width:752px" src="@Model.Img" alt="Card image cap" />
+            <p style="text-align:center;font-weight:bold" class="mt-2">
+                <h2>@Html.DisplayFor(model => model.Description)</h2>
+            </p>
+            <hr />
+            <p>@Html.Raw(Model.Content)</p>
+
+        </div>*@
+        </div>
+    </div>

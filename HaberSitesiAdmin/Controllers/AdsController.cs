@@ -50,7 +50,8 @@ namespace HaberSitesiAdmin.Controllers
             }
             catch
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index");
+                    //new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
@@ -66,7 +67,7 @@ namespace HaberSitesiAdmin.Controllers
                 return HttpNotFound();
             }
 
-            return View(reklam);
+            return View();
         }
 
         // POST: Videos/Edit/5
@@ -111,7 +112,28 @@ namespace HaberSitesiAdmin.Controllers
             _adsServices.Delete(id);
             return RedirectToAction("Index");
         }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
 
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                var ad = _adsServices.Get(id.Value);
+                if (ad == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(ad);
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+        }
     }
 
 

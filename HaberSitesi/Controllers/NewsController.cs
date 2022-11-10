@@ -55,7 +55,7 @@ namespace HaberSitesi.Controllers
                     ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
                     if (dtoNewsDetails.Item == null)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return View("~/Views/Error/Page404.cshtml");
                     }
                     ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
                     return View(dtoNewsDetails);

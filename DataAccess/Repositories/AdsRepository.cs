@@ -34,6 +34,7 @@ namespace DataAccess.Repositories
                 throw ex;
             }
         }
+
         public void UpdateHit(Ad reklam)
         {
             try
@@ -46,7 +47,19 @@ namespace DataAccess.Repositories
                 throw ex;
             }
         }
-
+        //public void UpdateHit(Ad reklam)
+        //{
+        //    try
+        //    {
+        //        _db.Ads.Where(model => model.PrerolTitle == reklam.T).FirstOrDefault().Hit++;
+        //        _db.SaveChanges();
+                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
 
 
