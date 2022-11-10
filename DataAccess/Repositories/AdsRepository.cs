@@ -16,14 +16,14 @@ namespace DataAccess.Repositories
             _db = context;
         }
 
-        public void Create(Ad reklam)
+        public void Create(Ad reklam ,int userId)
         {
             try
             {
-
+                reklam.User = _db.Users.Find(userId);
                 reklam.CreatedDate = DateTime.Now;
                 reklam.UpdatedDate = DateTime.Now;
-                    
+                reklam.User_ID = userId;
                 _db.Ads.Add(reklam);
                 _db.SaveChanges();
 

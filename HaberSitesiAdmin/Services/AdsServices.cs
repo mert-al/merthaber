@@ -22,7 +22,10 @@ namespace HaberSitesiAdmin.Services
         {
             try
             {
-                _unitOfWork.AdsRepository.Create(reklam);
+                User user = (User)HttpContext.Current.Session["User"];
+                if (user.Role_Id == 3)
+                    reklam.isActive = false;
+                _unitOfWork.AdsRepository.Create(reklam,user.Id);
                 
             }
             catch (Exception ex)
