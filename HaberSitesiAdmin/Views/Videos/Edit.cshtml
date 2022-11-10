@@ -1,4 +1,4 @@
-﻿@model DataAccess.Video
+﻿    @model DataAccess.Video
 @using DataAccess
 @using HaberSitesiAdmin.Services
 
@@ -40,7 +40,7 @@
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <video width="600" height="400" controls>
+                        <video width="600" autoplay muted  height="400" controls>
                             <source src="@Model.EmbedUrl" type="video/mp4">
 
                             Your browser does not support the video tag.

@@ -29,7 +29,7 @@ namespace HaberSitesi.Controllers
             {
                 if (categoryUrl != null)
                 {
-                    List<News> HaberListesi = _categoryServices.GetNewsByUrl(categoryUrl).OrderBy(m => m.PublishDate).ToList();
+                    List<News> HaberListesi = _categoryServices.GetNewsByUrl(categoryUrl).OrderByDescending(m => m.PublishDate).ToList();
                     ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
                     if (!page.HasValue)
                     {
@@ -73,7 +73,7 @@ namespace HaberSitesi.Controllers
             {
                 if (categoryUrl != null)
                 {
-                    List<Album> HaberListesi = _categoryServices.GetAlbumsByUrl(categoryUrl).OrderBy(m => m.PublishDate).ToList();
+                    List<Album> HaberListesi = _categoryServices.GetAlbumsByUrl(categoryUrl).OrderByDescending(m => m.PublishDate).ToList();
                     ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
                     if (!page.HasValue)
                     {
@@ -114,7 +114,7 @@ namespace HaberSitesi.Controllers
             {
                 if (categoryUrl != null)
                 {
-                    List<Video> HaberListesi = _categoryServices.GetVideosByUrl(categoryUrl).ToList();
+                    List<Video> HaberListesi = _categoryServices.GetVideosByUrl(categoryUrl).OrderByDescending(m => m.PublishDate).ToList();
                     ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
                     if (!page.HasValue)
                     {
