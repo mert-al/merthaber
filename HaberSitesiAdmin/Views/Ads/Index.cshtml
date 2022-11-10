@@ -45,7 +45,7 @@
                         <thead>
                             <tr>
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Img)</th>*@
-                                <th>@Html.DisplayNameFor(model => model.Items[0].User)</th>
+                                <th>@Html.DisplayNameFor(model => model.Items[0].User_ID)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Preroll)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Midroll)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Postroll)</th>
@@ -60,7 +60,7 @@
                             {
                             <tr>
 
-                                <td>@item.User.Name</td>
+                                <td>@item.User_ID</td>
                                 <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Preroll</td>
                                 <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Midroll</td>
                                 <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Postroll</td>
