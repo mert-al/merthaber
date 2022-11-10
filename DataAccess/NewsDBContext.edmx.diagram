@@ -30,6 +30,7 @@
         <AssociationConnector Association="HaberSitesiModel.NewsCategories" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.VideoAds" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.VideoCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="HaberSitesiModel.FK_Ads_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

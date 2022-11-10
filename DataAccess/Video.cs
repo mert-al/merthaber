@@ -14,7 +14,7 @@ namespace DataAccess
     using System.Collections.Generic;
     
     public partial class Video : BaseEntity
-    {
+    { 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Video()
         {
@@ -30,7 +30,7 @@ namespace DataAccess
         public int Hit { get; set; }
         public string EmbedUrl { get; set; }
         public System.DateTime PublishDate { get; set; }
-
+ 
         public Nullable<int> User_Id { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }

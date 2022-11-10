@@ -43,21 +43,9 @@ namespace HaberSitesiAdmin.Controllers
         {
 
             try
-            {
-
-
-                //if (videoFile.ContentLength > 0)
-                //{
-
-                //    return _adsServices.GenerateXML(reklam);
-                //}
-
-
-                //reklam.PublishDate = DateTime.Parse(publishDate);
+            { 
                 _adsServices.Create(reklam);
-                _adsServices.GenerateXML(reklam);
-                _adsServices.GenerateXMLL(reklam);
-                _adsServices.GenerateXMLLL(reklam);
+                _adsServices.GenerateXML(reklam);                                    
                 return RedirectToAction("Index");
             }
             catch

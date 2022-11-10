@@ -28,7 +28,7 @@ namespace DataAccess
         public string Content { get; set; }
         public System.DateTime PublishDate { get; set; }
         public int Hit { get; set; }
-  
+        
         public bool TrendingNow { get; set; }
         public Nullable<int> User_Id { get; set; }
         public string Img { get; set; }

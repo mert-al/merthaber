@@ -317,6 +317,18 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <Property Name="Expr15" Type="datetime" Nullable="false" />
           <Property Name="Expr16" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Ads_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Ads" Type="Self.Ads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ads">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AlbumCategories_Albums">
           <End Role="Albums" Type="Self.Albums" Multiplicity="1" />
           <End Role="AlbumCategories" Type="Self.AlbumCategories" Multiplicity="*" />
@@ -628,6 +640,10 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
     [homePage].[Expr16] AS [Expr16]
     FROM [dbo].[homePage] AS [homePage]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Ads_Users" Association="Self.FK_Ads_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Ads" EntitySet="Ads" />
+          </AssociationSet>
           <AssociationSet Name="FK_AlbumCategories_Albums" Association="Self.FK_AlbumCategories_Albums">
             <End Role="Albums" EntitySet="Albums" />
             <End Role="AlbumCategories" EntitySet="AlbumCategories" />
@@ -728,6 +744,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="User_ID" Type="Int32" />
           <NavigationProperty Name="Videos" Relationship="Self.VideoAds" FromRole="Ads" ToRole="Videos" />
+          <NavigationProperty Name="User" Relationship="HaberSitesiModel.FK_Ads_Users" FromRole="Ad" ToRole="User" />
         </EntityType>
         <EntityType Name="AlbumIMG">
           <Key>
@@ -899,6 +916,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <NavigationProperty Name="News" Relationship="Self.FK_dbo_News_dbo_Users_User_Id" FromRole="Users" ToRole="News" />
           <NavigationProperty Name="Role" Relationship="Self.FK_dbo_Users_dbo_Roles_Role_Id" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="Videos" Relationship="Self.FK_dbo_Videos_dbo_Users_User_Id" FromRole="Users" ToRole="Videos" />
+          <NavigationProperty Name="Ads" Relationship="HaberSitesiModel.FK_Ads_Users" FromRole="User" ToRole="Ad" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
@@ -1229,6 +1247,10 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <FunctionImport Name="updateNewsHit">
           <Parameter Name="NewsId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="FK_Ads_Users" Association="HaberSitesiModel.FK_Ads_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Ad" EntitySet="Ads" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="getHomePageNews_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1264,6 +1286,18 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <Association Name="FK_Ads_Users">
+          <End Type="HaberSitesiModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="HaberSitesiModel.Ad" Role="Ad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ad">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

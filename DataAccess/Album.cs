@@ -23,7 +23,7 @@ namespace DataAccess
             this.Categories = new HashSet<Category>();
         }
     
-     
+        
         public string Title { get; set; }
         public string Description { get; set; }
         public System.DateTime PublishDate { get; set; }
@@ -37,7 +37,6 @@ namespace DataAccess
         public string BestWeeklySmIMG { get; set; }
         public string DetailsIMG { get; set; }
         public string OtherIMG { get; set; }
-  
         public int UserId { get; set; }
         public string ImgDescription { get; set; }
     

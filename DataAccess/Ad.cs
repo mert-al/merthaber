@@ -21,7 +21,7 @@ namespace DataAccess
             this.Videos = new HashSet<Video>();
         }
     
-        
+       
         public string PrerolTitle { get; set; }
         public string Preroll { get; set; }
         public string MidrollTitle { get; set; }
@@ -32,10 +32,10 @@ namespace DataAccess
         public Nullable<int> MidrollHit { get; set; }
         public Nullable<int> PostrollHit { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
-       
         public Nullable<int> User_ID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Video> Videos { get; set; }
+        public virtual User User { get; set; }
     }
 }

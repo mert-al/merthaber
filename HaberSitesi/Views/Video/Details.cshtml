@@ -197,7 +197,7 @@
 </style>
 <script>
     const myvideom = document.getElementById("videoPlayer");
-    myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
+    //myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
 
   
 
@@ -218,7 +218,7 @@
         preroll:
             [
                 {
-                    ads: ["../../XMLFiles/PrerolTitle.xml"]
+                    ads: ["../../XMLFiles/Preroll.xml"]
 
 
 
@@ -229,7 +229,7 @@
                 {
 
 
-                    ads: ["../../XMLFiles/MidrollTitle.xml"],
+                    ads: ["../../XMLFiles/Midroll.xml"],
                     time: (player.duration / 2)
 
                 }
@@ -237,7 +237,7 @@
         postroll:
             [
                 {
-                    ads: ["../../XMLFiles/PostrollTitle.xml"]
+                    ads: ["../../XMLFiles/Postroll.xml"]
                 }
             ],
         flashWrapperPath: "https://unpkg.com/vpaid-flash-client@0.1.9/bin/VPAIDFlash.swf",

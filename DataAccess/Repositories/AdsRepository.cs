@@ -34,30 +34,21 @@ namespace DataAccess.Repositories
                 throw ex;
             }
         }
+        public void UpdateHit(Ad reklam)
+        {
+            try
+            {
+                _db.Ads.Where(model => model.Preroll == reklam.Preroll ).FirstOrDefault().PrerollHit++;
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
-        //public String GetReklam(Ad reklamUrl)
-        //{
-        //   string reklam= _db.Ads.Find(reklamUrl).EmbedUrl.ToString();
-        //    return reklam;
-        //}
 
-        //public void Update(Ad reklam)
-        //{
-        //    try
-        //    {
-
-        //        reklam.UpdatedDate = DateTime.Now;
-        //        _db.Entry(reklam).State = EntityState.Modified;
-        //        _db.SaveChanges();
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
 
     }
 }

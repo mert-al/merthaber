@@ -75,121 +75,56 @@
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
+                        <div class="mb-3">
+
+                            @Html.LabelFor(model => model.User_ID, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" id="User_ID" name="User_ID" />
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
+                            </div>
+                        </div>
+
 
                         <button class="btn btn-primary" type="submit">Kaydet</button>
 
 
                         <div class="mb-3">
-            @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
-            <div class="col-md-12">
-                <input class="form-control"
-                       type="datetime-local"
-                       id="publishDate"
-                       name="publishDate"
-                       value="@DateTime.UtcNow.AddHours(3).ToString("yyyy-MM-ddTHH:mm:ss")" />
-                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.publishDateError</span>
-            </div>
-        </div>
+                            @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
+                            <div class="col-md-12">
+                                <input class="form-control"
+                                       type="datetime-local"
+                                       id="publishDate"
+                                       name="publishDate"
+                                       value="@DateTime.UtcNow.AddHours(3).ToString("yyyy-MM-ddTHH:mm:ss")" />
+                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.publishDateError</span>
+                            </div>
+                        </div>
+
+                        @{
+                            User user = (User)Session["User"];
+                            if (user.Role.Id != 3)
+                            {
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.isActive, new { htmlAttributes = new { @class = "form-check-input" } })
+                                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.HiddenFor(model => model.isActive)
+                                @Html.HiddenFor(model => model.isDeleted)
+                                @Html.HiddenFor(model => model.CreatedDate)
+                                @Html.HiddenFor(model => model.UpdatedDate)
+                                @Html.HiddenFor(model => model.User_ID)
+                            }
+                        }
 
 
                     </div>
-                    @*<div class="card-body row mx-5" id="secondStep" style="display:none">
-                        <h5>Anasayfa Slider</h5>
-                        <div class="col-5">
-                            <div id="slider" class="col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="sliderButton" class="btn btn-primary hide">Anasayfa Slider</button>
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedSlider" src="" alt="">
-                            <input type="hidden" id="MainSlider" name="MainSlider" />
-                        </div>
 
-                        <hr />
-                        <h5>Anasayfa Slider Alti</h5>
-                        <div class="col-5">
-                            <div id="sliderBottom" class=" col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="sliderBottomButton" class="btn btn-primary hide">Anasayfa Slider Alti</button>
-                            <input type="hidden" id="SliderBottom" name="SliderBottom" />
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedSliderBottom" src="" alt="">
-                        </div>
-
-                        <hr />
-                        <h5>Sidebar</h5>
-                        <div class="col-5">
-                            <div id="sidebar" class="col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="sidebarButton" class="btn btn-primary hide">Sidebar</button>
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedSidebar" src="" alt="">
-                            <input type="hidden" id="Sidebar" name="Sidebar" />
-                        </div>
-
-                        <hr />
-                        <h5>Haftanin En Iyileri</h5>
-                        <div class="col-5">
-                            <div id="bestWeekly" class=" col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="bestWeeklyButton" class="btn btn-primary hide">Haftanin En Iyileri</button>
-                            <input type="hidden" id="BestWeekly" name="BestWeekly" />
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedBestWeekly" src="" alt="">
-                        </div>
-
-                        <hr />
-                        <h5>Haftanin En Iyileri SM</h5>
-                        <div class="col-5">
-                            <div id="bestWeeklySm" class=" col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="bestWeeklySmButton" class="btn btn-primary hide">Haftanin En Iyileri SM</button>
-                            <input type="hidden" id="BestWeeklySm" name="BestWeeklySm" />
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedBestWeeklySm" src="" alt="">
-                        </div>
-
-                        <hr />
-                        <h5>Haber Detayi</h5>
-                        <div class="col-5">
-                            <div id="details" class=" col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="detailsButton" class="btn btn-primary hide">Haber Detayi</button>
-                            <input type="hidden" id="NewsDetail" name="NewsDetail" />
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedDetails" src="" alt="">
-                        </div>
-
-                        <hr />
-                        <h5>Digerleri</h5>
-                        <div class="col-5">
-                            <div id="otherNews" class=" col-12"></div>
-                        </div>
-                        <div class="col-2">
-                            <button id="otherNewsButton" class="btn btn-primary hide">Digerleri</button>
-                            <input type="hidden" id="OtherNews" name="OtherNews" />
-                        </div>
-                        <div class="col-5 img-result mb-3">
-                            <img id="croppedOther" src="" alt="">
-                        </div>
-                        <hr />
-                        <div class="card-action">
-                            <input type="button" id="backStep" value="Geri" class="btn btn-danger" />
-                           
-                        </div>
-
-                    </div>*@
                 </div>
             </div>
         </div>

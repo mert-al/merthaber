@@ -21,15 +21,16 @@ namespace DataAccess
             this.Albums = new HashSet<Album>();
             this.News = new HashSet<News>();
             this.Videos = new HashSet<Video>();
+            this.Ads = new HashSet<Ad>();
         }
     
-    
+        
         public string Name { get; set; }
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Password { get; set; }
         public System.DateTime Birthday { get; set; }
-  
+   
         public Nullable<int> Role_Id { get; set; }
         public string Img { get; set; }
     
@@ -40,5 +41,7 @@ namespace DataAccess
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Video> Videos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ad> Ads { get; set; }
     }
 }
