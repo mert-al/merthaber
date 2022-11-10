@@ -74,6 +74,15 @@
             </div>
         </div>
 
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <button type="submit" value="Delete" class="btn btn-danger">Sil</button>
+                <a href="~/News" class="btn btn-primary">Listeye Dön</a>
+            </div>
+        }
 
 
     </div>

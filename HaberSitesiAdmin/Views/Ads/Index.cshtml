@@ -45,32 +45,32 @@
                         <thead>
                             <tr>
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Img)</th>*@
-                                @*<th>@Html.DisplayNameFor(model => model.Items[0].User)</th>*@
+                                <th>@Html.DisplayNameFor(model => model.Items[0].User)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Preroll)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Midroll)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Postroll)</th>
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>*@
-                                @*<th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>*@
+                                <th>@Html.DisplayNameFor(model => model.Items[0].CreatedDate)</th>
                                 @*<th>@Html.DisplayNameFor(model => model.Items[0].Categories)</th>*@
-                                <th>@Html.DisplayNameFor(model => model.Items[0].isActive)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.Items[0].isActive)</th>*@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach (Ad item in Model.Items)
+                            @foreach (Ad item in Model.Items)   
                             {
                             <tr>
 
-                                @*<td>@item.User.Name @item.User.Surname</td>*@
+                                <td>@item.User.Name</td>
                                 <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Preroll</td>
                                 <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Midroll</td>
                                 <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Postroll</td>
 
-                                @*<td>
-            <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.PublishDate</p>
-        </td>*@
-
-
                                 <td>
+            <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.CreatedDate</p>
+        </td>
+
+
+                                @*<td>
                                     @{
                                         if (item.isActive)
                                         {
@@ -81,7 +81,7 @@
                                             <span class="badge bg-secondary">Pasif</span>
                                         }
                                     }
-                                </td>
+                                </td>*@
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
