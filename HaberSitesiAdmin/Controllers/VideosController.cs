@@ -73,7 +73,7 @@ namespace HaberSitesiAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img")] Video entity, 
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity, 
             HttpPostedFileBase file, HttpPostedFileBase videoFile , List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
