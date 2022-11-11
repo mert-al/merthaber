@@ -16,7 +16,6 @@ namespace DataAccess.Repositories
         {
             _db = context;
         }
-
         public void Create(Album album, int userId, List<String> SelectedCategories , List<AlbumIMG> albumIMGs)
         {
             try
