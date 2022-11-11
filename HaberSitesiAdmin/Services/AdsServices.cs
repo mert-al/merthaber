@@ -23,8 +23,7 @@ namespace HaberSitesiAdmin.Services
             try
             {
                 User user = (User)HttpContext.Current.Session["User"];
-                if (user.Role_Id == 3)
-                    reklam.isActive = false;
+               
                 _unitOfWork.AdsRepository.Create(reklam,user.Id);
                 
             }
@@ -57,7 +56,8 @@ namespace HaberSitesiAdmin.Services
         {
             try
             {
-                _unitOfWork.AdsRepository.Update(reklam);
+                User user = (User)HttpContext.Current.Session["User"];
+                _unitOfWork.AdsRepository.Update(reklam, user.Id);
             }
              catch (Exception ex)
             {
@@ -206,11 +206,14 @@ namespace HaberSitesiAdmin.Services
             XmlCDataSection CData = doc.CreateCDataSection(allData.ToString());
             HTMLResource.AppendChild(CData);
             Environment.CurrentDirectory = @"C:\Users\enes.sara\source\repos\mert-al\merthaber\HaberSitesi";
+        
             var basepath = Path.Combine(Environment.CurrentDirectory, @"XMLFiles\");
             if (!Directory.Exists(basepath))
             {
                 Directory.CreateDirectory(basepath);
             }
+            
+
             var newFileName = string.Format(name + ".xml");
             doc.Save(basepath + newFileName);
         }

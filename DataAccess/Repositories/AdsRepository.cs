@@ -47,13 +47,28 @@ namespace DataAccess.Repositories
                 throw ex;
             }
         }
+        public void Update(Ad reklam, int userId)
+        {
+            try
+            {
+                reklam.User = _db.Users.Find(userId);
+                reklam.UpdatedDate = DateTime.Now;
+                reklam.User_ID = userId;
+                _db.Entry(reklam).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         //public void UpdateHit(Ad reklam)
         //{
         //    try
         //    {
         //        _db.Ads.Where(model => model.PrerolTitle == reklam.T).FirstOrDefault().Hit++;
         //        _db.SaveChanges();
-                
+
         //    }
         //    catch (Exception ex)
         //    {
