@@ -28,18 +28,27 @@ namespace DataAccess
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<Ad> Ads { get; set; }
+        public virtual DbSet<AlbumIMG> AlbumIMGs { get; set; }
+        public virtual DbSet<Album> Albums { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<ContactForm> ContactForms { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Album> Albums { get; set; }
-        public virtual DbSet<AlbumIMG> AlbumIMGs { get; set; }
         public virtual DbSet<homePage> homePages { get; set; }
-        public virtual DbSet<Ad> Ads { get; set; }
+    
+        public virtual int AddVideoTime(string videoTime)
+        {
+            var videoTimeParameter = videoTime != null ?
+                new ObjectParameter("VideoTime", videoTime) :
+                new ObjectParameter("VideoTime", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddVideoTime", videoTimeParameter);
+        }
     
         public virtual int changeUserRole(Nullable<int> userID, Nullable<int> roleID)
         {
@@ -54,6 +63,15 @@ namespace DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("changeUserRole", userIDParameter, roleIDParameter);
         }
     
+        public virtual int clearCategoriesFromAlbum(Nullable<int> albumId)
+        {
+            var albumIdParameter = albumId.HasValue ?
+                new ObjectParameter("AlbumId", albumId) :
+                new ObjectParameter("AlbumId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearCategoriesFromAlbum", albumIdParameter);
+        }
+    
         public virtual int clearCategoriesFromNews(Nullable<int> newsId)
         {
             var newsIdParameter = newsId.HasValue ?
@@ -61,6 +79,24 @@ namespace DataAccess
                 new ObjectParameter("NewsId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearCategoriesFromNews", newsIdParameter);
+        }
+    
+        public virtual int clearCategoriesFromVideo(Nullable<int> videoId)
+        {
+            var videoIdParameter = videoId.HasValue ?
+                new ObjectParameter("VideoId", videoId) :
+                new ObjectParameter("VideoId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearCategoriesFromVideo", videoIdParameter);
+        }
+    
+        public virtual int clearImagesFromAlbum(Nullable<int> albumId)
+        {
+            var albumIdParameter = albumId.HasValue ?
+                new ObjectParameter("AlbumId", albumId) :
+                new ObjectParameter("AlbumId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearImagesFromAlbum", albumIdParameter);
         }
     
         public virtual int clearUserRole(Nullable<int> userID)
@@ -75,24 +111,6 @@ namespace DataAccess
         public virtual ObjectResult<getHomePageNews_Result> getHomePageNews()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getHomePageNews_Result>("getHomePageNews");
-        }
-    
-        public virtual int updateNewsHit(Nullable<int> newsId)
-        {
-            var newsIdParameter = newsId.HasValue ?
-                new ObjectParameter("NewsId", newsId) :
-                new ObjectParameter("NewsId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateNewsHit", newsIdParameter);
-        }
-    
-        public virtual int clearCategoriesFromVideo(Nullable<int> videoId)
-        {
-            var videoIdParameter = videoId.HasValue ?
-                new ObjectParameter("VideoId", videoId) :
-                new ObjectParameter("VideoId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearCategoriesFromVideo", videoIdParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -198,31 +216,13 @@ namespace DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual int clearCategoriesFromAlbum(Nullable<int> albumId)
+        public virtual int updateNewsHit(Nullable<int> newsId)
         {
-            var albumIdParameter = albumId.HasValue ?
-                new ObjectParameter("AlbumId", albumId) :
-                new ObjectParameter("AlbumId", typeof(int));
+            var newsIdParameter = newsId.HasValue ?
+                new ObjectParameter("NewsId", newsId) :
+                new ObjectParameter("NewsId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearCategoriesFromAlbum", albumIdParameter);
-        }
-    
-        public virtual int clearImagesFromAlbum(Nullable<int> albumId)
-        {
-            var albumIdParameter = albumId.HasValue ?
-                new ObjectParameter("AlbumId", albumId) :
-                new ObjectParameter("AlbumId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearImagesFromAlbum", albumIdParameter);
-        }
-    
-        public virtual int AddVideoTime(string videoTime)
-        {
-            var videoTimeParameter = videoTime != null ?
-                new ObjectParameter("VideoTime", videoTime) :
-                new ObjectParameter("VideoTime", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddVideoTime", videoTimeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateNewsHit", newsIdParameter);
         }
     }
 }

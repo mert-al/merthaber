@@ -16,13 +16,14 @@ namespace DataAccess.Repositories
             _db = context;
         }
 
-        public void Create(Ad reklam)
+        public void Create(Ad reklam ,int userId)
         {
             try
             {
-
+                reklam.User = _db.Users.Find(userId);
                 reklam.CreatedDate = DateTime.Now;
                 reklam.UpdatedDate = DateTime.Now;
+                reklam.User_ID = userId;
                 _db.Ads.Add(reklam);
                 _db.SaveChanges();
 
@@ -34,22 +35,39 @@ namespace DataAccess.Repositories
             }
         }
 
-
-        public String GetReklam(Ad reklamUrl)
+        public void UpdateHit(Ad reklam)
         {
-           string reklam= _db.Ads.Find(reklamUrl).EmbedUrl.ToString();
-            return reklam;
+            try
+            {
+                _db.Ads.Where(model => model.Preroll == reklam.Preroll ).FirstOrDefault().PrerollHit++;
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
-
-        //public void Update(Ad reklam)
+        public void Update(Ad reklam, int userId)
+        {
+            try
+            {
+                reklam.User = _db.Users.Find(userId);
+                reklam.UpdatedDate = DateTime.Now;
+                reklam.User_ID = userId;
+                _db.Entry(reklam).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        //public void UpdateHit(Ad reklam)
         //{
         //    try
         //    {
-
-        //        reklam.UpdatedDate = DateTime.Now;
-        //        _db.Entry(reklam).State = EntityState.Modified;
+        //        _db.Ads.Where(model => model.PrerolTitle == reklam.T).FirstOrDefault().Hit++;
         //        _db.SaveChanges();
-
 
         //    }
         //    catch (Exception ex)
@@ -57,6 +75,8 @@ namespace DataAccess.Repositories
         //        throw ex;
         //    }
         //}
+
+
 
     }
 }

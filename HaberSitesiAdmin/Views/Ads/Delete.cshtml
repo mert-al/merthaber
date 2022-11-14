@@ -1,0 +1,91 @@
+﻿@model DataAccess.Ad
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h1 class="fw-bold py-3 mb-4">
+        Videolar /
+        <a href="~/Videos/Create" class="btn btn-primary mb-3">Video Oluştur</a>
+    </h1>
+
+    <div class="row mb-5 card">
+        <div class="card-header">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.PrerolTitle, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.PrerolTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PrerolTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="card-header">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Preroll, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Preroll, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Preroll, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-header">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.MidrollTitle, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.MidrollTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MidrollTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Midroll, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Midroll, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Midroll, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.PostrollTitle, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.PostrollTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PostrollTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-header">
+            <div class="mb-3">
+                @Html.LabelFor(model => model.Postroll, htmlAttributes: new { @class = "form-label" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Postroll, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Postroll, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <button type="submit" value="Delete" class="btn btn-danger">Sil</button>
+                <a href="~/News" class="btn btn-primary">Listeye Dön</a>
+            </div>
+        }
+
+
+    </div>
+</div>
+
+

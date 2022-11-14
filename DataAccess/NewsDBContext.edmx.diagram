@@ -4,33 +4,34 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="dbc433cc56504d068152c07d30ab08a1" Name="Diagram1">
-        <EntityTypeShape EntityType="HaberSitesiModel.C__MigrationHistory" Width="1.5" PointX="7.25" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Category" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.ContactForm" Width="1.5" PointX="9.75" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.News" Width="1.5" PointX="5.375" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Review" Width="1.5" PointX="7.125" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Role" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.User" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Video" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="23ad86deb67d4814a83119e480eb3f1a" Name="Diagram1">
+        <EntityTypeShape EntityType="HaberSitesiModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Ad" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.AlbumIMG" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Album" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Category" Width="1.5" PointX="7.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.ContactForm" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.News" Width="1.5" PointX="9.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Review" Width="1.5" PointX="15" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Role" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.User" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.Video" Width="1.5" PointX="12.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="HaberSitesiModel.homePage" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="HaberSitesiModel.FK_AlbumIMGs_Albums" ManuallyRouted="false" />
+        <AssociationConnector Association="HaberSitesiModel.FK_Albums_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="HaberSitesiModel.FK_Reviews_Albums" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.FK_dbo_News_dbo_Users_User_Id" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.FK_dbo_Reviews_dbo_News_News_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="HaberSitesiModel.FK_Reviews_Videos" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.FK_dbo_Users_dbo_Roles_Role_Id" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.FK_dbo_Videos_dbo_Users_User_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="HaberSitesiModel.AlbumCategories" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.NewsCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="HaberSitesiModel.VideoAds" ManuallyRouted="false" />
         <AssociationConnector Association="HaberSitesiModel.VideoCategories" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="HaberSitesiModel.sysdiagram" Width="1.5" PointX="0.75" PointY="8.75" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Album" Width="1.5" PointX="10.5" PointY="4.5" />
-        <AssociationConnector Association="HaberSitesiModel.FK_Albums_Users" />
-        <AssociationConnector Association="HaberSitesiModel.AlbumCategories" />
-        <EntityTypeShape EntityType="HaberSitesiModel.AlbumIMG" Width="1.5" PointX="12.75" PointY="5.625" />
-        <AssociationConnector Association="HaberSitesiModel.FK_AlbumIMGs_Albums" />
-        <AssociationConnector Association="HaberSitesiModel.FK_Reviews_Albums" />
-        <AssociationConnector Association="HaberSitesiModel.FK_Reviews_Videos" />
-        <EntityTypeShape EntityType="HaberSitesiModel.homePage" Width="1.5" PointX="5.375" PointY="8.75" />
-        <EntityTypeShape EntityType="HaberSitesiModel.Ad" Width="1.5" PointX="0.75" PointY="12" />
-        <AssociationConnector Association="HaberSitesiModel.VideoAds" />
-        </Diagram>
+        <AssociationConnector Association="HaberSitesiModel.FK_Ads_Users" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

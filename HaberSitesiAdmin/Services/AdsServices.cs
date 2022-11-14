@@ -22,21 +22,63 @@ namespace HaberSitesiAdmin.Services
         {
             try
             {
-                _unitOfWork.AdsRepository.Create(reklam);
-
+                User user = (User)HttpContext.Current.Session["User"];
+               
+                _unitOfWork.AdsRepository.Create(reklam,user.Id);
+                
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
-       //public String SaveVideo(String fileName, HttpPostedFileBase file)
-       //{
-       //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/XMLFiles/"), file.FileName);
-       //    string _url = Path.Combine("/XMLFiles/", file.FileName);
-       //    file.SaveAs(_path);
-       //    return _url;
-       //}
+        //public String SaveVideo(String fileName, HttpPostedFileBase file)
+        //{
+        //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/XMLFiles/"), file.FileName);
+        //    string _url = Path.Combine("/XMLFiles/", file.FileName);
+        //    file.SaveAs(_path);
+        //    return _url;
+        //}
+
+        public Ad Get(int id)
+        {
+            try
+            {
+                return _unitOfWork.AdsRepository.Get(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Update(Ad reklam)
+        {
+            try
+            {
+                User user = (User)HttpContext.Current.Session["User"];
+                _unitOfWork.AdsRepository.Update(reklam, user.Id);
+            }
+             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        public void Delete(int id)
+        {
+            try
+            {
+                _unitOfWork.AdsRepository.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
 
 
         public PageDTO<Ad> GetPage(PageDTO<Ad> pageDTO)
@@ -44,7 +86,7 @@ namespace HaberSitesiAdmin.Services
             try
             {
                 var searchStatus = String.IsNullOrWhiteSpace(pageDTO.SearchQuery);
-                var items = _unitOfWork.AdsRepository.GetAll().Where(model => (searchStatus || model.Title.Contains(pageDTO.SearchQuery)));
+                var items = _unitOfWork.AdsRepository.GetAll().Where(model => (searchStatus || model.PostrollTitle.Contains(pageDTO.SearchQuery)));
                 pageDTO.Pager = new Pager(items.Count(), pageDTO.Index, pageDTO.PageSize, 10);
                 if (items.Count() != 0)
                 {
@@ -58,14 +100,26 @@ namespace HaberSitesiAdmin.Services
             }
         }
 
-        //public void GenerateXML(List<Ad> reklams)
+        //public void GeneraXML(Ad reklam)
         //{
-        //    foreach (var item in reklams)
+        //    for (int i = 0; i <  i++)
         //    {
-        //        GenerateXML(item);
+        //        GenerateXML(reklam);
         //    }
         //}
+
+
+
         public void GenerateXML(Ad reklam)
+        {
+            
+            writeXml(reklam.Preroll,reklam.PrerolTitle);
+            writeXml(reklam.Midroll,reklam.MidrollTitle);
+            writeXml(reklam.Postroll, reklam.PostrollTitle);
+
+        }
+
+        private static void writeXml(string url, string name)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode xmlNode = doc.CreateXmlDeclaration("1.0", null, null);
@@ -73,6 +127,8 @@ namespace HaberSitesiAdmin.Services
             XmlElement Vast = doc.CreateElement("VAST");
             (Vast).SetAttribute("version", "2.0");
             doc.AppendChild(Vast);
+
+
 
             XmlElement Ad = doc.CreateElement("Ad");
             (Ad).SetAttribute("id", "preroll-1");
@@ -128,8 +184,7 @@ namespace HaberSitesiAdmin.Services
             (MediaFile).SetAttribute("apiFramework", "VPAID");
             MediaFiles.AppendChild(MediaFile);
 
-           
-            XmlCDataSection CData1 = doc.CreateCDataSection(reklam.EmbedUrl);
+            XmlCDataSection CData1 = doc.CreateCDataSection(url);
             MediaFile.AppendChild(CData1);
 
 
@@ -151,22 +206,16 @@ namespace HaberSitesiAdmin.Services
             XmlCDataSection CData = doc.CreateCDataSection(allData.ToString());
             HTMLResource.AppendChild(CData);
             Environment.CurrentDirectory = @"C:\Users\enes.sara\source\repos\mert-al\merthaber\HaberSitesi";
+        
             var basepath = Path.Combine(Environment.CurrentDirectory, @"XMLFiles\");
             if (!Directory.Exists(basepath))
             {
                 Directory.CreateDirectory(basepath);
             }
-            var newFileName = string.Format(reklam.Title + ".xml");
-            doc.Save(basepath + newFileName);
-
-
-
-     
-
             
 
-
-
+            var newFileName = string.Format(name + ".xml");
+            doc.Save(basepath + newFileName);
         }
     }
 

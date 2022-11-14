@@ -38,39 +38,106 @@ namespace HaberSitesiAdmin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,EmbedUrl")] Ad reklam)
+        public ActionResult Create([Bind(Include = "Id,Title,PrerolTitle,MidrollTitle,PostrollTitle,Midroll,Preroll,Postroll")] Ad reklam)
 
         {
-           
-                try
-                {
 
+            try
+            { 
+                _adsServices.Create(reklam);
+                _adsServices.GenerateXML(reklam);                                    
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+                    //new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ad reklam= _adsServices.Get(id.Value);
+            if (reklam == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View();
+        }
+
+        // POST: Videos/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Title,Midroll,Preroll,Postroll")] Ad reklam)
+        {
+
+            try
+            {
+                _adsServices.Update(reklam);
                 
-                    //if (videoFile.ContentLength > 0)
-                    //{
-
-                    //    return _adsServices.GenerateXML(reklam);
-                    //}
-
-
-                    //reklam.PublishDate = DateTime.Parse(publishDate);
-                    _adsServices.Create(reklam);
-                    _adsServices.GenerateXML(reklam);
-
-
-
-
-
-                    return RedirectToAction("Index");
-                }
-                catch
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }        }
+                }
 
+            }
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Ad video = _adsServices.Get(id.Value);
+            if (video == null)
+            {
+                return HttpNotFound();
+            }
+            return View(video);
+        }
+
+        // POST: Videos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _adsServices.Delete(id);
+            return RedirectToAction("Index");
+        }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            try
+            {
+                var ad = _adsServices.Get(id.Value);
+                if (ad == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(ad);
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+        }
+    }
 
 
 
 
     }
-}
+

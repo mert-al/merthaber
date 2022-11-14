@@ -135,6 +135,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ContactFormController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Models\IndexPageDto.cs" />
     <Compile Include="Models\NewsAlbumMix.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdServices.cs" />
     <Compile Include="Services\AlbumServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
     <Compile Include="Services\ContactFormServices.cs" />
@@ -525,7 +527,7 @@
     <Content Include="Views\Category\_NewsInfinite.cshtml" />
     <Content Include="Views\Album\Details.cshtml" />
     <Content Include="Views\Shared\Component\AlbumSidebar.cshtml" />
-    <Content Include="Views\News\Index.cshtml">
+    <Content Include="Views\Home\Index.cshtml">
       <BrowseToURL>~/</BrowseToURL>
     </Content>
     <Content Include="Views\Category\Albums.cshtml" />
@@ -545,6 +547,7 @@
     <Content Include="Views\Error\Page404.cshtml" />
     <Content Include="Views\News\_DetailInfinite.cshtml" />
     <Content Include="Views\Shared\Component\_DetailsInfinite.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
