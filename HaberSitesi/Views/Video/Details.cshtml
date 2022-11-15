@@ -6,7 +6,6 @@
     Layout = "~/Views/Shared/Layouts/_videoLayout.cshtml";
     ViewBag.Item = Model.Item.Title;
 }
-<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.9.0/videojs.ads.min.js"></script>
 <div class="about-area mt-5">
     <div class="container">
         <!-- Hot Aimated News Tittle-->
@@ -125,8 +124,6 @@
 
 
 
-<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
-
 <style>
     /* Player Skin Designer for Video.js http://videojs.com To customize the player skin edit the CSS below. Click "details" below to add comments or questions. This file uses some SCSS. Learn more at http://sass-lang.com/guide) This designer can be linked to at: https://codepen.io/heff/pen/EarCt/left/?editors=010 */
     .video-js {
@@ -198,8 +195,8 @@
 <script>
     const myvideom = document.getElementById("videoPlayer");
     myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
-    
-   
+
+
 
 </script>
 
@@ -210,10 +207,15 @@
 
     var player = window.player = videojs("videoPlayer");
 
-          if (player) {
-              player.play();
-          }
-      
+    if (player) {
+        player.play();
+    }
+
+    //if (player) {
+    //    player.pause()
+    //}
+
+
     player.vastWaterfall({
         preroll:
             [
@@ -230,7 +232,7 @@
 
 
                     ads: ["../../XMLFiles/Midroll.xml"],
-                    time: 100
+                    time: 240
                 }
             ],
         postroll:
@@ -242,7 +244,7 @@
         flashWrapperPath: "https://unpkg.com/vpaid-flash-client@0.1.9/bin/VPAIDFlash.swf",
         debug: true
     })
-   
+
 </script>
 
 
@@ -274,7 +276,7 @@
 
 
 
-    @*//var playe = videojs('videoPlayer');
+@*//var playe = videojs('videoPlayer');
     //var myPlayer = videojs('videoPlayer');
 
     //if (myPlayer.readyState() < 1) {

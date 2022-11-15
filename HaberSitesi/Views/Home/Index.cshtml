@@ -64,72 +64,72 @@
                                     <a href="~/@newsAlbumMixes[0].path@newsAlbumMixes[0].Categories.FirstOrDefault().url/@newsAlbumMixes[0].url">
                                         @newsAlbumMixes[0].Title">
 
-                                    <img src="@ViewBag.apiUrl/@newsAlbumMixes[0].MainSliderIMG" alt="">
-                                </a>
-                                <div class="trend-top-cap">
+                                        <img src="@ViewBag.apiUrl/@newsAlbumMixes[0].MainSliderIMG" alt="">
+                                    </a>
+                                    <div class="trend-top-cap">
 
-                                    <h2>
-                                        <a href="~/@newsAlbumMixes[0].path@newsAlbumMixes[0].Categories.FirstOrDefault().url/@newsAlbumMixes[0].url">@newsAlbumMixes[0].Title</a>
-                                    </h2>
+                                        <h2>
+                                            <a href="~/@newsAlbumMixes[0].path@newsAlbumMixes[0].Categories.FirstOrDefault().url/@newsAlbumMixes[0].url">@newsAlbumMixes[0].Title</a>
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <hidden hidden>@newsAlbumMixes.Remove(newsAlbumMixes[0])</hidden>
+                            <hidden hidden>@newsAlbumMixes.Remove(newsAlbumMixes[0])</hidden>
 
-                        <div class="trending-bottom">
-                            <div class="row">
+                            <div class="trending-bottom">
+                                <div class="row">
 
-                                @foreach (NewsAlbumMix item in newsAlbumMixes.GetRange(0, 3))
-                                {
-                                    <div class="col-lg-4">
-                                        <div class="single-bottom mb-35">
-                                            <div class="trend-bottom-img mb-30">
-                                                <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">
-                                                    <img src="@ViewBag.apiUrl/@item.SliderBottomIMG" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="trend-bottom-cap">
+                                    @foreach (NewsAlbumMix item in newsAlbumMixes.GetRange(0, 3))
+                                    {
+                                        <div class="col-lg-4">
+                                            <div class="single-bottom mb-35">
+                                                <div class="trend-bottom-img mb-30">
+                                                    <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">
+                                                        <img src="@ViewBag.apiUrl/@item.SliderBottomIMG" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="trend-bottom-cap">
 
-                                                <h4>
-                                                    <a style="overflow:hidden; -webkit-box-orient: vertical;  -webkit-line-clamp: 2; display: -webkit-box; "
-                                                       href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a>
-                                                </h4>
+                                                    <h4>
+                                                        <a style="overflow:hidden; -webkit-box-orient: vertical;  -webkit-line-clamp: 2; display: -webkit-box; "
+                                                           href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a>
+                                                    </h4>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hidden hidden>
-                        @{
-                            newsAlbumMixes.RemoveRange(0, 3);
-                        }
-                    </hidden>
+                        <hidden hidden>
+                            @{
+                                newsAlbumMixes.RemoveRange(0, 3);
+                            }
+                        </hidden>
 
-                    <div class="col-lg-4">
+                        <div class="col-lg-4">
 
-                        @foreach (NewsAlbumMix item in newsAlbumMixes.GetRange(0, 6))
-                        {
-                            <div class="trand-right-single d-flex">
-                                <div class="trand-right-img">
-                                    <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">
-                                        <img style="max-width:120px" src="@ViewBag.apiUrl/@item.SidebarIMG" alt="">
-                                    </a>
+                            @foreach (NewsAlbumMix item in newsAlbumMixes.GetRange(0, 6))
+                            {
+                                <div class="trand-right-single d-flex">
+                                    <div class="trand-right-img">
+                                        <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">
+                                            <img style="max-width:120px" src="@ViewBag.apiUrl/@item.SidebarIMG" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="trand-right-cap">
+
+                                        <h4 style="font-size:15px">
+                                            <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a>
+                                        </h4>
+                                    </div>
                                 </div>
-                                <div class="trand-right-cap">
+                            }
 
-                                    <h4 style="font-size:15px">
-                                        <a href="~/@item.path@item.Categories.FirstOrDefault().url/@item.url">@item.Title</a>
-                                    </h4>
-                                </div>
-                            </div>
-                        }
-
-                    </div>
-                    newsAlbumMixes.RemoveRange(0, 6);
+                        </div>
+                        newsAlbumMixes.RemoveRange(0, 6);
 
 
                     }
@@ -652,8 +652,13 @@
                         @{
                             foreach (Video item in videos)
                             {
-                                <div class="video-items text-center">
-                                    @Html.Raw(item.EmbedUrl)
+                                <div class="video-items-active">
+                                    <video controls id="videoPlayer" class="video-js vjs-default-skin"  width="900" height="500" data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5,1, 1.5, 2, 2.5 , 3]  }'>
+                                        <source src="@ViewBag.apiUrl/@item.EmbedUrl" type="video/mp4">
+                                        <div id="duration"></div>
+
+
+                                    </video>
                                 </div>
                             }
                         }
@@ -685,8 +690,12 @@
                             @{
                                 foreach (Video item in videos)
                                 {
-                                    <div class="single-video">
-                                        @Html.Raw(item.EmbedUrl)
+                                    <div class="single-video mr-2">
+                                        <div class="video-items-active">
+                                            <video controls id="videoPlayer" class="video-js vjs-default-skin" width="500" height="300" data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5,1, 1.5, 2, 2.5 , 3]  }'>
+                                                <source src="@ViewBag.apiUrl/@item.EmbedUrl" type="video/mp4">
+                                            </video>
+                                        </div>
                                         <div class="video-intro">
                                             <h4>@item.Title</h4>
                                         </div>

@@ -51,7 +51,7 @@
                                     <div class="trending-bottom">
                                         <div class="row">
 
-                                            @foreach (Video item in videos.GetRange(0, 12))
+                                            @foreach (Video item in videos.GetRange(0, 5))
                                             {
                                             <div class="col-lg-4">
                                                 <div class="single-bottom mb-35">
@@ -75,7 +75,7 @@
                                 </div>
                                 <hidden hidden>
                                     @{
-                                    videos.RemoveRange(0, 12);
+                                    videos.RemoveRange(0, 5);
                                     }
                                 </hidden>
 
