@@ -12,5 +12,6 @@ namespace HaberSitesi.Models
         public T Item { get; set; }
         public List<T> Sidebar { get; set; }
         public List<T> TrendingNow { get; set; }
+        public Ad Ads { get; set; }
     }
 }

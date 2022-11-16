@@ -41,6 +41,14 @@ namespace DataAccess
         public string OtherIMG { get; set; }
         public string url { get; set; }
         public string VideoTime { get; set; }
+        //public TimeSpan VideoTime { get; set; }
+        //public TimeSpan VideoTimeAsInt
+        //{
+        //    get
+        //    {
+        //        return VideoTime.TotalSeconds;
+        //    }
+        //}
         public Nullable<int> Ads_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

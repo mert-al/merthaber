@@ -45,6 +45,7 @@ namespace HaberSitesi.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
+                //dtoVideoDetails.Ads = Ad.services(getAdByReklamType )
                 return View(dtoVideoDetails);
 
             }
