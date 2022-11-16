@@ -98,7 +98,8 @@ namespace HaberSitesiAdmin.Controllers
                             IShellProperty prop = shell.Properties.System.Media.Duration;
                             var t = (ulong)prop.ValueAsObject;
                             var asd = TimeSpan.FromTicks((long)t);
-                            entity.VideoTime = asd.ToString ();
+                            entity.VideoTime = asd.ToString ();                            
+                            
                         }
                         
                     }
@@ -180,6 +181,17 @@ namespace HaberSitesiAdmin.Controllers
                     if (videoFile.ContentLength > 0)
                     {
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
+
+
+                        var asdas = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
+                        using (var shell = ShellObject.FromParsingName(asdas))
+                        {
+                            IShellProperty prop = shell.Properties.System.Media.Duration;
+                            var t = (ulong)prop.ValueAsObject;
+                            var asd = TimeSpan.FromTicks((long)t);
+                            entity.VideoTime = asd.ToString();
+                           
+                        }
                     }
                     if (file.ContentLength > 0)
                     {

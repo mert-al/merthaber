@@ -122,8 +122,6 @@
 
 
 
-
-
 <style>
     /* Player Skin Designer for Video.js http://videojs.com To customize the player skin edit the CSS below. Click "details" below to add comments or questions. This file uses some SCSS. Learn more at http://sass-lang.com/guide) This designer can be linked to at: https://codepen.io/heff/pen/EarCt/left/?editors=010 */
     .video-js {
@@ -209,13 +207,13 @@
 
     if (player) {
         player.play();
-             
+
     }
 
-    //if (player) {
-    //    player.pause()
-    //}
-
+    var hms = '@Model.Item.VideoTime';
+    var a = hms.split(':'); 
+    var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
+  
 
     player.vastWaterfall({
         preroll:
@@ -233,7 +231,7 @@
 
 
                     ads: ["../../XMLFiles/Midroll.xml"],
-                    time: 240
+                    time: seconds/2
                 }
             ],
         postroll:
