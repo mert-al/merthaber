@@ -41,6 +41,7 @@ namespace HaberSitesiAdmin.Controllers
         public ActionResult Create([Bind(Include = "Id,Title,PrerolTitle,MidrollTitle,PostrollTitle,Midroll,Preroll,Postroll")] Ad reklam)
 
         {
+            
 
             try
             { 

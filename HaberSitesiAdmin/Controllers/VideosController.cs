@@ -12,6 +12,8 @@ using System.Web.Mvc;
 using DataAccess;
 using HaberSitesiAdmin.Models;
 using HaberSitesiAdmin.Services;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 namespace HaberSitesiAdmin.Controllers
 {
@@ -73,19 +75,32 @@ namespace HaberSitesiAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity, 
-            HttpPostedFileBase file, HttpPostedFileBase videoFile , List<String> SelectedCategories,
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
+            HttpPostedFileBase file, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
         {
-            if (ModelState.IsValid && file != null && videoFile!=null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate)) { 
+
+            if (ModelState.IsValid && file != null && videoFile != null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate))
+            {
                 try
                 {
                     entity.url = entity.Title.ToLower().Replace("ü", "u").Replace("ş", "s").Replace("ç", "c").Replace("ğ", "g").Replace("ö", "o").Replace("ı", "i") + "-";
                     entity.url = Regex.Replace(entity.url, @"[^0-9a-z]", "-").Replace("--", "-").Replace("--", "-").Replace("--", "-");
-                    if(videoFile.ContentLength > 0)
+                    if (videoFile.ContentLength > 0)
                     {
-                        entity.EmbedUrl=_videoServices.SaveVideo(entity.url, videoFile);
+
+                        entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
+                        //var asdas = Path.Combine( Server.MapPath("~/") + entity.EmbedUrl).Replace("/","\\").Replace("\\\\","\\");
+                        var asdas = Path.GetFullPath( Server.MapPath("~/") + entity.EmbedUrl);
+                        using (var shell = ShellObject.FromParsingName(asdas))
+                        {
+                            IShellProperty prop = shell.Properties.System.Media.Duration;
+                            var t = (ulong)prop.ValueAsObject;
+                            var asd = TimeSpan.FromTicks((long)t);
+                            entity.VideoTime = asd.ToString ();
+                        }
+                        
                     }
                     if (file.ContentLength > 0)
                     {
@@ -149,11 +164,11 @@ namespace HaberSitesiAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,Img,EmbedUrl,Hit,PublishDate,CreatedDate,url,UpdatedDate,isActive,isDeleted,User_Id,MainSliderIMG,SidebarIMG,SliderBottomIMG,BestWeeklyIMG,BestWeeklySmIMG,DetailsIMG,OtherIMG")] Video entity, 
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,Img,EmbedUrl,Hit,PublishDate,CreatedDate,url,UpdatedDate,isActive,isDeleted,User_Id,MainSliderIMG,SidebarIMG,SliderBottomIMG,BestWeeklyIMG,BestWeeklySmIMG,DetailsIMG,OtherIMG")] Video entity,
             HttpPostedFileBase file, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
         {
-            if (ModelState.IsValid && videoFile!=null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate))
+            if (ModelState.IsValid && videoFile != null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate))
             {
                 try
                 {
@@ -197,7 +212,7 @@ namespace HaberSitesiAdmin.Controllers
             {
                 ViewBag.fileError = "Lütfen Video Görseli Yükleyiniz";
             }
-                if (SelectedCategories == null)
+            if (SelectedCategories == null)
             {
                 ViewBag.categoryError = "Lütfen Kategori Seçiniz";
             }

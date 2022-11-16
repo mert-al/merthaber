@@ -12,6 +12,8 @@ using System.Web.Mvc;
 using DataAccess;
 using HaberSitesiAdmin.Models;
 using HaberSitesiAdmin.Services;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 namespace HaberSitesiAdmin.Controllers
 {
@@ -29,6 +31,12 @@ namespace HaberSitesiAdmin.Controllers
         //GET: News
         public ActionResult Index(PageDTO<News> pageDTO)
         {
+            //using (var shell = ShellObject.FromParsingName(@"C:\Users\mertali.cetin\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\Storage\Video\Videos\Küçük Çocuğun Sevimli Şikayeti.mp4"))
+            //{
+            //    IShellProperty prop = shell.Properties.System.Media.Duration;
+            //    var t = (ulong)prop.ValueAsObject;
+            //    var asd = TimeSpan.FromTicks((long)t);
+            //}
             ViewBag.apiUrl = ConfigurationManager.AppSettings.Get("apiUrl");
             pageDTO.Index = pageDTO.Index == 0 ? 1 : pageDTO.Index;
             pageDTO.PageSize = pageDTO.PageSize == 0 ? 10 : pageDTO.PageSize;
