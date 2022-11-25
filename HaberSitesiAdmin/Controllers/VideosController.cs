@@ -92,13 +92,13 @@ namespace HaberSitesiAdmin.Controllers
 
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
                         //var asdas = Path.Combine( Server.MapPath("~/") + entity.EmbedUrl).Replace("/","\\").Replace("\\\\","\\");
-                        var asdas = Path.GetFullPath( Server.MapPath("~/") + entity.EmbedUrl);
-                        using (var shell = ShellObject.FromParsingName(asdas))
+                        var videoPath = Path.GetFullPath( Server.MapPath("~/") + entity.EmbedUrl);
+                        using (var shell = ShellObject.FromParsingName(videoPath))
                         {
                             IShellProperty prop = shell.Properties.System.Media.Duration;
                             var t = (ulong)prop.ValueAsObject;
-                            var asd = TimeSpan.FromTicks((long)t);
-                            entity.VideoTime = asd.ToString ();                            
+                            var durationtime = TimeSpan.FromTicks((long)t);
+                            entity.VideoTime = durationtime.ToString();             
                             
                         }
                         

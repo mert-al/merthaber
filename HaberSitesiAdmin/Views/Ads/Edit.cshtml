@@ -25,34 +25,33 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <a href="~/Ads" class="btn btn-primary mb-3">Reklam Listesi</a>
                     </div>
+
                     <div class="card-body mx-5" id="firstStep">
                         <div class="mb-3">
+
                             @Html.LabelFor(model => model.PrerolTitle, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.PrerolTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                <input class="form-control" type="text" id="PrerolTitle" name="PrerolTitle" value="Prerolls" readonly="readonly"; />
                                 @Html.ValidationMessageFor(model => model.PrerolTitle, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="mb-3">
-
                             @Html.LabelFor(model => model.Preroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
                                 <input class="form-control" type="text" id="Preroll" name="Preroll" />
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
-
                         <div class="mb-3">
                             @Html.LabelFor(model => model.MidrollTitle, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.MidrollTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                <input class="form-control" type="text" id="MidrollTitle" name="MidrollTitle" value="Midrolls" readonly="readonly"; />
                                 @Html.ValidationMessageFor(model => model.MidrollTitle, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="mb-3">
-
                             @Html.LabelFor(model => model.Midroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
                                 <input class="form-control" type="text" id="Midroll" name="Midroll" />
@@ -61,10 +60,10 @@
                         </div>
 
                         @Html.LabelFor(model => model.PostrollTitle, htmlAttributes: new { @class = "form-label" })
-                        <div class="col-md-12">
-                            @Html.EditorFor(model => model.PostrollTitle, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.PostrollTitle, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-12">
+                        <input class="form-control" type="text" id="PostrollTitle" name="PostrollTitle" value="Postrolls" readonly="readonly" ; />
+                        @Html.ValidationMessageFor(model => model.PostrollTitle, "", new { @class = "text-danger" })
+                    </div>
 
 
 
@@ -75,18 +74,18 @@
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
-                  
+
                         @*<div class="mb-3">
-            @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
-            <div class="col-md-12">
-                <input class="form-control"
-                       type="datetime-local"
-                       value="@Model.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss")""
-                       id="publishDate"
-                       name="publishDate" />
-                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.publishDateError</span>
-            </div>
-        </div>*@
+                                @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
+                                <div class="col-md-12">
+                                    <input class="form-control"
+                                           type="datetime-local"
+                                           value="@Model.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss")""
+                                           id="publishDate"
+                                           name="publishDate" />
+                                    <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.publishDateError</span>
+                                </div>
+                            </div>*@
 
                         <button class="btn btn-primary" type="submit">Kaydet</button>
                     </div>
@@ -95,7 +94,7 @@
                     @Html.HiddenFor(model => model.isDeleted)
                     @Html.HiddenFor(model => model.CreatedDate)
                     @Html.HiddenFor(model => model.UpdatedDate)
-                   
+
 
                 </div>
             </div>
