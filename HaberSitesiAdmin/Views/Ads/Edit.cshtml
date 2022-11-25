@@ -39,7 +39,7 @@
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Preroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                <input class="form-control" type="text" id="Preroll" name="Preroll" />
+                                @Html.EditorFor(model => model.Preroll, new { htmlAttributes = new { @class = "form-control" } })
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Midroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                <input class="form-control" type="text" id="Midroll" name="Midroll" />
+                                @Html.EditorFor(model => model.Midroll, new { htmlAttributes = new { @class = "form-control" } })
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Postroll, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                <input class="form-control" type="text" id="Postroll" name="Postroll" />
+                                @Html.EditorFor(model => model.Postroll, new { htmlAttributes = new { @class = "form-control" } })
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>

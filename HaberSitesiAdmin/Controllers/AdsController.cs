@@ -68,7 +68,7 @@ namespace HaberSitesiAdmin.Controllers
                 return HttpNotFound();
             }
 
-            return View();
+            return View(reklam);
         }
 
         // POST: Videos/Edit/5
@@ -86,7 +86,7 @@ namespace HaberSitesiAdmin.Controllers
                 
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception ex)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }

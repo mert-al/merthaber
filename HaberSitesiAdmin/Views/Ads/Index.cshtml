@@ -30,7 +30,7 @@
                 }*@
 
         </div>
-        <div class="table-responsive text-nowrap">
+        <div class="table-responsive text-nowrap customTable">
             @{
                 if (Model.Pager.TotalItems == 0)
                 {
@@ -61,13 +61,10 @@
                             <tr>
 
                                 <td>@item.User.Name @item.User.Surname</td>
-                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Preroll</td>
-                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Midroll</td>
-                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;">@item.Postroll</td>
-
-                                <td>
-            <p style="max-width: 55ch;overflow: hidden;text-overflow: ellipsis;">@item.CreatedDate</p>
-        </td>
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;" title="@item.Preroll">@item.Preroll</td>
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;" title="@item.Midroll">@item.Midroll</td>
+                                <td style="max-width: 50ch;overflow: hidden;text-overflow: ellipsis;" title="@item.Postroll">@item.Postroll</td>
+                                <td>@item.CreatedDate</td>
 
 
                                 @*<td>
@@ -92,12 +89,12 @@
                                             <a class="dropdown-item" href="~/Ads/Edit/@item.Id">
                                                 <i class="bx bx-edit-alt me-1"></i> Düzenle
                                             </a>
-                                            <a class="dropdown-item" href="~/Ads/Details/@item.Id">
+                                            @*<a class="dropdown-item" href="~/Ads/Details/@item.Id">
                                                 <i class="bx bx-detail me-1"></i> Detaylar
                                             </a>
                                             <a class="dropdown-item" href="~/Ads/Delete/@item.Id">
                                                 <i class="bx bx-trash me-1"></i> Sil
-                                            </a>
+                                            </a>*@
                                         </div>
                                     </div>
                                 </td>

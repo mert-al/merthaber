@@ -205,7 +205,7 @@ namespace HaberSitesiAdmin.Services
 
             XmlCDataSection CData = doc.CreateCDataSection(allData.ToString());
             HTMLResource.AppendChild(CData);
-            Environment.CurrentDirectory = @"C:\Users\enes.sara\source\repos\mert-al\merthaber\HaberSitesi";
+            Environment.CurrentDirectory = AppContext.BaseDirectory;
         
             var basepath = Path.Combine(Environment.CurrentDirectory, @"XMLFiles\");
             if (!Directory.Exists(basepath))
