@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DataAccess;
@@ -14,6 +15,7 @@ using HaberSitesiAdmin.Models;
 using HaberSitesiAdmin.Services;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+using Xabe.FFmpeg;
 
 namespace HaberSitesiAdmin.Controllers
 {
@@ -75,7 +77,7 @@ namespace HaberSitesiAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
+        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
             HttpPostedFileBase file, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
@@ -89,10 +91,20 @@ namespace HaberSitesiAdmin.Controllers
                     entity.url = Regex.Replace(entity.url, @"[^0-9a-z]", "-").Replace("--", "-").Replace("--", "-").Replace("--", "-");
                     if (videoFile.ContentLength > 0)
                     {
+ 
 
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
                         //var asdas = Path.Combine( Server.MapPath("~/") + entity.EmbedUrl).Replace("/","\\").Replace("\\\\","\\");
                         var videoPath = Path.GetFullPath( Server.MapPath("~/") + entity.EmbedUrl);
+
+                        if (videoFile.ContentType != "video/mp4") {
+                            //var destinationPath = AppContext.BaseDirectory+ "Storage\\Video\\Videos\\123.mp4";
+                            var videoPathArr = videoPath.Split('.');
+                            var conversion = await FFmpeg.Conversions.FromSnippet.ToMp4(videoPath, videoPath.Replace(videoPathArr.LastOrDefault(),"mp4"));
+                            await conversion.Start();
+                        }
+                 
+
                         using (var shell = ShellObject.FromParsingName(videoPath))
                         {
                             IShellProperty prop = shell.Properties.System.Media.Duration;
@@ -117,9 +129,9 @@ namespace HaberSitesiAdmin.Controllers
                     entity.PublishDate = DateTime.Parse(publishDate);
                     _videoServices.Create(entity, SelectedCategories);
 
-                    return RedirectToAction("Index");
+                    return  RedirectToAction("Index");
                 }
-                catch
+                catch(Exception ex)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
@@ -143,6 +155,12 @@ namespace HaberSitesiAdmin.Controllers
             ViewBag.Categories = _videoServices.GetCategorySelectList();
             return View(entity);
         }
+
+        //private static IEnumerable GetFilesToConvert(string directoryPath)
+        //{
+        //    //Return all files excluding mp4 because I want convert it to mp4
+        //    return new DirectoryInfo(directoryPath).Where(x => x.Extension != ".mp4");
+        //}
 
         // GET: Videos/Edit/5
         public ActionResult Edit(int? id)

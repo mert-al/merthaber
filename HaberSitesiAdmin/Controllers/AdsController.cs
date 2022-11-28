@@ -2,10 +2,7 @@
 using HaberSitesiAdmin.Models;
 using HaberSitesiAdmin.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace HaberSitesiAdmin.Controllers
@@ -41,18 +38,18 @@ namespace HaberSitesiAdmin.Controllers
         public ActionResult Create([Bind(Include = "Id,Title,PrerolTitle,MidrollTitle,PostrollTitle,Midroll,Preroll,Postroll")] Ad reklam)
 
         {
-            
+
 
             try
-            { 
+            {
                 _adsServices.Create(reklam);
-                _adsServices.GenerateXML(reklam);                                    
+                _adsServices.GenerateXML(reklam);
                 return RedirectToAction("Index");
             }
             catch
             {
                 return RedirectToAction("Index");
-                    //new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
@@ -62,7 +59,7 @@ namespace HaberSitesiAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ad reklam= _adsServices.Get(id.Value);
+            Ad reklam = _adsServices.Get(id.Value);
             if (reklam == null)
             {
                 return HttpNotFound();
@@ -83,15 +80,15 @@ namespace HaberSitesiAdmin.Controllers
             {
                 _adsServices.GenerateXML(reklam);
                 _adsServices.Update(reklam);
-                
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+        }
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -141,5 +138,5 @@ namespace HaberSitesiAdmin.Controllers
 
 
 
-    }
+}
 
