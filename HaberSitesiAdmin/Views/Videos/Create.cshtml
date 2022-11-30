@@ -9,6 +9,59 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" type="text/css" />
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<style>
+
+
+
+
+video {
+  /*width: 100%;*/
+  margin-bottom: 10px;
+  background-color: #000;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #CCC;
+  border-radius: 2px;
+  padding: 10px 15px;
+  box-sizing: border-box;
+}
+
+#source {
+  width: 75%;
+}
+
+#time {
+  width: 25%;
+}
+
+button {
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 15px;
+  background-color: #0BD;
+  color: #FFF;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0AC;
+}
+
+#generate {
+  display: block;
+}
+
+canvas {
+  /*width: 100%;*/
+  margin-bottom: 10px;
+  background-color: #000;
+  display:block;
+}
+</style>
 <link href="~/Image-Resize-Crop-imageResizer/jquery.imageResizer.css" rel="stylesheet" />
 @using (Html.BeginForm("Create", "Videos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -98,19 +151,30 @@
                         }
                         <input type="button" id="nextStep" class="btn btn-primary" value="Sonraki" />
                     </div>
-                    @*<div class="card-body row mx-5" id="secondStep" style="display:none">
+                    <div class="card-body row mx-5" id="thirtlyStep" style="display:none">
 
-                       *<video width="600" autoplay muted height="400" controls>
-                            <source src="@Model.EmbedUrl" type="video/mp4">
-
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="card-action">
-                            <input type="button" id="nexttStep" class="btn btn-primary" value="Sonraki" />
-                            <input type="button" id="backkStep" value="Geri" class="btn btn-danger" />
-
+                        <div class="container">
+                            <h1>Thumbnail Generator</h1>
+                            <video id="video" controls></video>
+                           
+                            <form>
+                                @*<input type="text" id="source" placeholder="Source">
+                                <button type="button" onclick="load()">Load</button>*@
+                                <div>
+                                    <input type="text" id="time" placeholder="Time">
+                                    <button type="button" onclick="getCurrentTime()">Get current time</button>
+                                    <button type="button" onclick="setCurrentTime()">Set current time</button>
+                                </div>
+                                    </form>
+                            <canvas id="canvas"></canvas>
+                            <button id="generate" onclick="generateThumbnail()">Generate thumbnail</button>
+                            <div id="thumbnails"></div>
                         </div>
-                    </div>*@
+                        <div class="card-action">
+                            <input type="button" id="backkStep" value="Geri" class="btn btn-danger" />
+                            <input type="button" id="nexttStep" value="İleri" class="btn btn-primary" />
+                        </div>
+                    </div>
 
 
                         <div class="card-body row mx-5" id="secondStep" style="display:none">
@@ -184,7 +248,7 @@
                             <hr />
                             <h5>Haber Detayi</h5>
                             <div class="col-5">
-                                <div id="details" class=" col-12"></div>
+                   ""             <div id="details" class=" col-12"></div>
                             </div>
                             <div class="col-2">
                                 <button id="detailsButton" class="btn btn-primary hide">Haber Detayi</button>
@@ -237,6 +301,43 @@
     }
 </style>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+<script>
+    var video = document.getElementById('video');
+var source = document.getElementById('source');
+var time = document.getElementById('time');
+var canvas = document.getElementById('canvas');
+var thumbnails = document.getElementById('thumbnails');
+
+video.onloadedmetadata = function() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+};
+
+function load() {
+  video.src = source.value;
+  video.load();
+}
+
+function getCurrentTime() {
+  time.value = video.currentTime;
+}
+
+function setCurrentTime() {
+  video.currentTime = time.value;
+}
+
+function generateThumbnail() {
+  var context = canvas.getContext('2d');
+  context.drawImage(video, 0, 0);
+  /*var dataURL = canvas.toDataURL();
+  
+  var img = document.createElement('img');
+  img.setAttribute('crossOrigin', 'anonymous');
+  img.setAttribute('src', dataURL);
+  
+  thumbnails.appendChild(img);*/
+}   
+</script>
 <script>
     // vars
     let slider = document.querySelector('#slider');
@@ -468,6 +569,14 @@
 
 
 <script>
+    $("#nexttStep").click(function () {
+        $("#thirtlyStep").hide();
+        $("#secondStep").show();
+     });
+     $("#backkStep").click(function () {
+        $("#firstStep").show();
+        $("#thirtlyStep").hide();
+    });
     $("#nextStep").click(function () {
         $("#sliderButton").click();
         $("#sliderBottomButton").click();
@@ -477,10 +586,18 @@
         $("#detailsButton").click();
         $("#otherNewsButton").click();
         $("#firstStep").hide();
-        $("#secondStep").show();
+        $("#thirtlyStep").show();
+        debugger;
+        $("#video")[0].src = $("#videoFile")[0].value.replace("C:\\fakepath\\", "\\Storage\\Video\\Videos\\");
+      
     });
     $("#backStep").click(function () {
-        $("#firstStep").show();
+        $("#thirtlyStep").show();
         $("#secondStep").hide();
     });
+
+    //$("#videoFile").change(function () {
+    //    debugger;
+    //    console.log(this.files[0].mozFullPath);
+    //});
 </script>
