@@ -15,7 +15,8 @@ using HaberSitesiAdmin.Models;
 using HaberSitesiAdmin.Services;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-using Xabe.FFmpeg;
+//using Xabe.FFmpeg;
+using NReco.VideoConverter;
 
 namespace HaberSitesiAdmin.Controllers
 {
@@ -77,7 +78,7 @@ namespace HaberSitesiAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
+        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
             HttpPostedFileBase file, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
@@ -91,29 +92,39 @@ namespace HaberSitesiAdmin.Controllers
                     entity.url = Regex.Replace(entity.url, @"[^0-9a-z]", "-").Replace("--", "-").Replace("--", "-").Replace("--", "-");
                     if (videoFile.ContentLength > 0)
                     {
- 
+
+                        //var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
+                        //var outputFile = new MediaFile(AppContext.BaseDirectory + @"\Storage\Video\Videos" + entity.url.Replace("-", "") + ".mp4");
+                        //var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
+                        //ffmpeg.ConvertAsync(inputFile, outputFile);
+                        //entity.EmbedUrl = outputFile.FileInfo.FullName.ToString();,
+    
 
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
                         //var asdas = Path.Combine( Server.MapPath("~/") + entity.EmbedUrl).Replace("/","\\").Replace("\\\\","\\");
-                        var videoPath = Path.GetFullPath( Server.MapPath("~/") + entity.EmbedUrl);
+                        var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
 
-                        if (videoFile.ContentType != "video/mp4") {
-                            //var destinationPath = AppContext.BaseDirectory+ "Storage\\Video\\Videos\\123.mp4";
-                            var videoPathArr = videoPath.Split('.');
-                            var conversion = await FFmpeg.Conversions.FromSnippet.ToMp4(videoPath, videoPath.Replace(videoPathArr.LastOrDefault(),"mp4"));
-                            await conversion.Start();
-                        }
-                 
-
-                        using (var shell = ShellObject.FromParsingName(videoPath))
+                       
+                        if (videoFile.ContentType != "video/mp4")
                         {
-                            IShellProperty prop = shell.Properties.System.Media.Duration;
-                            var t = (ulong)prop.ValueAsObject;
-                            var durationtime = TimeSpan.FromTicks((long)t);
-                            entity.VideoTime = durationtime.ToString();             
-                            
+                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + getVideoFileName(videoFile.FileName);
+                            ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
+                            entity.EmbedUrl = newVideoFilePath;
+                            _videoServices.DeleteVideo(videoPath);
                         }
-                        
+
+
+                        //(Path.GetFileName(file.Filename))
+                        //using (var shell = ShellObject.FromParsingName(videoPath))
+                        //{
+                        //    IShellProperty prop = shell.Properties.System.Media.Duration;
+                        //    var t = (ulong)prop.ValueAsObject;
+                        //    var durationtime = TimeSpan.FromTicks((long)t);
+                        //    entity.VideoTime = durationtime.ToString();
+
+                        //}
+
                     }
                     if (file.ContentLength > 0)
                     {
@@ -129,9 +140,9 @@ namespace HaberSitesiAdmin.Controllers
                     entity.PublishDate = DateTime.Parse(publishDate);
                     _videoServices.Create(entity, SelectedCategories);
 
-                    return  RedirectToAction("Index");
+                    return RedirectToAction("Index");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
@@ -154,6 +165,12 @@ namespace HaberSitesiAdmin.Controllers
             }
             ViewBag.Categories = _videoServices.GetCategorySelectList();
             return View(entity);
+        }
+
+        private string getVideoFileName(string fileName) {
+
+            var fileNameArr = fileName.Split('.');
+            return fileName.Replace(fileNameArr.LastOrDefault(), "mp4");
         }
 
         //private static IEnumerable GetFilesToConvert(string directoryPath)
@@ -208,7 +225,7 @@ namespace HaberSitesiAdmin.Controllers
                             var t = (ulong)prop.ValueAsObject;
                             var asd = TimeSpan.FromTicks((long)t);
                             entity.VideoTime = asd.ToString();
-                           
+
                         }
                     }
                     if (file.ContentLength > 0)

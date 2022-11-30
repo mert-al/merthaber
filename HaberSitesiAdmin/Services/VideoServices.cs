@@ -156,10 +156,16 @@ namespace HaberSitesiAdmin.Services
         }
         public String SaveVideo(String fileName, HttpPostedFileBase file)
         {
-            string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Storage/Video/Videos/"),file.FileName);
+            string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Storage/Video/Videos"),file.FileName);
             string _url = Path.Combine("/Storage/Video/Videos", file.FileName);
             file.SaveAs(_path);
             return _url;
+        }
+
+        public void DeleteVideo(String filePath)
+        {
+            if(File.Exists(filePath))
+                File.Delete(filePath);
         }
 
         public String UpdateImage(String fileName, HttpPostedFileBase file)
