@@ -14,56 +14,56 @@
 
 
 
-video {
-  /*width: 100%;*/
-  margin-bottom: 10px;
-  background-color: #000;
-}
+    video {
+        /*width: 100%;*/
+        margin-bottom: 10px;
+        background-color: #000;
+    }
 
-input[type=text] {
-  width: 100%;
-  margin-bottom: 10px;
-  border: 1px solid #CCC;
-  border-radius: 2px;
-  padding: 10px 15px;
-  box-sizing: border-box;
-}
+    input[type=text] {
+        width: 100%;
+        margin-bottom: 10px;
+        border: 1px solid #CCC;
+        border-radius: 2px;
+        padding: 10px 15px;
+        box-sizing: border-box;
+    }
 
-#source {
-  width: 75%;
-}
+    #source {
+        width: 75%;
+    }
 
-#time {
-  width: 25%;
-}
+    #time {
+        width: 25%;
+    }
 
-button {
-  margin-bottom: 10px;
-  border: none;
-  border-radius: 2px;
-  padding: 10px 15px;
-  background-color: #0BD;
-  color: #FFF;
-  cursor: pointer;
-}
+    button {
+        margin-bottom: 10px;
+        border: none;
+        border-radius: 2px;
+        padding: 10px 15px;
+        background-color: #0BD;
+        color: #FFF;
+        cursor: pointer;
+    }
 
-button:hover {
-  background-color: #0AC;
-}
+        button:hover {
+            background-color: #0AC;
+        }
 
-#generate {
-  display: block;
-}
+    #generate {
+        display: block;
+    }
 
-canvas {
-  /*width: 100%;*/
-  margin-bottom: 10px;
-  background-color: #000;
-  display:block;
-}
+    canvas {
+        /*width: 100%;*/
+        margin-bottom: 10px;
+        background-color: #000;
+        display: block;
+    }
 </style>
 <link href="~/Image-Resize-Crop-imageResizer/jquery.imageResizer.css" rel="stylesheet" />
-@using (Html.BeginForm("Create", "Videos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "Videos", FormMethod.Post, new { name="Form" , enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -100,12 +100,12 @@ canvas {
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.videoUrlError</span>
                             </div>
                         </div>
-                       
+
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
                                 <input class="form-control" type="file" id="file" name="file" />
-                                <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.fileError</span>
+                                @*<span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.fileError</span>*@
                             </div>
                         </div>
                         <div class="mb-3">
@@ -123,7 +123,7 @@ canvas {
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                @Html.ListBox("SelectedCategories",  (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control", })
+                                @Html.ListBox("SelectedCategories", (List<SelectListItem>)ViewBag.Categories, new { @class = "form-control", })
                                 <span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.categoryError</span>
                             </div>
                         </div>
@@ -151,21 +151,32 @@ canvas {
                         }
                         <input type="button" id="nextStep" class="btn btn-primary" value="Sonraki" />
                     </div>
+
+
                     <div class="card-body row mx-5" id="thirtlyStep" style="display:none">
+
+
+
 
                         <div class="container">
                             <h1>Thumbnail Generator</h1>
                             <video id="video" controls></video>
-                           
+
                             <form>
                                 @*<input type="text" id="source" placeholder="Source">
-                                <button type="button" onclick="load()">Load</button>*@
+                                    <button type="button" onclick="load()">Load</button>*@
                                 <div>
+
+                                    @*<div class="col-5 img-result mb-3">
+                                            <img id="croppedSlider" src="@" alt="">
+                                            <input type="hidden" id="MainSlider" name="MainSlider" />
+                                        </div>*@
+
                                     <input type="text" id="time" placeholder="Time">
                                     <button type="button" onclick="getCurrentTime()">Get current time</button>
                                     <button type="button" onclick="setCurrentTime()">Set current time</button>
                                 </div>
-                                    </form>
+                            </form>
                             <canvas id="canvas"></canvas>
                             <button id="generate" onclick="generateThumbnail()">Generate thumbnail</button>
                             <div id="thumbnails"></div>
@@ -177,107 +188,109 @@ canvas {
                     </div>
 
 
-                        <div class="card-body row mx-5" id="secondStep" style="display:none">
-                           
 
 
-                            <h5>Anasayfa Slider</h5>
-                            <div class="col-5">
-                                <div id="slider" class="col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="sliderButton" class="btn btn-primary hide">Anasayfa Slider</button>
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedSlider" src="" alt="">
-                                <input type="hidden" id="MainSlider" name="MainSlider" />
-                            </div>
+                    <div class="card-body row mx-5" id="secondStep" style="display:none">
 
-                            <hr />
-                            <h5>Anasayfa Slider Alti</h5>
-                            <div class="col-5">
-                                <div id="sliderBottom" class=" col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="sliderBottomButton" class="btn btn-primary hide">Anasayfa Slider Alti</button>
-                                <input type="hidden" id="SliderBottom" name="SliderBottom" />
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedSliderBottom" src="" alt="">
-                            </div>
 
-                            <hr />
-                            <h5>Sidebar</h5>
-                            <div class="col-5">
-                                <div id="sidebar" class="col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="sidebarButton" class="btn btn-primary hide">Sidebar</button>
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedSidebar" src="" alt="">
-                                <input type="hidden" id="Sidebar" name="Sidebar" />
-                            </div>
 
-                            <hr />
-                            <h5>Haftanin En Iyileri</h5>
-                            <div class="col-5">
-                                <div id="bestWeekly" class=" col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="bestWeeklyButton" class="btn btn-primary hide">Haftanin En Iyileri</button>
-                                <input type="hidden" id="BestWeekly" name="BestWeekly" />
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedBestWeekly" src="" alt="">
-                            </div>
-
-                            <hr />
-                            <h5>Haftanin En Iyileri SM</h5>
-                            <div class="col-5">
-                                <div id="bestWeeklySm" class=" col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="bestWeeklySmButton" class="btn btn-primary hide">Haftanin En Iyileri SM</button>
-                                <input type="hidden" id="BestWeeklySm" name="BestWeeklySm" />
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedBestWeeklySm" src="" alt="">
-                            </div>
-
-                            <hr />
-                            <h5>Haber Detayi</h5>
-                            <div class="col-5">
-                   ""             <div id="details" class=" col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="detailsButton" class="btn btn-primary hide">Haber Detayi</button>
-                                <input type="hidden" id="NewsDetail" name="NewsDetail" />
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedDetails" src="" alt="">
-                            </div>
-
-                            <hr />
-                            <h5>Digerleri</h5>
-                            <div class="col-5">
-                                <div id="otherNews" class=" col-12"></div>
-                            </div>
-                            <div class="col-2">
-                                <button id="otherNewsButton" class="btn btn-primary hide">Digerleri</button>
-                                <input type="hidden" id="OtherNews" name="OtherNews" />
-                            </div>
-                            <div class="col-5 img-result mb-3">
-                                <img id="croppedOther" src="" alt="">
-                            </div>
-                            <hr />
-                            <div class="card-action">
-                                <input type="button" id="backStep" value="Geri" class="btn btn-danger" />
-                                <button class="btn btn-primary" type="submit">Kaydet</button>
-                            </div>
-
+                        <h5>Anasayfa Slider</h5>
+                        <div class="col-5">
+                            <div id="slider" class="col-12"></div>
                         </div>
+                        <div class="col-2">
+                            <button id="sliderButton" class="btn btn-primary hide">Anasayfa Slider</button>
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedSlider" src="" alt="">
+                            <input type="hidden" id="MainSlider" name="MainSlider" />
+                        </div>
+
+                        <hr />
+                        <h5>Anasayfa Slider Alti</h5>
+                        <div class="col-5">
+                            <div id="sliderBottom" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="sliderBottomButton" class="btn btn-primary hide">Anasayfa Slider Alti</button>
+                            <input type="hidden" id="SliderBottom" name="SliderBottom" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedSliderBottom" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Sidebar</h5>
+                        <div class="col-5">
+                            <div id="sidebar" class="col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="sidebarButton" class="btn btn-primary hide">Sidebar</button>
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedSidebar" src="" alt="">
+                            <input type="hidden" id="Sidebar" name="Sidebar" />
+                        </div>
+
+                        <hr />
+                        <h5>Haftanin En Iyileri</h5>
+                        <div class="col-5">
+                            <div id="bestWeekly" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="bestWeeklyButton" class="btn btn-primary hide">Haftanin En Iyileri</button>
+                            <input type="hidden" id="BestWeekly" name="BestWeekly" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedBestWeekly" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Haftanin En Iyileri SM</h5>
+                        <div class="col-5">
+                            <div id="bestWeeklySm" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="bestWeeklySmButton" class="btn btn-primary hide">Haftanin En Iyileri SM</button>
+                            <input type="hidden" id="BestWeeklySm" name="BestWeeklySm" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedBestWeeklySm" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Haber Detayi</h5>
+                        <div class="col-5">
+                            ""             <div id="details" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="detailsButton" class="btn btn-primary hide">Haber Detayi</button>
+                            <input type="hidden" id="NewsDetail" name="NewsDetail" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedDetails" src="" alt="">
+                        </div>
+
+                        <hr />
+                        <h5>Digerleri</h5>
+                        <div class="col-5">
+                            <div id="otherNews" class=" col-12"></div>
+                        </div>
+                        <div class="col-2">
+                            <button id="otherNewsButton" class="btn btn-primary hide">Digerleri</button>
+                            <input type="hidden" id="OtherNews" name="OtherNews" />
+                        </div>
+                        <div class="col-5 img-result mb-3">
+                            <img id="croppedOther" src="" alt="">
+                        </div>
+                        <hr />
+                        <div class="card-action">
+                            <input type="button" id="backStep" value="Geri" class="btn btn-danger" />
+                            <button class="btn btn-primary" type="submit">Kaydet</button>
+                        </div>
+
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -303,40 +316,40 @@ canvas {
 <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
 <script>
     var video = document.getElementById('video');
-var source = document.getElementById('source');
-var time = document.getElementById('time');
-var canvas = document.getElementById('canvas');
-var thumbnails = document.getElementById('thumbnails');
+    var source = document.getElementById('source');
+    var time = document.getElementById('time');
+    var canvas = document.getElementById('canvas');
+    var thumbnails = document.getElementById('thumbnails');
 
-video.onloadedmetadata = function() {
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-};
+    video.onloadedmetadata = function () {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+    };
 
-function load() {
-  video.src = source.value;
-  video.load();
-}
+    function load() {
+        video.src = source.value;
+        video.load();
+    }
 
-function getCurrentTime() {
-  time.value = video.currentTime;
-}
+    function getCurrentTime() {
+        time.value = video.currentTime;
+    }
 
-function setCurrentTime() {
-  video.currentTime = time.value;
-}
+    function setCurrentTime() {
+        video.currentTime = time.value;
+    }
 
-function generateThumbnail() {
-  var context = canvas.getContext('2d');
-  context.drawImage(video, 0, 0);
-  /*var dataURL = canvas.toDataURL();
-  
-  var img = document.createElement('img');
-  img.setAttribute('crossOrigin', 'anonymous');
-  img.setAttribute('src', dataURL);
-  
-  thumbnails.appendChild(img);*/
-}   
+    function generateThumbnail() {
+        var context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0);
+        /*var dataURL = canvas.toDataURL();
+
+        var img = document.createElement('img');
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.setAttribute('src', dataURL);
+
+        thumbnails.appendChild(img);*/
+    }
 </script>
 <script>
     // vars
@@ -347,6 +360,7 @@ function generateThumbnail() {
     let bestWeeklySm = document.querySelector('#bestWeeklySm');
     let details = document.querySelector('#details');
     let otherNews = document.querySelector('#otherNews');
+    let entityImg = document.querySelector('#entityImg')
     img_result = document.querySelector('.img-result'),
         //options = document.querySelector('.options'),
         sliderButton = document.querySelector('#sliderButton'),
@@ -403,6 +417,10 @@ function generateThumbnail() {
                     otherImg = document.createElement('img');
                     otherImg.id = 'otherImg';
                     otherImg.src = e.target.result;
+
+                    entityImg = document.createElement('img');
+                    entityImg.id = 'entityImg';
+                    entityImg.src = e.target.result;
                     // clean result before
                     slider.innerHTML = '';
                     sidebar.innerHTML = '';
@@ -411,6 +429,7 @@ function generateThumbnail() {
                     bestWeeklySm.innerHTML = '';
                     details.innerHTML = '';
                     otherNews.innerHTML = '';
+                    entityImg.innerHTML = '';
                     // append new image
                     slider.appendChild(sliderImg);
                     sidebar.appendChild(sidebarImg);
@@ -419,6 +438,7 @@ function generateThumbnail() {
                     bestWeeklySm.appendChild(bestWeeklySmImg);
                     details.appendChild(detailsImg);
                     otherNews.appendChild(otherImg);
+                    entityImg.appendChild(bestWeeklyImg)
                     // show save btn and options
                     sliderButton.classList.remove('hide');
                     sliderBottomButton.classList.remove('hide');
@@ -572,8 +592,8 @@ function generateThumbnail() {
     $("#nexttStep").click(function () {
         $("#thirtlyStep").hide();
         $("#secondStep").show();
-     });
-     $("#backkStep").click(function () {
+    });
+    $("#backkStep").click(function () {
         $("#firstStep").show();
         $("#thirtlyStep").hide();
     });
@@ -584,12 +604,21 @@ function generateThumbnail() {
         $("#bestWeeklyButton").click();
         $("#bestWeeklySmButton").click();
         $("#detailsButton").click();
-        $("#otherNewsButton").click();
+        $("#otherNewsButton").click();   
         $("#firstStep").hide();
-        $("#thirtlyStep").show();
-        debugger;
+        
+        var aa = document.forms["Form"]["file"].value;
+        if (aa == "") {             
+             $("#thirtlyStep").show();
+        }
+        else {
+             $("#secondStep").show();
+        }
+
+
+
         $("#video")[0].src = $("#videoFile")[0].value.replace("C:\\fakepath\\", "\\Storage\\Video\\Videos\\");
-      
+
     });
     $("#backStep").click(function () {
         $("#thirtlyStep").show();

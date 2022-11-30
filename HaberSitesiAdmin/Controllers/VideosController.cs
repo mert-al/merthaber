@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DataAccess;
+using FFmpeg.NET;
 using HaberSitesiAdmin.Models;
 using HaberSitesiAdmin.Services;
 using Microsoft.WindowsAPICodePack.Shell;
@@ -93,29 +94,28 @@ namespace HaberSitesiAdmin.Controllers
                     if (videoFile.ContentLength > 0)
                     {
 
-                        //var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
-                        //var outputFile = new MediaFile(AppContext.BaseDirectory + @"\Storage\Video\Videos" + entity.url.Replace("-", "") + ".mp4");
-                        //var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
-                        //ffmpeg.ConvertAsync(inputFile, outputFile);
-                        //entity.EmbedUrl = outputFile.FileInfo.FullName.ToString();,
+                        
     
 
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
                         //var asdas = Path.Combine( Server.MapPath("~/") + entity.EmbedUrl).Replace("/","\\").Replace("\\\\","\\");
                         var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
 
-                       
+
                         if (videoFile.ContentType != "video/mp4")
                         {
                             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
                             string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + getVideoFileName(videoFile.FileName);
                             ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
-                            entity.EmbedUrl = newVideoFilePath;
+                            entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
                             _videoServices.DeleteVideo(videoPath);
                         }
 
 
-                        //(Path.GetFileName(file.Filename))
+                        //(Path.GetFileName(file.FileName))
+
+                        //var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
+
                         //using (var shell = ShellObject.FromParsingName(videoPath))
                         //{
                         //    IShellProperty prop = shell.Properties.System.Media.Duration;
@@ -123,14 +123,20 @@ namespace HaberSitesiAdmin.Controllers
                         //    var durationtime = TimeSpan.FromTicks((long)t);
                         //    entity.VideoTime = durationtime.ToString();
 
-                        //}
+                        //    }
 
                     }
                     if (file.ContentLength > 0)
                     {
-                        entity.Img = _videoServices.UpdateImage(entity.url, file);
+                        var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
+                        var outputFile = new MediaFile(AppContext.BaseDirectory + "Storage\\Video\\Original\\" + entity.Title + ".jpg");
+                        var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
+                        var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10), MaxVideoDuration = TimeSpan.FromTicks(inputFile.FileInfo.Length) };                        
+                        ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);                      
+                        entity.Img = _videoServices.UpdateImage(outputFile.FileInfo.Name, file);
+                        entity.VideoTime = options.MaxVideoDuration.ToString();
                     }
-                    entity.MainSliderIMG = _videoServices.CreateCroppedImage(entity.url, MainSlider, "crop770x410slider");
+                    entity.MainSliderIMG = entity.Img;
                     entity.SidebarIMG = _videoServices.CreateCroppedImage(entity.url, Sidebar, "crop120x100");
                     entity.SliderBottomIMG = _videoServices.CreateCroppedImage(entity.url, SliderBottom, "crop236x157");
                     entity.BestWeeklyIMG = _videoServices.CreateCroppedImage(entity.url, BestWeekly, "crop370x431");
