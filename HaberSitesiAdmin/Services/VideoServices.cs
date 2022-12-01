@@ -164,8 +164,13 @@ namespace HaberSitesiAdmin.Services
 
         public void DeleteVideo(String filePath)
         {
-            if(File.Exists(filePath))
-                File.Delete(filePath);
+            try {
+
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+            }
+            catch (Exception ex) {   
+            }
         }
 
         public String UpdateImage(String fileName, HttpPostedFileBase file)

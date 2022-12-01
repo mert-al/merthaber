@@ -37,7 +37,7 @@
         width: 25%;
     }
 
-    button {
+    .button {
         margin-bottom: 10px;
         border: none;
         border-radius: 2px;
@@ -178,7 +178,7 @@
                                 </div>
                             </form>
                             <canvas id="canvas"></canvas>
-                            <button id="generate" onclick="generateThumbnail()">Generate thumbnail</button>
+                            <a class="button"   id="generate" onclick="generateThumbnail()">Generate thumbnail</a>
                             <div id="thumbnails"></div>
                         </div>
                         <div class="card-action">
@@ -342,14 +342,131 @@
     function generateThumbnail() {
         var context = canvas.getContext('2d');
         context.drawImage(video, 0, 0);
-        /*var dataURL = canvas.toDataURL();
+        var src = canvas.toDataURL('image/png');
 
-        var img = document.createElement('img');
-        img.setAttribute('crossOrigin', 'anonymous');
-        img.setAttribute('src', dataURL);
+        let slider = document.querySelector('#slider');
+        let sidebar = document.querySelector('#sidebar');
+        let sliderBottom = document.querySelector('#sliderBottom');
+        let bestWeekly = document.querySelector('#bestWeekly');
+        let bestWeeklySm = document.querySelector('#bestWeeklySm');
+        let details = document.querySelector('#details');
+        let otherNews = document.querySelector('#otherNews');
+        let entityImg = document.querySelector('#entityImg')
+        img_result = document.querySelector('.img-result'),
+            //options = document.querySelector('.options'),
+            sliderButton = document.querySelector('#sliderButton'),
+            sliderBottomButton = document.querySelector('#sliderBottomButton'),
+            sidebarButton = document.querySelector('#sidebarButton'),
+            bestWeeklyButton = document.querySelector('#bestWeeklyButton'),
+            bestWeeklySmButton = document.querySelector('#bestWeeklySmButton'),
+            detailsButton = document.querySelector('#detailsButton'),
+            otherNewsButton = document.querySelector('#otherNewsButton'),
+            croppedSlider = document.querySelector('#croppedSlider'),
+            croppedSidebar = document.querySelector('#croppedSidebar'),
+            croppedSliderBottom = document.querySelector('#croppedSliderBottom'),
+            croppedBestWeekly = document.querySelector('#croppedBestWeekly'),
+            croppedBestWeeklySm = document.querySelector('#croppedBestWeeklySm'),
+            croppedDetails = document.querySelector('#croppedDetails'),
+            croppedOther = document.querySelector('#croppedOther'),
+            img = '';
+          
 
-        thumbnails.appendChild(img);*/
+          sliderImg = document.createElement('img');
+                    sliderImg.id = 'sliderImg';
+                    sliderImg.src = src;
+
+                    sidebarImg = document.createElement('img');
+                    sidebarImg.id = 'sidebarImg';
+                    sidebarImg.src = src;
+
+                    bottomSliderImg = document.createElement('img');
+                    bottomSliderImg.id = 'bottomSliderImg';
+                    bottomSliderImg.src = src;
+
+                    bestWeeklyImg = document.createElement('img');
+                    bestWeeklyImg.id = 'bestWeeklyImg';
+                    bestWeeklyImg.src = src;
+
+                    bestWeeklySmImg = document.createElement('img');
+                    bestWeeklySmImg.id = 'bestWeeklySmImg';
+                    bestWeeklySmImg.src = src;
+
+                    detailsImg = document.createElement('img');
+                    detailsImg.id = 'detailsImg';
+                    detailsImg.src = src;
+
+                    otherImg = document.createElement('img');
+                    otherImg.id = 'otherImg';
+                    otherImg.src = src;
+
+                    entityImg = document.createElement('img');
+                    entityImg.id = 'entityImg';
+                    entityImg.src = src;
+                    // clean result before
+                    slider.innerHTML = '';
+                    sidebar.innerHTML = '';
+                    sliderBottom.innerHTML = '';
+                    bestWeekly.innerHTML = '';
+                    bestWeeklySm.innerHTML = '';
+                    details.innerHTML = '';
+                    otherNews.innerHTML = '';
+                    entityImg.innerHTML = '';
+                    // append new image
+                    slider.appendChild(sliderImg);
+                    sidebar.appendChild(sidebarImg);
+                    sliderBottom.appendChild(bottomSliderImg);
+                    bestWeekly.appendChild(bestWeeklyImg);
+                    bestWeeklySm.appendChild(bestWeeklySmImg);
+                    details.appendChild(detailsImg);
+                    otherNews.appendChild(otherImg);
+                    entityImg.appendChild(bestWeeklyImg)
+                    // show save btn and options
+                    sliderButton.classList.remove('hide');
+                    sliderBottomButton.classList.remove('hide');
+                    sidebarButton.classList.remove('hide');
+                    bestWeeklyButton.classList.remove('hide');
+                    bestWeeklySmButton.classList.remove('hide');
+                    detailsButton.classList.remove('hide');
+                    otherNewsButton.classList.remove('hide');
+                    //options.classList.remove('hide');
+                    // init cropper
+                    SliderCropper = new Cropper(sliderImg, {
+                        aspectRatio: 770 / 410,
+                        cropBoxResizable: false
+                    });
+                    SidebarCropper = new Cropper(sidebarImg, {
+                        aspectRatio: 120 / 100,
+                        cropBoxResizable: false
+                    });
+                    SliderBottomCropper = new Cropper(bottomSliderImg, {
+                        aspectRatio: 236 / 157,
+                        cropBoxResizable: false
+                    });
+                    BestWeeklyCropper = new Cropper(bestWeeklyImg, {
+                        aspectRatio: 370 / 431,
+                        cropBoxResizable: false
+                    });
+                    BestWeeklySmCropper = new Cropper(bestWeeklySmImg, {
+                        aspectRatio: 270 / 174,
+                        cropBoxResizable: false
+                    });
+                    DetailsCropper = new Cropper(detailsImg, {
+                        aspectRatio: 770 / 410,
+                        cropBoxResizable: false
+                    });
+                    OtherCropper = new Cropper(otherImg, {
+                        aspectRatio: 370 / 344,
+                        cropBoxResizable: false
+                    });
+        debugger;
+        var fileInput = document.querySelector("#file");
+        fileInput.files = null;
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File(src));
+        fileInput.files = dataTransfer.files;
+
     }
+
 </script>
 <script>
     // vars
@@ -378,9 +495,8 @@
         croppedDetails = document.querySelector('#croppedDetails'),
         croppedOther = document.querySelector('#croppedOther'),
         dwn = document.querySelector('.download'),
-        upload = document.querySelector('#file'),
+        upload = document.querySelector('#file'),      
         img = '';
-
 
     // on change show image with crop options
     upload.addEventListener('change', e => {

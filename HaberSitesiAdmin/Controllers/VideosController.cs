@@ -80,7 +80,7 @@ namespace HaberSitesiAdmin.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
-            HttpPostedFileBase file, HttpPostedFileBase videoFile, List<String> SelectedCategories,
+            HttpPostedFileBase file,HttpPostedFileBase canvas, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
         {
@@ -107,7 +107,7 @@ namespace HaberSitesiAdmin.Controllers
                             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
                             string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + getVideoFileName(videoFile.FileName);
                             ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
-                            entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
+                            entity.EmbedUrl = newVideoFilePath;
                             _videoServices.DeleteVideo(videoPath);
                         }
 
@@ -128,13 +128,17 @@ namespace HaberSitesiAdmin.Controllers
                     }
                     if (file.ContentLength > 0)
                     {
-                        var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
+                        var inputFile = new MediaFile(entity.EmbedUrl);
                         var outputFile = new MediaFile(AppContext.BaseDirectory + "Storage\\Video\\Original\\" + entity.Title + ".jpg");
-                        var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
+                        var ffmpeg = new Engine(AppContext.BaseDirectory + "\\bin\\ffmpeg.exe");
                         var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10), MaxVideoDuration = TimeSpan.FromTicks(inputFile.FileInfo.Length) };                        
                         ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);                      
                         entity.Img = _videoServices.UpdateImage(outputFile.FileInfo.Name, file);
                         entity.VideoTime = options.MaxVideoDuration.ToString();
+                    }
+                    else
+                    {
+
                     }
                     entity.MainSliderIMG = entity.Img;
                     entity.SidebarIMG = _videoServices.CreateCroppedImage(entity.url, Sidebar, "crop120x100");

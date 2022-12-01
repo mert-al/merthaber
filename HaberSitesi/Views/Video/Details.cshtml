@@ -16,7 +16,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="video-items-active">
-                                <video controls id="videoPlayer" class="video-js vjs-default-skin" autoplay muted width="900" height="500" data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5,1, 1.5, 2, 2.5 , 3]  }'>
+                                @*<video controls id="videoPlayer" class="video-js vjs-default-skin" autoplay muted width="900" height="500" data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5,1, 1.5, 2, 2.5 , 3]  }'>*@
+                                <video id="videojs-vast-vpaid-waterfall-player" class="video-js vjs-default-skin"  controls width="640" height="360">
+
                                     <source src="@ViewBag.apiUrl/@Model.Item.EmbedUrl" type="video/mp4">
                                     <div id="duration"></div>
 
@@ -24,7 +26,7 @@
                                 </video>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="about-img">
                         <h3 style="text-align:center">@Model.Item.Title</h3>
                     </div>
@@ -179,7 +181,7 @@
     }
 </style>
 <script>
-    const myvideom = document.getElementById("videoPlayer");
+    const myvideom = document.getElementById("videojs-vast-vpaid-waterfall-player");
     myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
 
 
@@ -189,13 +191,14 @@
 
 
 <script>
-    var player = window.player = videojs("videoPlayer");
+    debugger;
+    var player = window.player = videojs("videojs-vast-vpaid-waterfall-player");
 
     if (player) {
         player.play();
     }
 
-    
+
     var hms = '@Model.Item.VideoTime';
     var a = hms.split(':');
     var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
