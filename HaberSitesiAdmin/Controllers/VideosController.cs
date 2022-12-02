@@ -94,50 +94,39 @@ namespace HaberSitesiAdmin.Controllers
                     if (videoFile.ContentLength > 0)
                     {
 
-                        
-    
+
+
 
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
-                        //var asdas = Path.Combine( Server.MapPath("~/") + entity.EmbedUrl).Replace("/","\\").Replace("\\\\","\\");
+                        string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + getVideoFileName(videoFile.FileName);
                         var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
 
 
                         if (videoFile.ContentType != "video/mp4")
                         {
                             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + getVideoFileName(videoFile.FileName);
                             ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
-                            entity.EmbedUrl = newVideoFilePath;
+                            entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
                             _videoServices.DeleteVideo(videoPath);
                         }
+                        using (var shell = ShellObject.FromParsingName(newVideoFilePath))
+                        {
+                            IShellProperty prop = shell.Properties.System.Media.Duration;
+                            var t = (ulong)prop.ValueAsObject;
+                            var durationtime = TimeSpan.FromTicks((long)t);
+                            entity.VideoTime = durationtime.ToString();
 
-
-                        //(Path.GetFileName(file.FileName))
-
-                        //var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
-
-                        //using (var shell = ShellObject.FromParsingName(videoPath))
-                        //{
-                        //    IShellProperty prop = shell.Properties.System.Media.Duration;
-                        //    var t = (ulong)prop.ValueAsObject;
-                        //    var durationtime = TimeSpan.FromTicks((long)t);
-                        //    entity.VideoTime = durationtime.ToString();
-
-                        //    }
+                        }
 
                     }
                     if (file.ContentLength > 0)
                     {
-                        var inputFile = new MediaFile(entity.EmbedUrl);
+                        var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
                         var outputFile = new MediaFile(AppContext.BaseDirectory + "Storage\\Video\\Original\\" + entity.Title + ".jpg");
-                        var ffmpeg = new Engine(AppContext.BaseDirectory + "\\bin\\ffmpeg.exe");
-                        var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10), MaxVideoDuration = TimeSpan.FromTicks(inputFile.FileInfo.Length) };                        
-                        ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);                      
+                        var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
+                        var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10) };
+                        ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);
                         entity.Img = _videoServices.UpdateImage(outputFile.FileInfo.Name, file);
-                        entity.VideoTime = options.MaxVideoDuration.ToString();
-                    }
-                    else
-                    {
 
                     }
                     entity.MainSliderIMG = entity.Img;

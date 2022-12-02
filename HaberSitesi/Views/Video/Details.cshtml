@@ -17,8 +17,7 @@
                         <div class="col-12">
                             <div class="video-items-active">
                                 @*<video controls id="videoPlayer" class="video-js vjs-default-skin" autoplay muted width="900" height="500" data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5,1, 1.5, 2, 2.5 , 3]  }'>*@
-                                <video id="videojs-vast-vpaid-waterfall-player" class="video-js vjs-default-skin"  controls width="640" height="360">
-
+                                <video controls id="videoPlayer" class="video-js vjs-default-skin" autoplay muted width="900" height="500" data-setup='{ "aspectRatio":"1920:1080", "playbackRates": [0.5,1, 1.5, 2, 2.5 , 3]  }'>
                                     <source src="@ViewBag.apiUrl/@Model.Item.EmbedUrl" type="video/mp4">
                                     <div id="duration"></div>
 
@@ -181,7 +180,7 @@
     }
 </style>
 <script>
-    const myvideom = document.getElementById("videojs-vast-vpaid-waterfall-player");
+    const myvideom = document.getElementById("videoPlayer");
     myvideom.onpause = () => { document.getElementById("videoPlayer_html5_api").style.position = "relative" };
 
 
@@ -191,8 +190,8 @@
 
 
 <script>
-    debugger;
-    var player = window.player = videojs("videojs-vast-vpaid-waterfall-player");
+   
+    var player = window.player = videojs("videoPlayer");
 
     if (player) {
         player.play();

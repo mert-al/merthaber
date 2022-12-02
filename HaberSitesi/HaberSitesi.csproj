@@ -425,6 +425,7 @@
     <Content Include="Content\main.html" />
     <Content Include="Content\readme.txt" />
     <Content Include="Content\single-blog.html" />
+    <Content Include="Content\video.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
