@@ -85,7 +85,7 @@
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @id = "title"} })
                                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -342,12 +342,12 @@
 
     function getCurrentTime() {
         time.value = video.currentTime;
-        generateThumbnail()
+        generateThumbnail();
     }
 
     function setCurrentTime() {
         video.currentTime = time.value;
-        generateThumbnail()
+        generateThumbnail();
     }
 
     function generateThumbnail() {
@@ -470,15 +470,132 @@
             cropBoxResizable: false
         });
 
-        var fileInput = document.querySelector("#file");
-        fileInput.files = null;
+        //// save on click
+        //sliderButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = SliderCropper.getCroppedCanvas({
+        //        width: 770,
+        //        height: 410// input value
+        //    }).toDataURL();
+        //    $('#MainSlider').val(imgSrc);
+        //    croppedSlider.classList.remove('hide');
+        //    img_result.classList.remove('hide');
+        //    croppedSlider.src = imgSrc;
+        //});
+
+        //sliderBottomButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = SliderBottomCropper.getCroppedCanvas({
+        //        width: 236, // input value
+        //        height: 157 // input value
+        //    }).toDataURL();
+        //    $('#Sidebar').val(imgSrc);
+        //    // remove hide class of img
+        //    croppedSliderBottom.classList.remove('hide');
+        //    img_result.classList.remove('hide');
+        //    // show image cropped
+        //    croppedSliderBottom.src = imgSrc;
+        //});
+
+        //sidebarButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = SidebarCropper.getCroppedCanvas({
+        //        width: 120,
+        //        height: 100// input value
+        //    }).toDataURL();
+        //    $('#SliderBottom').val(imgSrc);
+        //    // remove hide class of img
+        //    croppedSidebar.classList.remove('hide');
+        //    img_result.classList.remove('hide');
+        //    // show image cropped
+        //    croppedSidebar.src = imgSrc;
+        //});
+
+        //bestWeeklyButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = BestWeeklyCropper.getCroppedCanvas({
+        //        width: 370,
+        //        height: 431// input value
+        //    }).toDataURL();
+        //    $('#BestWeekly').val(imgSrc);
+        //    // remove hide class of img
+        //    croppedBestWeekly.classList.remove('hide');
+        //    img_result.classList.remove('hide');
+        //    // show image cropped
+        //    croppedBestWeekly.src = imgSrc;
+        //});
+
+        //bestWeeklySmButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = BestWeeklySmCropper.getCroppedCanvas({
+        //        width: 270,
+        //        height: 174// input value
+        //    }).toDataURL();
+        //    $('#BestWeeklySm').val(imgSrc);
+        //    // remove hide class of img
+        //    croppedBestWeeklySm.classList.remove('hide');
+        //    img_result.classList.remove('hide');
+        //    // show image cropped
+        //    croppedBestWeeklySm.src = imgSrc;
+        //});
+
+        //detailsButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = DetailsCropper.getCroppedCanvas({
+        //        width: 770,
+        //        height: 410// input value
+        //    }).toDataURL();
+        //    $('#NewsDetail').val(imgSrc);
+        //    // remove hide class of img
+        //    croppedDetails.classList.remove('hide');
+        //    img_result.classList.remove('hide');
+        //    // show image cropped
+        //    croppedDetails.src = imgSrc;
+        //});
+
+        //otherNewsButton.addEventListener('click', e => {
+        //    e.preventDefault();
+        //    // get result to data uri
+        //    let imgSrc = OtherCropper.getCroppedCanvas({
+        //        width: 370,
+        //        height: 344// input value
+        //    }).toDataURL();
+        //    $('#OtherNews').val(imgSrc);
+        //    // remove hide class of img
+        //    img_result.classList.remove('hide');
+        //    // show image cropped
+        //    croppedOther.src = imgSrc;
+        //});
+
+        var fileInput = document.getElementById("file");
+        var title = document.getElementById("title");
         const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(new File(src));
+        const file = new File([dataURItoBlob(src)], title.value + (Math.floor(Math.random() * 100) + 1) + ".png");
+        dataTransfer.items.add(file);
         fileInput.files = dataTransfer.files;
+        const reader = new FileReader();
+        reader.readAsDataURL(fileInput.files[0]);
+    }
 
+    function dataURItoBlob(dataURI) {
+        const [metaData, data] = dataURI.split(',');
+        const [prefix, mimeSection] = metaData.split(':');
+        const [mimeString, separator] = mimeSection.split(';')
 
+        const byteString = atob(data);
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
 
-
+        return new Blob([arrayBuffer], { type: mimeString });
     }
 
 </script>

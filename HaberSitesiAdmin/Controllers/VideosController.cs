@@ -83,7 +83,14 @@ namespace HaberSitesiAdmin.Controllers
             HttpPostedFileBase file,HttpPostedFileBase canvas, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
+
         {
+
+            //if (file == null) { 
+            //    file = new HttpPostedFileBase() { 
+                    
+            //    }
+            //}
 
             if (ModelState.IsValid /*&& **file != null*/ && videoFile != null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate))
             {
@@ -129,12 +136,12 @@ namespace HaberSitesiAdmin.Controllers
                         //var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10) };
                         //ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);
                         entity.Img = _videoServices.UpdateImage(entity.url, file);
+
+
+                    //entity.Img = _videoServices.UpdateImage(entity.url, file);
+
+
                     
-
-                       entity.Img = _videoServices.UpdateImage(entity.url, file);
-
-
-
 
                     entity.MainSliderIMG = _videoServices.CreateCroppedImage(entity.url, MainSlider, "crop120x100"); ;
                     entity.SidebarIMG = _videoServices.CreateCroppedImage(entity.url, Sidebar, "crop120x100");
