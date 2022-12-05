@@ -719,10 +719,12 @@
 </script>
 
 
+
 <script>
     $("#nexttStep").click(function () {
         $("#thirtlyStep").hide();
         $("#secondStep").show();
+
         $("#sliderButton").click();
         $("#sliderBottomButton").click();
         $("#sidebarButton").click();
@@ -731,7 +733,11 @@
         $("#detailsButton").click();
         $("#otherNewsButton").click();
     });
+
+
+
     $("#backkStep").click(function () {
+
         $("#firstStep").show();
         $("#thirtlyStep").hide();
     });
@@ -745,8 +751,8 @@
         $("#otherNewsButton").click();
         $("#firstStep").hide();
 
-        var FileValidation = document.forms["Form"]["file"].value;
-        if (FileValidation == "") {
+        var aa = document.forms["Form"]["file"].value;
+        if (aa == "") {
             $("#thirtlyStep").show();
         }
         else {
