@@ -175,8 +175,8 @@ namespace HaberSitesiAdmin.Services
 
         public String UpdateImage(String fileName, HttpPostedFileBase file)
         {
-            string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Storage/Video/Original/"), fileName );
-            string _url = Path.Combine("/Storage/Video/Original", fileName );
+            string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Storage/Video/Original/"), fileName +".png" );
+            string _url = Path.Combine("/Storage/Video/Original", fileName + ".png");
             file.SaveAs(_path);
             return _url;
         }

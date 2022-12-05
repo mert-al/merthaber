@@ -85,7 +85,7 @@ namespace HaberSitesiAdmin.Controllers
 
         {
 
-            if (ModelState.IsValid && file != null && videoFile != null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate))
+            if (ModelState.IsValid /*&& **file != null*/ && videoFile != null && SelectedCategories != null && !String.IsNullOrWhiteSpace(publishDate))
             {
                 try
                 {
@@ -109,6 +109,7 @@ namespace HaberSitesiAdmin.Controllers
                             entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
                             _videoServices.DeleteVideo(videoPath);
                         }
+
                         using (var shell = ShellObject.FromParsingName(newVideoFilePath))
                         {
                             IShellProperty prop = shell.Properties.System.Media.Duration;
@@ -119,17 +120,23 @@ namespace HaberSitesiAdmin.Controllers
                         }
 
                     }
-                    if (file.ContentLength > 0)
-                    {
-                        var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
-                        var outputFile = new MediaFile(AppContext.BaseDirectory + "Storage\\Video\\Original\\" + entity.Title + ".jpg");
-                        var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
-                        var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10) };
-                        ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);
-                        entity.Img = _videoServices.UpdateImage(outputFile.FileInfo.Name, file);
+                   
+                    
+                        //FFMPEG ile video içerisinden resim alma
+                        //var inputFile = new MediaFile(AppContext.BaseDirectory + entity.EmbedUrl);
+                        //var outputFile = new MediaFile(AppContext.BaseDirectory + "Storage\\Video\\Original\\" + entity.Title + ".jpg");
+                        //var ffmpeg = new Engine("C:\\ffmpeg\\bin\\ffmpeg.exe");
+                        //var options = new ConversionOptions { Seek = TimeSpan.FromSeconds(10) };
+                        //ffmpeg.GetThumbnailAsync(inputFile, outputFile, options);
+                        entity.Img = _videoServices.UpdateImage(entity.url, file);
+                    
 
-                    }
-                    entity.MainSliderIMG = entity.Img;
+                       entity.Img = _videoServices.UpdateImage(entity.url, file);
+
+
+
+
+                    entity.MainSliderIMG = _videoServices.CreateCroppedImage(entity.url, MainSlider, "crop120x100"); ;
                     entity.SidebarIMG = _videoServices.CreateCroppedImage(entity.url, Sidebar, "crop120x100");
                     entity.SliderBottomIMG = _videoServices.CreateCroppedImage(entity.url, SliderBottom, "crop236x157");
                     entity.BestWeeklyIMG = _videoServices.CreateCroppedImage(entity.url, BestWeekly, "crop370x431");
@@ -150,10 +157,7 @@ namespace HaberSitesiAdmin.Controllers
             {
                 ViewBag.videoUrlError = "Lütfen Video Yükleyiniz";
             }
-            if (file == null)
-            {
-                ViewBag.fileError = "Lütfen Video Görseli Yükleyiniz";
-            }
+            
             if (SelectedCategories == null)
             {
                 ViewBag.categoryError = "Lütfen Kategori Seçiniz";
