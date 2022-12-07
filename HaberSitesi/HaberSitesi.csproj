@@ -424,6 +424,7 @@
     <Content Include="Content\Magazine_News Doc\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="Content\main.html" />
     <Content Include="Content\readme.txt" />
+    <Content Include="Content\reklam.mp4" />
     <Content Include="Content\single-blog.html" />
     <Content Include="Content\video.mp4" />
     <Content Include="favicon.ico" />
