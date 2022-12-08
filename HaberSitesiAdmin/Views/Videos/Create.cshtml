@@ -85,7 +85,7 @@
                         <div class="mb-3">
                             @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @id = "title"} })
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @id = "title" } })
                                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -470,108 +470,7 @@
             cropBoxResizable: false
         });
 
-        //// save on click
-        //sliderButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = SliderCropper.getCroppedCanvas({
-        //        width: 770,
-        //        height: 410// input value
-        //    }).toDataURL();
-        //    $('#MainSlider').val(imgSrc);
-        //    croppedSlider.classList.remove('hide');
-        //    img_result.classList.remove('hide');
-        //    croppedSlider.src = imgSrc;
-        //});
-
-        //sliderBottomButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = SliderBottomCropper.getCroppedCanvas({
-        //        width: 236, // input value
-        //        height: 157 // input value
-        //    }).toDataURL();
-        //    $('#Sidebar').val(imgSrc);
-        //    // remove hide class of img
-        //    croppedSliderBottom.classList.remove('hide');
-        //    img_result.classList.remove('hide');
-        //    // show image cropped
-        //    croppedSliderBottom.src = imgSrc;
-        //});
-
-        //sidebarButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = SidebarCropper.getCroppedCanvas({
-        //        width: 120,
-        //        height: 100// input value
-        //    }).toDataURL();
-        //    $('#SliderBottom').val(imgSrc);
-        //    // remove hide class of img
-        //    croppedSidebar.classList.remove('hide');
-        //    img_result.classList.remove('hide');
-        //    // show image cropped
-        //    croppedSidebar.src = imgSrc;
-        //});
-
-        //bestWeeklyButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = BestWeeklyCropper.getCroppedCanvas({
-        //        width: 370,
-        //        height: 431// input value
-        //    }).toDataURL();
-        //    $('#BestWeekly').val(imgSrc);
-        //    // remove hide class of img
-        //    croppedBestWeekly.classList.remove('hide');
-        //    img_result.classList.remove('hide');
-        //    // show image cropped
-        //    croppedBestWeekly.src = imgSrc;
-        //});
-
-        //bestWeeklySmButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = BestWeeklySmCropper.getCroppedCanvas({
-        //        width: 270,
-        //        height: 174// input value
-        //    }).toDataURL();
-        //    $('#BestWeeklySm').val(imgSrc);
-        //    // remove hide class of img
-        //    croppedBestWeeklySm.classList.remove('hide');
-        //    img_result.classList.remove('hide');
-        //    // show image cropped
-        //    croppedBestWeeklySm.src = imgSrc;
-        //});
-
-        //detailsButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = DetailsCropper.getCroppedCanvas({
-        //        width: 770,
-        //        height: 410// input value
-        //    }).toDataURL();
-        //    $('#NewsDetail').val(imgSrc);
-        //    // remove hide class of img
-        //    croppedDetails.classList.remove('hide');
-        //    img_result.classList.remove('hide');
-        //    // show image cropped
-        //    croppedDetails.src = imgSrc;
-        //});
-
-        //otherNewsButton.addEventListener('click', e => {
-        //    e.preventDefault();
-        //    // get result to data uri
-        //    let imgSrc = OtherCropper.getCroppedCanvas({
-        //        width: 370,
-        //        height: 344// input value
-        //    }).toDataURL();
-        //    $('#OtherNews').val(imgSrc);
-        //    // remove hide class of img
-        //    img_result.classList.remove('hide');
-        //    // show image cropped
-        //    croppedOther.src = imgSrc;
-        //});
+       
 
         var fileInput = document.getElementById("file");
         var title = document.getElementById("title");
@@ -871,13 +770,10 @@
         $("#otherNewsButton").click();
         $("#firstStep").hide();
 
-        var aa = document.forms["Form"]["file"].value;
-        if (aa == "") {
-            $("#thirtlyStep").show();
-        }
-        else {
-            $("#secondStep").show();
-        }
+
+        $("#thirtlyStep").show();
+
+      
 
 
 
