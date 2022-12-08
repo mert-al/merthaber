@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Category : BaseEntity
+    public partial class Category:BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
@@ -27,7 +27,6 @@ namespace DataAccess
         public string Name { get; set; }
         public int Status { get; set; }
         public string url { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album> Albums { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

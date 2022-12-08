@@ -13,7 +13,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Role : BaseEntity
+    public partial class Role :  BaseEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
@@ -21,7 +21,7 @@ namespace DataAccess
             this.Users = new HashSet<User>();
         }
     
-        
+
         public string Name { get; set; }
 
         public string Description { get; set; }

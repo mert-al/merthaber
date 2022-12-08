@@ -13,16 +13,15 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ContactForm : BaseEntity
+    public partial class ContactForm:BaseEntity
     {
-       
+      
         public string Name { get; set; }
         public string Lastname { get; set; }
         public string EMail { get; set; }
         public string Phone { get; set; }
         public string Message { get; set; }
         public bool isRead { get; set; }
-      
         public string Subject { get; set; }
     }
 }

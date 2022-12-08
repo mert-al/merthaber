@@ -13,14 +13,14 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class AlbumIMG : BaseEntity
+    public partial class AlbumIMG:BaseEntity
     {
-        
+
         public string Title { get; set; }
         public string IMG { get; set; }
         public string Description { get; set; }
         public int AlbumId { get; set; }
-     
+
     
         public virtual Album Album { get; set; }
     }

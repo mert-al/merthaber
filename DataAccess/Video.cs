@@ -13,8 +13,8 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Video : BaseEntity
-    { 
+    public partial class Video:BaseEntity
+    {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Video()
         {
@@ -23,14 +23,13 @@ namespace DataAccess
             this.Categories = new HashSet<Category>();
         }
     
-        
+      
         public string Title { get; set; }
         public string Description { get; set; }
         public string Img { get; set; }
         public int Hit { get; set; }
         public string EmbedUrl { get; set; }
         public System.DateTime PublishDate { get; set; }
- 
         public Nullable<int> User_Id { get; set; }
         public string MainSliderIMG { get; set; }
         public string SidebarIMG { get; set; }
@@ -41,15 +40,8 @@ namespace DataAccess
         public string OtherIMG { get; set; }
         public string url { get; set; }
         public string VideoTime { get; set; }
-        //public TimeSpan VideoTime { get; set; }
-        //public TimeSpan VideoTimeAsInt
-        //{
-        //    get
-        //    {
-        //        return VideoTime.TotalSeconds;
-        //    }
-        //}
         public Nullable<int> Ads_id { get; set; }
+        public Nullable<int> ProcessingStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }

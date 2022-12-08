@@ -7,8 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.UI;
 using DataAccess;
@@ -26,6 +28,7 @@ namespace HaberSitesiAdmin.Controllers
     [HandleError]
     public class VideosController : Controller
     {
+        public static int progress { get; set; }
         VideoServices _videoServices;
         public VideosController()
         {
@@ -80,11 +83,11 @@ namespace HaberSitesiAdmin.Controllers
 
 
 
-     
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
-            HttpPostedFileBase file,HttpPostedFileBase canvas, HttpPostedFileBase videoFile, List<String> SelectedCategories,
+        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
+            HttpPostedFileBase file, HttpPostedFileBase canvas, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
 
@@ -100,30 +103,29 @@ namespace HaberSitesiAdmin.Controllers
                     if (videoFile.ContentLength > 0)
                     {
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
-                        string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + getVideoFileName(videoFile.FileName);
-                        var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
+                        //string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+                        //var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
                         //Videonun convert edildiği kısım
-                        if (videoFile.ContentType != "video/mp4")
-                        {
-                            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
-                            entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
-                            _videoServices.DeleteVideo(videoPath);
-                        }
-                        // Duration alınan kısım 
-                        using (var shell = ShellObject.FromParsingName(newVideoFilePath))
-                        {
-                            IShellProperty prop = shell.Properties.System.Media.Duration;
-                            var t = (ulong)prop.ValueAsObject;
-                            var durationtime = TimeSpan.FromTicks((long)t);
-                            entity.VideoTime = durationtime.ToString();
-                        }
+                        //if (videoFile.ContentType != "video/mp4")
+                        //{
+                            //var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+                            //Task task = new Task(() => ConvertVideo(videoPath,newVideoFilePath));
+                            //task.Start();
+
+                            //ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
+                            //entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
+                            //_videoServices.DeleteVideo(videoPath);
+                        
+                        //Duration alınan kısım 
+                       
+
+
                     }
                     //İmage Update Kısım
-                    if (file.ContentLength>0)                    
+                    if (file.ContentLength > 0)
                         entity.Img = _videoServices.UpdateImage(entity.url, file);
-   
-                        
+
+
 
                     entity.MainSliderIMG = _videoServices.CreateCroppedImage(entity.url, MainSlider, "crop120x100"); ;
                     entity.SidebarIMG = _videoServices.CreateCroppedImage(entity.url, Sidebar, "crop120x100");
@@ -134,6 +136,7 @@ namespace HaberSitesiAdmin.Controllers
                     entity.OtherIMG = _videoServices.CreateCroppedImage(entity.url, OtherNews, "crop370x344");
                     entity.PublishDate = DateTime.Parse(publishDate);
                     _videoServices.Create(entity, SelectedCategories);
+                    //HostingEnvironment.QueueBackgroundWorkItem(ctx => SaveUploadedFile(videoFile));
 
                     return RedirectToAction("Index");
                 }
@@ -146,7 +149,7 @@ namespace HaberSitesiAdmin.Controllers
             {
                 ViewBag.videoUrlError = "Lütfen Video Yükleyiniz";
             }
-            
+
             if (SelectedCategories == null)
             {
                 ViewBag.categoryError = "Lütfen Kategori Seçiniz";
@@ -159,15 +162,36 @@ namespace HaberSitesiAdmin.Controllers
             return View(entity);
         }
 
+        public async void ConvertVideo(string videoPath, string newVideoFilePath)
+        {
+            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+            //ffMpeg.ConvertProgress +=  (sender,args) {
+            //    progress += 1;
+            //    con
+            //}
+             ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
 
 
-        private string getVideoFileName(string fileName) {
+        }
+        public int showProgress()
+        {
+            return progress;
+        }
+        //private void SaveUploadedFile(HttpPostedFileBase videoFile)
+        //{
+        //    Thread.Sleep(5000);
+        //    var fileName = Path.GetFileName(videoFile.FileName);
+        //    var path = Path.Combine(Server.MapPath("~/")+ "Storage\\Video\\Therad\\", fileName);
+        //    videoFile.SaveAs(path);
+        //}
+        private string getVideoFileName(string fileName)
+        {
 
             var fileNameArr = fileName.Split('.');
             return fileName.Replace(fileNameArr.LastOrDefault(), "mp4");
         }
 
-      
+
 
         // GET: Videos/Edit/5
         public ActionResult Edit(int? id)
@@ -201,7 +225,7 @@ namespace HaberSitesiAdmin.Controllers
                     entity.url = entity.Title.ToLower().Replace("ü", "u").Replace("ş", "s").Replace("ç", "c").Replace("ğ", "g").Replace("ö", "o").Replace("ı", "i") + "-" + entity.Id;
                     entity.url = Regex.Replace(entity.url, @"[^0-9a-z]", "-").Replace("--", "-").Replace("--", "-").Replace("--", "-");
 
-                 
+
 
                     if (videoFile.ContentLength > 0)
                     {

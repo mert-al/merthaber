@@ -347,7 +347,7 @@
 
     function setCurrentTime() {
         video.currentTime = time.value;
-        generateThumbnail();
+        //generateThumbnail();
     }
 
     function generateThumbnail() {
@@ -584,17 +584,20 @@
     }
 
     function dataURItoBlob(dataURI) {
+        //base64'ü ham ikili verilere dönüştürme
         const [metaData, data] = dataURI.split(',');
         const [prefix, mimeSection] = metaData.split(':');
         const [mimeString, separator] = mimeSection.split(';')
-
+       //atob:base64 string kodunu çözer
         const byteString = atob(data);
+        //dizi baytlarını arabelleğe yazma
         const arrayBuffer = new ArrayBuffer(byteString.length);
+        //arabelleğin baytlarını doğru değerlere ayarlama
         const ia = new Uint8Array(arrayBuffer);
         for (let i = 0; i < byteString.length; i++) {
             ia[i] = byteString.charCodeAt(i);
         }
-
+        //arraybufferi bloba yazma ve döndürme
         return new Blob([arrayBuffer], { type: mimeString });
     }
 

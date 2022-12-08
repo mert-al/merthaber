@@ -246,6 +246,7 @@
           <Property Name="url" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="VideoTime" Type="nvarchar" MaxLength="50" />
           <Property Name="Ads_id" Type="int" />
+          <Property Name="ProcessingStatus" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -948,6 +949,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <NavigationProperty Name="User" Relationship="Self.FK_dbo_Videos_dbo_Users_User_Id" FromRole="Videos" ToRole="Users" />
           <NavigationProperty Name="Ads" Relationship="Self.VideoAds" FromRole="Videos" ToRole="Ads" />
           <NavigationProperty Name="Categories" Relationship="Self.VideoCategories" FromRole="Videos" ToRole="Categories" />
+          <Property Name="ProcessingStatus" Type="Int32" />
         </EntityType>
         <EntityType Name="homePage">
           <Key>
@@ -1500,6 +1502,7 @@ warning 6002: The table/view 'HaberSitesi.dbo.homePage' does not have a primary 
           <EntitySetMapping Name="Videos">
             <EntityTypeMapping TypeName="HaberSitesiModel.Video">
               <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="ProcessingStatus" ColumnName="ProcessingStatus" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
