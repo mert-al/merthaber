@@ -76,6 +76,25 @@
                                         }
 
                                     </td>
+
+                                    <td>
+                                        @{
+                                            if (item.ProcessingStatus == 0)
+                                            {
+                                                <p>@item.ProcessingStatus İşlem Bekleniyor</p>
+                                            }
+                                            else if (item.ProcessingStatus == 1)
+                                            {
+                                                <p>@item.ProcessingStatus Dönüştürme İşleminde</p>
+                                            }
+                                            else if(item.ProcessingStatus == 2)
+                                            {
+                                                <p>@item.ProcessingStatus Dönüştürme Tamamlandı</p>
+                                            }
+                                        }
+
+
+                                    </td>
                                     <td>
                                         @{
                                             if (item.isActive)

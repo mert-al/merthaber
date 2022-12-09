@@ -135,6 +135,7 @@ namespace HaberSitesiAdmin.Controllers
                     entity.DetailsIMG = _videoServices.CreateCroppedImage(entity.url, NewsDetail, "crop770x410");
                     entity.OtherIMG = _videoServices.CreateCroppedImage(entity.url, OtherNews, "crop370x344");
                     entity.PublishDate = DateTime.Parse(publishDate);
+                    entity.ProcessingStatus = 0;
                     _videoServices.Create(entity, SelectedCategories);
                     //HostingEnvironment.QueueBackgroundWorkItem(ctx => SaveUploadedFile(videoFile));
 
