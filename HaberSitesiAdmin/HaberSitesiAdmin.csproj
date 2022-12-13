@@ -643,6 +643,7 @@
     <Content Include="Content\assets\img\avatars\6.png" />
     <Content Include="Content\assets\img\avatars\7.png" />
     <Content Include="Content\assets\img\backgrounds\18.jpg" />
+    <Content Include="Content\assets\img\check.png" />
     <Content Include="Content\assets\img\elements\1.jpg" />
     <Content Include="Content\assets\img\elements\11.jpg" />
     <Content Include="Content\assets\img\elements\12.jpg" />
@@ -682,7 +683,10 @@
     <Content Include="Content\assets\img\layouts\layout-fluid-light.png" />
     <Content Include="Content\assets\img\layouts\layout-without-menu-light.png" />
     <Content Include="Content\assets\img\layouts\layout-without-navbar-light.png" />
+    <Content Include="Content\assets\img\loading.gif" />
+    <Content Include="Content\assets\img\loading.png" />
     <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\Spinner-1s-200px %281%29.gif" />
     <Content Include="Content\assets\js\config.js" />
     <Content Include="Content\assets\js\dashboards-analytics.js" />
     <Content Include="Content\assets\js\extended-ui-perfect-scrollbar.js" />

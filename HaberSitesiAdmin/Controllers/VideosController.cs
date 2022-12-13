@@ -103,25 +103,8 @@ namespace HaberSitesiAdmin.Controllers
                     if (videoFile.ContentLength > 0)
                     {
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
-                        //string newVideoFilePath = Server.MapPath("~/") + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-                        //var videoPath = Path.GetFullPath(Server.MapPath("~/") + entity.EmbedUrl);
-                        //Videonun convert edildiği kısım
-                        //if (videoFile.ContentType != "video/mp4")
-                        //{
-                            //var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-                            //Task task = new Task(() => ConvertVideo(videoPath,newVideoFilePath));
-                            //task.Start();
-
-                            //ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
-                            //entity.EmbedUrl = newVideoFilePath.Replace(AppContext.BaseDirectory, "\\");
-                            //_videoServices.DeleteVideo(videoPath);
-                        
-                        //Duration alınan kısım 
-                       
-
-
                     }
-                    //İmage Update Kısım
+                    
                     if (file.ContentLength > 0)
                         entity.Img = _videoServices.UpdateImage(entity.url, file);
 
@@ -135,9 +118,17 @@ namespace HaberSitesiAdmin.Controllers
                     entity.DetailsIMG = _videoServices.CreateCroppedImage(entity.url, NewsDetail, "crop770x410");
                     entity.OtherIMG = _videoServices.CreateCroppedImage(entity.url, OtherNews, "crop370x344");
                     entity.PublishDate = DateTime.Parse(publishDate);
-                    entity.ProcessingStatus = 0;
+                    if (videoFile.ContentType == "video/mp4")
+                    {
+                        entity.ProcessingStatus = 2;
+                    }
+                    else
+                    {
+                        entity.ProcessingStatus = 0;
+                    }
+                   
                     _videoServices.Create(entity, SelectedCategories);
-                    //HostingEnvironment.QueueBackgroundWorkItem(ctx => SaveUploadedFile(videoFile));
+                    
 
                     return RedirectToAction("Index");
                 }

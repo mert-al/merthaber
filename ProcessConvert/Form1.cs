@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 namespace ProcessConvert
 {
@@ -47,13 +49,13 @@ namespace ProcessConvert
                 waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
             }
 
-            string newVideoFilePath = @"C:\Users\mertali.cetin\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-            var updatevideopath = newVideoFilePath.Replace(@"C:\Users\mertali.cetin\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+            string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+            var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
 
 
             foreach (var item in waitingForProcess)
             {
-                var videoPath = @"C:\Users\mertali.cetin\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
+                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
                 Task task = new Task(() => ProcessVideo(item, newVideoFilePath, videoPath, updatevideopath, conn));
                 task.Start();
             }
@@ -77,7 +79,20 @@ namespace ProcessConvert
             using (var con = new SqlConnection(ConnectionString))
             {
                 video.ProcessingStatus = 2;
+                video.EmbedUrl = updatevideopath;
                 con.Update<Video>(video);
+            }
+            using (var shell = ShellObject.FromParsingName(newVideoFilePath))
+            {
+                using (var con = new SqlConnection(ConnectionString))
+                {
+
+                    IShellProperty prop = shell.Properties.System.Media.Duration;
+                    var t = (ulong)prop.ValueAsObject;
+                    var durationtime = TimeSpan.FromTicks((long)t);
+                    video.VideoTime = durationtime.ToString();
+                    con.Update<Video>(video);
+                }
             }
             //await conn.OpenAsync();
             //string sql = "update Videos set ProcessingStatus = 2 WHERE ProcessingStatus=1";
