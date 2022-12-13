@@ -31,18 +31,18 @@ namespace ProcessConvert
         private async void Form1_Load(object sender, EventArgs e)
         {
 
-            while (1==1)
+            while (1 == 1)
             {
-                
+
                 NewMethod();
-                
-                await Task.Delay(5000);
+
+                await Task.Delay(15000);
             }
             //System.Threading.Thread.Sleep(15000);
 
 
         }
-       
+
 
         private async void NewMethod()
         {
@@ -50,15 +50,15 @@ namespace ProcessConvert
             IEnumerable<Video> waitingForProcess = new List<Video>();
 
 
-            //using (var conn = new SqlConnection(ConnectionString))
-            //{
-            //    waitingForProcess = conn.GetAll<Video>();
-            //    waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
-            //}
-            //dataGridView1.DataSource = waitingForProcess.ToList();
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                waitingForProcess = conn.GetAll<Video>();
+                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
+            }
 
-           
-            
+            dataGridView1.DataSource = waitingForProcess.Where(x => x.ProcessingStatus == 0 || x.ProcessingStatus == 1).ToList();
+
+
 
             foreach (var item in waitingForProcess)
             {
@@ -92,7 +92,7 @@ namespace ProcessConvert
                 video.EmbedUrl = updatevideopath;
                 MessageBox.Show("Video Dönüştürülmüştür");
                 con.Update<Video>(video);
-                
+
             }
             using (var shell = ShellObject.FromParsingName(newVideoFilePath))
             {
@@ -118,6 +118,7 @@ namespace ProcessConvert
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
+
             IEnumerable<Video> waitingForProcess = new List<Video>();
             using (var conn = new SqlConnection(ConnectionString))
             {
@@ -125,17 +126,19 @@ namespace ProcessConvert
                 waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 2).ToList();
             }
             dataGridView1.DataSource = waitingForProcess.ToList();
+
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            IEnumerable<Video> waitingForProcess = new List<Video>();
+            IEnumerable<Video> waitingForProcesss = new List<Video>();
             using (var conn = new SqlConnection(ConnectionString))
             {
-                waitingForProcess = conn.GetAll<Video>();
-                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
+                waitingForProcesss = conn.GetAll<Video>();
+                waitingForProcesss = waitingForProcesss.Where(x => x.ProcessingStatus == 0 || x.ProcessingStatus == 1).ToList();
             }
-            dataGridView1.DataSource = waitingForProcess.ToList();
+            dataGridView1.DataSource = waitingForProcesss.ToList();
+
         }
     }
 }

@@ -166,7 +166,7 @@
 
 
                         <div class="container">
-                            <video id="video" autoplay="autoplay" controls></video>
+                            <video  id="video" autoplay="autoplay" controls style="max-width: 100%;"></video>
                             <form>
                                 <div>
                                     <input id="time" />
@@ -186,7 +186,7 @@
                                 </div>
                             </form>
                             <h3 style="color:black;">Önizleme</h3>
-                            <canvas id="canvas" name="canvas"></canvas>
+                            <canvas style="max-width:100%;" id="canvas" name="canvas"></canvas>
                             @*<a class="button"   id="generate" onclick="generateThumbnail()">Süreyi Onayla</a>*@
                             <div id="thumbnails"></div>
                         </div>
@@ -324,14 +324,10 @@
 </style>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
 <script>
-    // Get the video element with id="myVideo"
-    var vid = document.getElementById("video");
-
-    // Assign an ontimeupdate event to the video element, and execute a function if the current playback position has changed
+    
+    var vid = document.getElementById("video");   
     vid.ontimeupdate = function () { myFunction() };
-
-    function myFunction() {
-        // Display the current position of the video in a p element with id="demo"
+    function myFunction() {       
         document.getElementById("time").value = vid.currentTime;
     }
 </script>
@@ -354,6 +350,7 @@
 
     function getCurrentTime() {
         time.value = video.currentTime;
+        video.pause();
         generateThumbnail();
     }
 
