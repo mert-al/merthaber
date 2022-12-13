@@ -28,14 +28,21 @@ namespace ProcessConvert
         SqlCommand com = new SqlCommand();
         DataSet ds = new DataSet();
         private static string ConnectionString = @"Server=TESTWEBDB\QA;Database= HaberSitesi;User Id=db_testadmin;Password=sabahsoft";
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            while (1 == 1)
+
+            while (1==1)
             {
+                
                 NewMethod();
-                System.Threading.Thread.Sleep(15000);
+                
+                await Task.Delay(5000);
             }
+            //System.Threading.Thread.Sleep(15000);
+
+
         }
+       
 
         private async void NewMethod()
         {
@@ -43,19 +50,22 @@ namespace ProcessConvert
             IEnumerable<Video> waitingForProcess = new List<Video>();
 
 
-            using (var conn = new SqlConnection(ConnectionString))
-            {
-                waitingForProcess = conn.GetAll<Video>();
-                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
-            }
+            //using (var conn = new SqlConnection(ConnectionString))
+            //{
+            //    waitingForProcess = conn.GetAll<Video>();
+            //    waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
+            //}
+            //dataGridView1.DataSource = waitingForProcess.ToList();
 
-            string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-            var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
-
+           
+            
 
             foreach (var item in waitingForProcess)
             {
+
                 var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
+                string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+                var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
                 Task task = new Task(() => ProcessVideo(item, newVideoFilePath, videoPath, updatevideopath, conn));
                 task.Start();
             }
@@ -80,7 +90,9 @@ namespace ProcessConvert
             {
                 video.ProcessingStatus = 2;
                 video.EmbedUrl = updatevideopath;
+                MessageBox.Show("Video Dönüştürülmüştür");
                 con.Update<Video>(video);
+                
             }
             using (var shell = ShellObject.FromParsingName(newVideoFilePath))
             {
@@ -94,6 +106,8 @@ namespace ProcessConvert
                     con.Update<Video>(video);
                 }
             }
+
+
             //await conn.OpenAsync();
             //string sql = "update Videos set ProcessingStatus = 2 WHERE ProcessingStatus=1";
             //var resultss = conn.Execute(sql, new SqlConnection());
@@ -102,7 +116,26 @@ namespace ProcessConvert
 
         }
 
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Video> waitingForProcess = new List<Video>();
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                waitingForProcess = conn.GetAll<Video>();
+                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 2).ToList();
+            }
+            dataGridView1.DataSource = waitingForProcess.ToList();
+        }
 
-
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            IEnumerable<Video> waitingForProcess = new List<Video>();
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                waitingForProcess = conn.GetAll<Video>();
+                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 0).ToList();
+            }
+            dataGridView1.DataSource = waitingForProcess.ToList();
+        }
     }
 }
