@@ -644,6 +644,7 @@
     <Content Include="Content\assets\img\avatars\7.png" />
     <Content Include="Content\assets\img\backgrounds\18.jpg" />
     <Content Include="Content\assets\img\check.png" />
+    <Content Include="Content\assets\img\waiting.gif" />
     <Content Include="Content\assets\img\elements\1.jpg" />
     <Content Include="Content\assets\img\elements\11.jpg" />
     <Content Include="Content\assets\img\elements\12.jpg" />

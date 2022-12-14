@@ -58,6 +58,7 @@
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Categories)</th>
+                                <th>Durum</th> 
                                 <th>@Html.DisplayNameFor(model => model.Items[0].isActive)</th>
                             </tr>
                         </thead>
@@ -90,7 +91,7 @@
                                         @{
                                             if (item.ProcessingStatus == 0)
                                             {
-
+                                                <img style="max-width:26px;" src="~/Content/assets/img/waiting.gif" />
 
                                             }
                                             else if (item.ProcessingStatus == 1)

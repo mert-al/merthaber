@@ -89,8 +89,7 @@ namespace ProcessConvert
             using (var con = new SqlConnection(ConnectionString))
             {
                 video.ProcessingStatus = 2;
-                video.EmbedUrl = updatevideopath;
-                MessageBox.Show("Video Dönüştürülmüştür");
+                video.EmbedUrl = updatevideopath;                
                 con.Update<Video>(video);
 
             }
