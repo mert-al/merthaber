@@ -89,22 +89,22 @@ namespace ProcessConvert
             using (var con = new SqlConnection(ConnectionString))
             {
                 video.ProcessingStatus = 2;
-                video.EmbedUrl = updatevideopath;                
+                video.EmbedUrl = updatevideopath;
                 con.Update<Video>(video);
 
             }
-            using (var shell = ShellObject.FromParsingName(newVideoFilePath))
-            {
-                using (var con = new SqlConnection(ConnectionString))
-                {
+            //using (var shell = ShellObject.FromParsingName(newVideoFilePath))
+            //{
+            //    using (var con = new SqlConnection(ConnectionString))
+            //    {
 
-                    IShellProperty prop = shell.Properties.System.Media.Duration;
-                    var t = (ulong)prop.ValueAsObject;
-                    var durationtime = TimeSpan.FromTicks((long)t);
-                    video.VideoTime = durationtime.ToString();
-                    con.Update<Video>(video);
-                }
-            }
+            //        IShellProperty prop = shell.Properties.System.Media.Duration;
+            //        var t = (ulong)prop.ValueAsObject;
+            //        var durationtime = TimeSpan.FromTicks((long)t);
+            //        video.VideoTime = durationtime.ToString();
+            //        con.Update<Video>(video);
+            //    }
+            //}
 
 
             //await conn.OpenAsync();
@@ -137,6 +137,53 @@ namespace ProcessConvert
                 waitingForProcesss = waitingForProcesss.Where(x => x.ProcessingStatus == 0 || x.ProcessingStatus == 1).ToList();
             }
             dataGridView1.DataSource = waitingForProcesss.ToList();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IEnumerable<Video> waitingForProcess = new List<Video>();
+            using (var conn = new SqlConnection(ConnectionString))
+            {
+                waitingForProcess = conn.GetAll<Video>();
+                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 2 && x.AudioFile == null).ToList();
+            }
+
+
+            foreach (var item in waitingForProcess)
+            {
+
+                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
+                //string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+                //var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+                string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\AudioFile\\" + Guid.NewGuid().ToString() + ".mp3";
+                var updatevideopaths = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+
+                Mp3Convert(item, videoPath, newVideoFilePath, updatevideopaths);
+
+
+            }
+
+        }
+        private static void Mp3Convert(Video video, string videoPath, string newVideoFilePath, string updatevideopaths)
+        {
+
+
+
+
+            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+            ffMpeg.ConvertMedia(videoPath, newVideoFilePath, "mp3");
+            using (var con = new SqlConnection(ConnectionString))
+            {
+
+
+
+
+                video.AudioFile = updatevideopaths;
+                con.Update<Video>(video);
+
+            }
+
 
         }
     }

@@ -14,7 +14,7 @@ namespace ProcessConvert.Models
         public int Id { get; set; }
         public int ProcessingStatus { get; set; }
         public string EmbedUrl { get; set; }
-        public string VideoTime { get; set;
-        }
+        public string VideoTime { get; set;}
+        public string AudioFile { get; set; }
     }
 }
