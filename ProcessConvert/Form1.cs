@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+using System.Diagnostics;
 
 namespace ProcessConvert
 {
@@ -171,8 +172,13 @@ namespace ProcessConvert
 
 
 
-            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-            ffMpeg.ConvertMedia(videoPath, newVideoFilePath, "mp3");
+           
+
+
+            Process.Start("cmd.exe", "/k" + " ffmpeg -i "+ videoPath +" " + newVideoFilePath);
+            
+            // var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+            //ffMpeg.ConvertMedia(videoPath, newVideoFilePath, "mp3");
             using (var con = new SqlConnection(ConnectionString))
             {
 
@@ -186,5 +192,7 @@ namespace ProcessConvert
 
 
         }
+
+        
     }
 }
