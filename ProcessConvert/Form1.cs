@@ -67,9 +67,9 @@ namespace ProcessConvert
             foreach (var item in waitingForProcess)
             {
 
-                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin" + item.EmbedUrl;
-                string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-                var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+                var videoPath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin" + item.EmbedUrl;
+                string newVideoFilePath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+                var updatevideopath = newVideoFilePath.Replace(@"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\", "");
                 Task task = new Task(() => ProcessVideo(item, newVideoFilePath, videoPath, updatevideopath, conn));
                 task.Start();
 
@@ -153,11 +153,11 @@ namespace ProcessConvert
             foreach (var item in waitingForProcess)
             {
 
-                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
+                var videoPath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
                 //string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
                 //var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
-                string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\AudioFile\\" + Guid.NewGuid().ToString() + ".mp3";
-                var updatevideopaths = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+                string newVideoFilePath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\AudioFile\\" + Guid.NewGuid().ToString() + ".mp3";
+                var updatevideopaths = newVideoFilePath.Replace(@"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\", "");
 
                 Mp3Convert(item, videoPath, newVideoFilePath, updatevideopaths);
 

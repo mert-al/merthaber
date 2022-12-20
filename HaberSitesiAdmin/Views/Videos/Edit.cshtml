@@ -168,8 +168,8 @@
                             <form>
                                 <div>
                                     <input type="text" id="time" placeholder="Süre" style="margin-right:3%">
-                                    <button type="button" class="btn btn-primary" onclick="setCurrentTime()">Süreyi Ayarla</button>
-                                    <button type="button" class="btn btn-primary" onclick="getCurrentTime()">Şuan ki Süreyi Al</button>
+                                    @*<button type="button" class="btn btn-primary" onclick="setCurrentTime()">Süreyi Ayarla</button>*@
+                                    <button type="button" class="btn btn-primary" onclick="getCurrentTime()">Fotoğrafı Yakala</button>
 
                                 </div>
 
@@ -348,6 +348,18 @@
     }
 </style>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.8.1/cropper.min.js'></script>
+<script>
+    // Get the video element with id="myVideo"
+    var vid = document.getElementById("video");
+
+    // Assign an ontimeupdate event to the video element, and execute a function if the current playback position has changed
+    vid.ontimeupdate = function () { myFunction() };
+
+    function myFunction() {
+        // Display the current position of the video in a p element with id="demo"
+        document.getElementById("time").value = vid.currentTime;
+    }
+</script>
 <script>
     var video = document.getElementById('video');
     var source = document.getElementById('source');

@@ -86,7 +86,7 @@ namespace HaberSitesiAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,Img,isActive")] Video entity,
+        public async Task<ActionResult> Create([Bind(Include = "Id,Title,Description,Img")] Video entity,
             HttpPostedFileBase file, HttpPostedFileBase canvas, HttpPostedFileBase videoFile, List<String> SelectedCategories,
             String publishDate, String MainSlider, String Sidebar, String SliderBottom, String BestWeekly, String BestWeeklySm, String NewsDetail, String OtherNews)
 
@@ -102,12 +102,13 @@ namespace HaberSitesiAdmin.Controllers
                     entity.url = Regex.Replace(entity.url, @"[^0-9a-z]", "-").Replace("--", "-").Replace("--", "-").Replace("--", "-");
                     if (videoFile.ContentLength > 0)
                     {
+                       
                         entity.EmbedUrl = _videoServices.SaveVideo(entity.url, videoFile);
                     }
                     
                     if (file.ContentLength > 0)
                         entity.Img = _videoServices.UpdateImage(entity.url, file);
-
+                    
 
 
                     entity.MainSliderIMG = _videoServices.CreateCroppedImage(entity.url, MainSlider, "crop120x100"); ;
@@ -216,9 +217,7 @@ namespace HaberSitesiAdmin.Controllers
                 {
                     entity.url = entity.Title.ToLower().Replace("ü", "u").Replace("ş", "s").Replace("ç", "c").Replace("ğ", "g").Replace("ö", "o").Replace("ı", "i") + "-" + entity.Id;
                     entity.url = Regex.Replace(entity.url, @"[^0-9a-z]", "-").Replace("--", "-").Replace("--", "-").Replace("--", "-");
-
-
-
+                
                     if (videoFile.ContentLength > 0)
                     {
 

@@ -91,36 +91,32 @@
                                         @{
                                             if (item.ProcessingStatus == 0)
                                             {
-                                                <img style="max-width:26px;" src="~/Content/assets/img/waiting.gif" />
-
+                                                <img style="max-width:26px; padding-left:30px;" src="~/Content/assets/img/waiting.gif" />
+                                                <p style="padding-left:0px">Başlamadı</p>
                                             }
                                             else if (item.ProcessingStatus == 1)
                                             {
-                                                <img style="max-width: 40px;" src="~/Content/assets/img/loading.gif" />
-
+                                                <img style="max-width: 40px; padding-left:30px;" src="~/Content/assets/img/loading.gif" />
+                                                <p style="padding-left:0px">İşlemde</p>
                                             }
                                             else if (item.ProcessingStatus == 2)
                                             {
-                                                <img style="mad" src="~/Content/assets/img/check.png" />
+                                                <img style="padding-left:30px;" src="~/Content/assets/img/check.png" />
+                                                <p style="padding-left:0px">Tamamlandı</p>
                                             }
                                         }
 
 
                                     </td>
                                     <td>
-                                        @{
-                                            if (item.isActive && item.ProcessingStatus == 2)
+                                         @{
+                                            if (item.isActive)
                                             {
-                                                <span class="badge bg-success">Pasif</span>
-                                              
-                                            }   
-                                            else if (item.ProcessingStatus == 1)
-                                            {
-                                                <span class="badge bg-secondary">İşleniyor</span>
+                                                <span class="badge bg-success">Aktif</span>
                                             }
                                             else
                                             {
-                                                <span class="badge bg-secondary">Sırada</span>
+                                                <span class="badge bg-secondary">Pasif</span>
                                             }
                                         }
                                     </td>
