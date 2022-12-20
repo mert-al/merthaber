@@ -16,5 +16,6 @@ namespace ProcessConvert.Models
         public string EmbedUrl { get; set; }
         public string VideoTime { get; set;}
         public string AudioFile { get; set; }
+        public string VideoCodec { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace ProcessConvert
         {
             InitializeComponent();
         }
+        private static bool isHistoryActive = false;
         SqlConnection conn = new SqlConnection();
         SqlDataAdapter da = new SqlDataAdapter();
         SqlCommand com = new SqlCommand();
@@ -35,9 +36,12 @@ namespace ProcessConvert
             while (1 == 1)
             {
 
-                NewMethod();
-
+                if (isHistoryActive == false)
+                {
+                    NewMethod();
+                }
                 await Task.Delay(15000);
+
             }
             //System.Threading.Thread.Sleep(15000);
 
@@ -60,60 +64,49 @@ namespace ProcessConvert
             dataGridView1.DataSource = waitingForProcess.Where(x => x.ProcessingStatus == 0 || x.ProcessingStatus == 1).ToList();
 
 
-
             foreach (var item in waitingForProcess)
             {
 
-                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
+                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin" + item.EmbedUrl;
                 string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
                 var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
                 Task task = new Task(() => ProcessVideo(item, newVideoFilePath, videoPath, updatevideopath, conn));
                 task.Start();
-            }
 
+
+            }
 
         }
 
         private static void ProcessVideo(Video video, string newVideoFilePath, string videoPath, string updatevideopath, SqlConnection conn)
         {
 
-
-
             using (var con = new SqlConnection(ConnectionString))
             {
                 video.ProcessingStatus = 1;
                 con.Update<Video>(video);
             }
+            //var asd= "ffmpeg -i " + videoPath + " " + newVideoFilePath;
+            //Process.Start("cmd.exe" , "/k" + "ffmpeg -i "+ videoPath +" "+ newVideoFilePath);
             var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
             ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
+
+
+
+
+            var ffProbe = new NReco.VideoInfo.FFProbe();
+            var videoInfo = ffProbe.GetMediaInfo(videoPath);
+            var videoCodec = videoInfo.Streams[0].CodecLongName;
+
             //MessageBox.Show("Video İşleme Başlandı");
             using (var con = new SqlConnection(ConnectionString))
             {
                 video.ProcessingStatus = 2;
+                video.VideoTime = videoInfo.Duration.ToString();
+                video.VideoCodec = videoCodec;
                 video.EmbedUrl = updatevideopath;
                 con.Update<Video>(video);
-
             }
-            //using (var shell = ShellObject.FromParsingName(newVideoFilePath))
-            //{
-            //    using (var con = new SqlConnection(ConnectionString))
-            //    {
-
-            //        IShellProperty prop = shell.Properties.System.Media.Duration;
-            //        var t = (ulong)prop.ValueAsObject;
-            //        var durationtime = TimeSpan.FromTicks((long)t);
-            //        video.VideoTime = durationtime.ToString();
-            //        con.Update<Video>(video);
-            //    }
-            //}
-
-
-            //await conn.OpenAsync();
-            //string sql = "update Videos set ProcessingStatus = 2 WHERE ProcessingStatus=1";
-            //var resultss = conn.Execute(sql, new SqlConnection());
-            //conn.Close();
-
-
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -125,9 +118,13 @@ namespace ProcessConvert
                 waitingForProcess = conn.GetAll<Video>();
                 waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 2).ToList();
             }
+            Video video = new Video();
+            if (radioButton2.Checked == true)
+                isHistoryActive = true;
             dataGridView1.DataSource = waitingForProcess.ToList();
 
         }
+
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -138,6 +135,8 @@ namespace ProcessConvert
                 waitingForProcesss = waitingForProcesss.Where(x => x.ProcessingStatus == 0 || x.ProcessingStatus == 1).ToList();
             }
             dataGridView1.DataSource = waitingForProcesss.ToList();
+            if (radioButton2.Checked == true)
+                isHistoryActive = false;
 
         }
 
@@ -168,23 +167,12 @@ namespace ProcessConvert
         }
         private static void Mp3Convert(Video video, string videoPath, string newVideoFilePath, string updatevideopaths)
         {
+            Process.Start("cmd.exe", "/k" + " ffmpeg -i " + videoPath + " " + newVideoFilePath);
 
-
-
-
-           
-
-
-            Process.Start("cmd.exe", "/k" + " ffmpeg -i "+ videoPath +" " + newVideoFilePath);
-            
             // var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
             //ffMpeg.ConvertMedia(videoPath, newVideoFilePath, "mp3");
             using (var con = new SqlConnection(ConnectionString))
             {
-
-
-
-
                 video.AudioFile = updatevideopaths;
                 con.Update<Video>(video);
 
@@ -193,6 +181,6 @@ namespace ProcessConvert
 
         }
 
-        
+
     }
 }
