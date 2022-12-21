@@ -67,9 +67,9 @@ namespace ProcessConvert
             foreach (var item in waitingForProcess)
             {
 
-                var videoPath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin" + item.EmbedUrl;
-                string newVideoFilePath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-                var updatevideopath = newVideoFilePath.Replace(@"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin" + item.EmbedUrl;
+                string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+                var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
                 Task task = new Task(() => ProcessVideo(item, newVideoFilePath, videoPath, updatevideopath, conn));
                 task.Start();
 
@@ -86,10 +86,8 @@ namespace ProcessConvert
                 video.ProcessingStatus = 1;
                 con.Update<Video>(video);
             }
-            //var asd= "ffmpeg -i " + videoPath + " " + newVideoFilePath;
-            //Process.Start("cmd.exe" , "/k" + "ffmpeg -i "+ videoPath +" "+ newVideoFilePath);
-            var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
-            ffMpeg.ConvertMedia(videoPath, newVideoFilePath, Format.mp4);
+            var asd = "ffmpeg -i " + videoPath + " " + newVideoFilePath;
+            Process.Start("cmd.exe", "/k" + "ffmpeg -i " + videoPath + " " + newVideoFilePath);
 
 
 
@@ -142,32 +140,28 @@ namespace ProcessConvert
 
         private void button1_Click(object sender, EventArgs e)
         {
-            IEnumerable<Video> waitingForProcess = new List<Video>();
-            using (var conn = new SqlConnection(ConnectionString))
+            Video video = new Video();
+            string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + @"Storage\Video\AudioFile\" + Guid.NewGuid().ToString() + ".mp3";
+            var updatevideopaths = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+
+            foreach (DataGridViewRow drow in dataGridView1.SelectedRows)  //Seçili Satırları Silme
             {
-                waitingForProcess = conn.GetAll<Video>();
-                waitingForProcess = waitingForProcess.Where(x => x.ProcessingStatus == 2 && x.AudioFile == null).ToList();
+
+
+                string deneme = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + drow.Cells[2].Value;
+                Mp3Convert(video, deneme, newVideoFilePath, updatevideopaths);
             }
 
 
-            foreach (var item in waitingForProcess)
-            {
-
-                var videoPath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\" + item.EmbedUrl;
-                //string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-                //var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
-                string newVideoFilePath = @"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\AudioFile\\" + Guid.NewGuid().ToString() + ".mp3";
-                var updatevideopaths = newVideoFilePath.Replace(@"C:\Users\mertali.cetin\source\repos\mert-al\merthaber\HaberSitesiAdmin\", "");
-
-                Mp3Convert(item, videoPath, newVideoFilePath, updatevideopaths);
 
 
-            }
 
         }
-        private static void Mp3Convert(Video video, string videoPath, string newVideoFilePath, string updatevideopaths)
+        private static void Mp3Convert(Video video, string deneme, string newVideoFilePath, string updatevideopaths)
         {
-            Process.Start("cmd.exe", "/k" + " ffmpeg -i " + videoPath + " " + newVideoFilePath);
+
+
+            Process.Start("cmd.exe", "/k" + " ffmpeg -i " + deneme + " " + newVideoFilePath);
 
             // var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
             //ffMpeg.ConvertMedia(videoPath, newVideoFilePath, "mp3");
@@ -180,7 +174,6 @@ namespace ProcessConvert
 
 
         }
-
 
     }
 }
