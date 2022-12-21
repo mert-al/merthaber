@@ -147,7 +147,13 @@ namespace ProcessConvert
             foreach (DataGridViewRow drow in dataGridView1.SelectedRows)  //Seçili Satırları Silme
             {
 
-
+                //var a = drow.Cells[0].Value;
+                video.Id =(int)drow.Cells[0].Value;
+                video.ProcessingStatus = (int)drow.Cells[1].Value;
+                video.EmbedUrl = drow.Cells[2].Value.ToString();
+                video.VideoTime = drow.Cells[3].Value.ToString();
+                video.VideoCodec = drow.Cells[5].Value.ToString();
+              
                 string deneme = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + drow.Cells[2].Value;
                 Mp3Convert(video, deneme, newVideoFilePath, updatevideopaths);
             }

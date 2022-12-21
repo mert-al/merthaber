@@ -58,7 +58,7 @@
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Title)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].PublishDate)</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].Categories)</th>
-                                <th>Durum</th> 
+                                <th>Durum</th>
                                 <th>@Html.DisplayNameFor(model => model.Items[0].isActive)</th>
                             </tr>
                         </thead>
@@ -91,13 +91,14 @@
                                         @{
                                             if (item.ProcessingStatus == 0)
                                             {
-                                                <img style="max-width:26px; padding-left:30px;" src="~/Content/assets/img/waiting.gif" />
+                                                @*<img style="max-width:26px; padding-left:30px;" src="~/Content/assets/img/waiting.gif" />*@
+                                                <img style=" max-width: 46px; padding-left: 12px;" src="~/Content/assets/img/waiting.gif" />
                                                 <p style="padding-left:0px">Başlamadı</p>
                                             }
                                             else if (item.ProcessingStatus == 1)
                                             {
-                                                <img style="max-width: 40px; padding-left:30px;" src="~/Content/assets/img/loading.gif" />
-                                                <p style="padding-left:0px">İşlemde</p>
+                                                <img style="max-width: 46px; padding-left: 12px;" src="~/Content/assets/img/loading.gif" />
+                                                <p style="    padding-left: 12px;">İşlemde</p>
                                             }
                                             else if (item.ProcessingStatus == 2)
                                             {
@@ -109,7 +110,7 @@
 
                                     </td>
                                     <td>
-                                         @{
+                                        @{
                                             if (item.isActive)
                                             {
                                                 <span class="badge bg-success">Aktif</span>
