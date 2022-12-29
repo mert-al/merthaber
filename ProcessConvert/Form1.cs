@@ -25,6 +25,7 @@ namespace ProcessConvert
             InitializeComponent();
         }
         private static bool isHistoryActive = false;
+        private static string basePath = Application.StartupPath.Replace("ProcessConvert\\bin\\Debug", "HaberSitesiAdmin\\");
         SqlConnection conn = new SqlConnection();
         SqlDataAdapter da = new SqlDataAdapter();
         SqlCommand com = new SqlCommand();
@@ -66,13 +67,11 @@ namespace ProcessConvert
 
             foreach (var item in waitingForProcess)
             {
-
-                var videoPath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin" + item.EmbedUrl;
-                string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
-                var updatevideopath = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+                var videoPath = basePath + item.EmbedUrl;
+                string newVideoFilePath = basePath + "Storage\\Video\\Videos\\" + Guid.NewGuid().ToString() + ".mp4";
+                var updatevideopath = newVideoFilePath.Replace(basePath, "/");
                 Task task = new Task(() => ProcessVideo(item, newVideoFilePath, videoPath, updatevideopath, conn));
                 task.Start();
-
 
             }
 
@@ -141,8 +140,8 @@ namespace ProcessConvert
         private void button1_Click(object sender, EventArgs e)
         {
             Video video = new Video();
-            string newVideoFilePath = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + @"Storage\Video\AudioFile\" + Guid.NewGuid().ToString() + ".mp3";
-            var updatevideopaths = newVideoFilePath.Replace(@"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\", "");
+            string newVideoFilePath = basePath + @"Storage\Video\AudioFile\" + Guid.NewGuid().ToString() + ".mp3";
+            var updatevideopaths = newVideoFilePath.Replace(basePath, "");
 
             foreach (DataGridViewRow drow in dataGridView1.SelectedRows)  //Seçili Satırları Silme
             {
@@ -154,7 +153,7 @@ namespace ProcessConvert
                 video.VideoTime = drow.Cells[3].Value.ToString();
                 video.VideoCodec = drow.Cells[5].Value.ToString();
               
-                string deneme = @"C:\Users\enes.sara\Source\Repos\mert-al\merthaber\HaberSitesiAdmin\" + drow.Cells[2].Value;
+                string deneme = @basePath + drow.Cells[2].Value;
                 Mp3Convert(video, deneme, newVideoFilePath, updatevideopaths);
             }
 

@@ -1,4 +1,4 @@
-﻿    @model DataAccess.Video
+﻿@model DataAccess.Video
 @using DataAccess
 @using HaberSitesiAdmin.Services
 
@@ -94,9 +94,9 @@
                     </div>
                     <div class="card-body mx-5" id="firstStep">
                         <div class="mb-3">
-                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label"})
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control",  @id="title"  } })
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @id = "title" } })
                                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -108,18 +108,20 @@
                             </div>
                         </div>
                         <video width="600" autoplay muted height="400" controls>
-                            <source src="@Model.EmbedUrl" type="video/mp4">
+                            <source src="@(Model.EmbedUrl)" type="video/mp4">
 
                             Your browser does not support the video tag.
                         </video>
                         <div class="mb-3">
                             @Html.LabelFor(model => model.EmbedUrl, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
-                                <input class="form-control" type="file" id="videoFile" name="videoFile" />
+                                @*<input class="form-control" type="file" id="videoFile" name="videoFile" />*@
+                                @Html.EditorFor(model => model.EmbedUrl, new { htmlAttributes = new { @class = "form-control", @type = "file", @id = "videoFile", @name = "videoFile" } })
+
                                 @Html.ValidationMessageFor(model => model.EmbedUrl, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "form-label" })
                             <div class="col-md-12">
@@ -164,7 +166,8 @@
 
 
                         <div class="container">
-                            <video id="video" autoplay="autoplay" controls style="max-width:100%"></video>
+                            @*<video autoplay="autoplay" controls  src="@(Model.EmbedUrl)"></video>*@
+                            <video id="video" autoplay="autoplay" controls style="max-width:50%" src="@Model.EmbedUrl"></video>
                             <form>
                                 <div>
                                     <input type="text" id="time" placeholder="Süre" style="margin-right:3%">
@@ -175,17 +178,17 @@
 
 
 
-                         <img src="@Model.Img" style="max-height:200px" />
-                         <div class="mb-3">
-                             @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "form-label" })
-                             <div class="col-md-12">
-                                 <input class="form-control" type="file" id="file" name="file" />
-                                 @*<span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.fileError</span>*@
-                             </div>
-                         </div>
+                                <img src="@Model.Img" style="max-height:200px" />
+                                <div class="mb-3">
+                                    @Html.LabelFor(model => model.Img, htmlAttributes: new { @class = "form-label" })
+                                    <div class="col-md-12">
+                                        <input class="form-control" type="file" id="file" name="file" />
+                                        @*<span class="field-validation-error text-danger" data-valmsg-for="Title" data-valmsg-replace="true">@ViewBag.fileError</span>*@
+                                    </div>
+                                </div>
                             </form>
                             <h3 style="color:black;">Önizleme</h3>
-                            <canvas id="canvas" name="canvas" style="max-width:100%"></canvas>
+                            <canvas id="canvas" name="canvas" style="max-width:50   %"></canvas>
                             @*<a class="button"   id="generate" onclick="generateThumbnail()">Süreyi Onayla</a>*@
                             <div id="thumbnails"></div>
                         </div>
@@ -942,12 +945,8 @@
         $("#otherNewsButton").click();
         $("#firstStep").hide();
         $("#thirtlyStep").show();
-        
-        
 
-
-
-        $("#video")[0].src = $("#videoFile")[0].value.replace("C:\\fakepath\\", "\\Storage\\Video\\Videos\\");
+        //      $("#video")[0].src = $("#videoFile")[0].value.replace("C:\\fakepath\\", "\\Storage\\Video\\Videos\\");
 
     });
     $("#backStep").click(function () {
